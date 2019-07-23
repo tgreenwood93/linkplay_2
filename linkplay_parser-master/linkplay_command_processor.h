@@ -226,5 +226,8 @@ uint16_t linkplay_command_data_extraction(char* linkplay_command);
 int16_t hex2ascii(const char *hexArray, char *asciiArray, uint8_t hexArrayLength, uint8_t charArrayLength);
 
 uint8_t inf_command_parser(uint16_t current_inf, char* char_buf);
+void process_date(char* date);
+void process_time(char* time);
+void process_essid(char* hex_ap);
 
 #endif

@@ -716,35 +716,42 @@ uint8_t inf_command_parser(uint16_t current_inf, char* char_buf)
         case e_inf_uuid:
             Serial.print("uuid: ");
             Serial.println(char_buf);
-
+            LP_Set_linkplay_uuid(char_buf);
             break;
         case e_inf_mac:
             Serial.print("mac address: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_mac_address(char_buf)
             break;
         case e_inf_sta_mac:
             Serial.print("sta mac address: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_sta_mac_address(char_buf);
             break;
         case e_inf_date:
             Serial.print("date: ");
             Serial.println(char_buf);
+            process_date(char_buf);
             break;
         case e_inf_time:
             Serial.print("time: ");
             Serial.println(char_buf);
+            process_time(char_buf);
             break;
         case e_inf_tz:
             Serial.print("time zone: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_time_zone(atoi(char_buf));
             break;
         case e_inf_netstat:
             Serial.print("network status: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_network_status(atoi(char_buf));
             break;
         case e_inf_essid:
             Serial.print("essid: ");
             Serial.println(char_buf);
+            process_essid(char_buf);
             break;
         case e_inf_apcli0:
             Serial.print("wifi IP: ");
@@ -914,6 +921,53 @@ uint8_t inf_command_parser(uint16_t current_inf, char* char_buf)
             break; 
     }
     return e_no_error;
+}
+
+void process_date(char* date);
+{
+    char c_current_year[6];
+    char c_current_month[4];
+    char c_current_day[4];
+
+    memset(c_current_year, 0, 6); 
+    memset(c_current_month, 0, 4); 
+    memset(c_current_day, 0, 4); 
+
+    strncpy(c_current_year, date, 4);
+    strncpy(c_current_month, date+5, 2);
+    strncpy(c_current_day, date+8, 2);
+    
+    LP_Set_linkplay_rtc_year(atoi(c_current_year));
+    LP_Set_linkplay_rtc_month(atoi(c_current_month));
+    LP_Set_linkplay_rtc_day(atoi(c_current_day);
+}
+
+void process_time(char* time);
+{
+    char c_current_hour[4];
+    char c_current_minute[4];
+    char c_current_second[4];
+
+    memset(c_current_hour, 0, 4); 
+    memset(c_current_minute, 0, 4); 
+    memset(c_current_second, 0, 4); 
+
+    strncpy(c_current_hour, date, 2);
+    strncpy(c_current_minute, date+3, 2);
+    strncpy(c_current_second, date+6, 2);
+    
+    LP_Set_linkplay_rtc_hour(atoi(c_current_hour));
+    LP_Set_linkplay_rtc_minute(atoi(c_current_minute));
+    LP_Set_linkplay_rtc_second(atoi(c_current_second);
+}
+
+void process_essid(char* hex_ap)
+{           
+    char ascii_ap[65];
+
+    memset(ascii_ap, 0, 65); 
+    hex2ascii(hex_ap, ascii_ap, strlen(hex_ap), strlen(ascii_ap));
+    LP_Set_linkplay_essid(ascii_ap);
 }
 
 uint8_t process_i2s_command(char* linkplay_command)

@@ -78,26 +78,27 @@ bool LP_Get_linkplay_internet_status();
 void LP_Set_linkplay_uuid(char* );
 char* LP_Get_linkplay_uuid();
 
-void LP_Set_linkplay_mac_address();
-uint8_t LP_Get_linkplay_mac_address();
+void LP_Set_linkplay_mac_address(char* mac_address);
+char* LP_Get_linkplay_mac_address();
 
-void LP_Set_linkplay_sta_mac_address();
-uint8_t LP_Get_linkplay_sta_mac_address();
+void LP_Set_linkplay_sta_mac_address(char* sta_mac_address);
+char* LP_Get_linkplay_sta_mac_address();
 
-void LP_Set_linkplay_date();
-uint8_t LP_Get_linkplay_date();
-
-void LP_Set_linkplay_time();
-uint8_t LP_Get_linkplay_time();
-
-void LP_Set_linkplay_time_zone();
+void LP_Set_linkplay_time_zone(uint8_t time_zone);
 uint8_t LP_Get_linkplay_time_zone();
 
-void LP_Set_linkplay_network_status();
+void void LP_Set_linkplay_network_status(uint8_t network_status);
 uint8_t LP_Get_linkplay_network_status();
 
-void LP_Set_linkplay_essid();
-uint8_t LP_Get_linkplay_essid();
+void LP_Set_linkplay_essid(char* router_ssid);
+{
+
+}
+
+char* LP_Get_linkplay_essid();
+{
+    
+}
 
 void LP_Set_linkplay_wifi_ip();
 uint8_t LP_Get_linkplay_wifi_ip();

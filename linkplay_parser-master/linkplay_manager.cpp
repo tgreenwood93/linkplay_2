@@ -27,7 +27,13 @@ static uint16_t linkplay_firmware_release;
 static char linkplay_firmware_branch[30];
 static uint16_t linkplay_group;
 static bool linkplay_firmware_version_expierd; 
-
+static char linkplay_mac_address[20];
+static char linkplay_sta_mac_address[20];
+static char linkplay_uuid[30];
+static uint8_t linkplay_time_zone; 
+static uint8_t linkplay_network_status; 
+static char connected_ap_ssid[65];
+static char linkplay_wifi_ip[20];
 
 
 // ----------------------------------------------------------------------------
@@ -300,6 +306,95 @@ bool LP_Get_linkplay_version_expierd()
 {
     return linkplay_firmware_version_expierd
 }
+
+void LP_Set_linkplay_uuid(char* uuid)
+{
+    memset(linkplay_uuid, 0, 30);
+    strncpy(linkplay_uuid, uuid, strlen(uuid));
+}
+
+char* LP_Get_linkplay_uuid()
+{
+    return linkplay_uuid;
+}
+
+void LP_Set_linkplay_mac_address(char* mac_address)
+{
+    memset(linkplay_mac_address, 0, 20);
+    strncpy(linkplay_mac_address, mac_address, strlen(mac_address));
+}
+
+char* LP_Get_linkplay_mac_address()
+{
+    return linkplay_mac_address;
+}
+
+void LP_Set_linkplay_sta_mac_address(char* sta_mac_address)
+{
+    memset(linkplay_sta_mac_address, 0, 20);
+    strncpy(linkplay_sta_mac_address, mac_address, strlen(sta_mac_address));
+}
+
+char* LP_Get_linkplay_sta_mac_address()
+{
+    return linkplay_sta_mac_address;
+}
+
+
+void LP_Set_linkplay_time_zone(uint8_t time_zone)
+{
+    linkplay_time_zone = time_zone;
+}
+
+uint8_t LP_Get_linkplay_time_zone()
+{
+    return linkplay_time_zone; 
+}
+
+
+void LP_Set_linkplay_network_status(uint8_t network_status)
+{
+    linkplay_network_status = network_status;
+}
+
+uint8_t LP_Get_linkplay_network_status()
+{
+    return linkplay_network_status;
+}
+
+
+void LP_Set_linkplay_essid(char* essid)
+{
+    memset(connected_ap_ssid, 0, 65);
+    strncpy(connected_ap_ssid, essid, strlen(essid));
+}
+
+char* LP_Get_linkplay_essid()
+{
+    return connected_ap_ssid; 
+}
+
+
+void LP_Set_linkplay_wifi_ip(char* wifi_ip)
+{
+    memset(linkplay_wifi_ip, 0, 20);
+    strncpy(linkplay_wifi_ip, wifi_ip, strlen(wifi_ip));
+}
+
+char* LP_Get_linkplay_wifi_ip()
+{
+    return linkplay_wifi_ip; 
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
