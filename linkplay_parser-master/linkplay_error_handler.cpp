@@ -2,8 +2,13 @@
 #include "linkplay_manager.h"
 #include "linkplay_error_handler.h"
 
-void linkplay_error_handler(uint8_t error_handler, char* linkplay_command)
+void linkplay_error_handler(Linkplay_Error_Commands_t error_handler, char* linkplay_command)
 {
+    if (error_handler == e_no_error)
+    {
+        return;
+    }
+    
     Serial.print(linkplay_command);
     Serial.print(" ");
                

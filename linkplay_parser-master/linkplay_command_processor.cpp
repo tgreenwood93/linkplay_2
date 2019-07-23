@@ -6,13 +6,17 @@ void processCommand(char* linkplay_command)
 {   
     uint8_t error_handler = e_no_error;
         
-    if (strncmp(linkplay_command, "AXX", 3) != 0)
+    if (strncmp(linkplay_command, "AXX", 3) == 0)
     {
-        error_handler = e_unknown_AXX_command;
+        error_handler = process_linkplay_commands(linkplay_command);
     }
     else
     {  
-        error_handler = process_linkplay_commands(linkplay_command);
+        if (strlen(linkplay_command) < 5)
+        {
+            return; 
+        }
+        error_handler = e_unknown_AXX_command;
     }
     
     linkplay_error_handler(error_handler, linkplay_command);
@@ -249,7 +253,7 @@ uint8_t process_m_commands(char* linkplay_command)
             error_handler = process_mea_command(linkplay_command);                      // Linkplay meadia metadata commands
             break;
         case 'I':
-            error_handler = process_pow_command(linkplay_command);                      // Linkplay meadia metadata commands
+            error_handler = process_mic_command(linkplay_command);                      // Linkplay meadia metadata commands
             break;     
         case 'U':
             error_handler = process_mut_command(linkplay_command);                      // Linkplay command to mute audio
@@ -297,7 +301,10 @@ uint8_t process_p_commands(char* linkplay_command)
             break;
         case 'Y':
             error_handler = process_ply_command(linkplay_command);                      // Linkplay playback commands
-            break;     
+            break;
+        case 'W':
+            error_handler = process_pow_command(linkplay_command);                      // Linkplay playback commands
+            break;    
         default:
             error_handler =  e_unknown_p_command;
             break;  
@@ -467,7 +474,7 @@ uint8_t process_chn_command(char* linkplay_command)                    // Linkpl
         Serial.println("Get the output channel congifuration for linkplay: Stereo, Left, or Right");
         LP_get_pic_channel_config();
     }
-    else if (linkplay_command[11] == '0')
+    else if (linkplay_command[8] == '0')
     { 
         switch(linkplay_command_data_extraction(linkplay_command))
         {
@@ -570,7 +577,7 @@ uint8_t process_fac_command(char* linkplay_command)                    // Linkpl
 uint8_t process_get_command(char* linkplay_command)
 {
 
-    if (strncmp((linkplay_command + 8), "ORY", 3) == 0)
+    if (strncmp((linkplay_command + 8), "SID", 3) == 0)
     {    
         Serial.println("Set SSID of linkplay");
         Serial1.println("MCU+SID+StellarIntegrated");
@@ -890,8 +897,8 @@ uint8_t inf_command_parser(uint16_t current_inf, char* char_buf)
 uint8_t process_i2s_command(char* linkplay_command)
 {
     // AXX+I2S+INF44100_16&
-    char c_sample_rate[100];
-    char c_bit_depth[100];
+    char c_sample_rate[50];
+    char c_bit_depth[50];
     uint8_t sample_rate_chars = 0; 
     uint16_t i = 0; 
     uint16_t off_set = 11; 
@@ -1095,10 +1102,10 @@ uint8_t process_mut_command(char* linkplay_command)                    // Linkpl
     switch(linkplay_command_data_extraction(linkplay_command))
     {
         case e_linkplay_unmute:
-            Serial.println("mute output");
+            Serial.println("unmute output");
             break; 
         case e_linkplay_mute:
-            Serial.println("unmute output");
+            Serial.println("mute output");
             break; 
         default:
             error_handler = e_unknown_mut_command; 
@@ -1263,7 +1270,7 @@ uint8_t process_ply_command(char* linkplay_command)                    // Linkpl
             Serial.println(atoi(playback_time));
         }
     }
-    else if (linkplay_command[11] == '0')
+    else if (linkplay_command[8] == '0')
     {
         switch (linkplay_command_data_extraction(linkplay_command))
         {
@@ -1523,7 +1530,7 @@ uint8_t process_vol_command(char* linkplay_command)                    // Linkpl
         Serial.println("Get the PIC current volume");
         LP_send_linkplay_pic_volume();
     }
-    else if (linkplay_command[11] == '0' || linkplay_command[11] == '1')
+    else if (linkplay_command[8] == '0' || linkplay_command[8] == '1')
     {
         volume_int = linkplay_command_data_extraction(linkplay_command);
         if (volume_int < 101)

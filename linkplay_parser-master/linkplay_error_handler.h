@@ -4,7 +4,7 @@
 #ifndef linkplay_error_handler_h
 #define linkplay_error_handler_h
 
-enum 
+typedef enum 
 {
   e_no_error = 0,
   e_unknown_AXX_command,
@@ -63,7 +63,7 @@ enum
   e_unknown_playback_status,
   e_unknown_connection_status,
   e_volume_out_of_bounds,
-};
+}Linkplay_Error_Commands_t;
 
 void linkplay_error_handler(uint8_t error_handler, char* linkplay_command);
 
