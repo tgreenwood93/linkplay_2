@@ -1,6 +1,7 @@
 #include "linkplay_command_processor.h"
 #include "linkplay_manager.h"
 #include "linkplay_error_handler.h"
+#include "standin_functions.h"
 
 void checkSerial1(void); 
 void checkSerialUSB(void);

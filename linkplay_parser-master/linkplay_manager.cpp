@@ -1,6 +1,7 @@
 #include "linkplay_command_processor.h"
 #include "linkplay_manager.h"
 #include "linkplay_error_handler.h"
+#include "standin_functions.h"
 
 static LinkPlay_Firmware_Update_t linkplay_update_status; 
 static LinkPlay_Audio_Channel_Options_t linkplay_channel_config; 
@@ -146,32 +147,32 @@ void LP_send_linkplay_pic_volume()
 
 void send_linkplay_pic_volume()
 {
-//    switch (CS_GetOutputType())
-//    {   
-//        case(e_OUTPUT_TYPE_Headphones):
-//            Serial1.print("MCU+VOL+")
-//            Serial1.println(CS_GetHeadphoneVolume());
-//            break;    
-//        case(e_OUTPUT_TYPE_Main):
-//            Serial1.print("MCU+VOL+")
-//            Serial1.println(CS_GetVolume());
-//            break;
-//        default:
-//            break;
-//    }
+    switch (CS_GetOutputType())
+    {   
+        case(e_OUTPUT_TYPE_Headphones):
+            Serial1.print("MCU+VOL+")
+            Serial1.println(CS_GetHeadphoneVolume());
+            break;    
+        case(e_OUTPUT_TYPE_Main):
+            Serial1.print("MCU+VOL+")
+            Serial1.println(CS_GetVolume());
+            break;
+        default:
+            break;
+    }
 }
 
 void LP_set_pic_volume(uint8_t lp_volume)
 {
-//    switch (CS_GetOutputType())
-//    {   
-//        case(e_OUTPUT_TYPE_Headphones):
-//            CS_SetHeadphoneVolume(lp_volume));
-//            break;    
-//        case(e_OUTPUT_TYPE_Main):
-//            CS_GetVolume(lp_volume);
-//            break;
-//        default:
-//            break;
-//    }
+    switch (CS_GetOutputType())
+    {   
+        case(e_OUTPUT_TYPE_Headphones):
+            CS_SetHeadphoneVolume(lp_volume));
+            break;    
+        case(e_OUTPUT_TYPE_Main):
+            CS_SetVolume(lp_volume);
+            break;
+        default:
+            break;
+    }
 }
