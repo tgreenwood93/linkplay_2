@@ -671,7 +671,7 @@ uint8_t inf_command_parser(uint16_t current_inf, char* char_buf)
         case e_inf_link_play_fimrware:
             Serial.print("linkplay firmware: ");
             Serial.println(char_buf);
-            LP_Set_linkplay_firmware(char_buf);
+            LP_Set_linkplay_firmware_version(char_buf);
             break;
         case e_inf_build:
             Serial.print("linkplay build: ");
@@ -681,35 +681,42 @@ uint8_t inf_command_parser(uint16_t current_inf, char* char_buf)
         case e_inf_project:
             Serial.print("linkplay project: ");
             Serial.println(char_buf);
-            
+            LP_Set_linkplay_project(char_buf);
             break;
         case e_inf_firmware_private_project:
             Serial.print("linkplay private project: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_private_project(char_buf);
             break;
         case e_inf_firmware_release:
             Serial.print("linkplay firmware release: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_firmware_release(atoi(char_buf));
             break;
         case e_inf_firmware_branch:
             Serial.print("linkplay firmware branch: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_firmware_branch(char_buf);
             break;
         case e_inf_group:
             Serial.print("group: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_group(atoi(char_buf));
             break;
         case e_inf_expired:
             Serial.print("expired: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_verion_expierd(atoi(char_buf));
             break;
         case e_inf_internet:
             Serial.print("internet status: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_internet_status(atoi(char_buf));
             break;
         case e_inf_uuid:
             Serial.print("uuid: ");
             Serial.println(char_buf);
+
             break;
         case e_inf_mac:
             Serial.print("mac address: ");
@@ -1305,6 +1312,7 @@ uint8_t process_ply_command(char* linkplay_command)                    // Linkpl
     }
     return error_handler;
 }
+
 uint8_t process_pmt_command(char* linkplay_command)                    // Linkplay voice prompt commands
 {
     switch(linkplay_command_data_extraction(linkplay_command))

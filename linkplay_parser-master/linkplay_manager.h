@@ -41,45 +41,42 @@ char* LP_Get_linkplay_ssid();
 void LP_Set_linkplay_language(Linkplay_Language_t language);
 Linkplay_Language_t LP_Get_linkplay_language();
 
-void LP_Set_linkplay_ssid_hidden(bool ssid_hidden_status)
+void LP_Set_linkplay_ssid_hidden(bool ssid_hidden_status);
 bool LP_Get_linkplay_ssid_hidden();
 
 /* !Need to figure out what the different strategys are! */
-void LP_Set_linkplay_ssid_strategy(uint8_t ssid_strategy)
+void LP_Set_linkplay_ssid_strategy(uint8_t ssid_strategy);
 uint8_t LP_Get_linkplay_ssid_strategy();
 
-void LP_Set_linkplay_firmware(char* firmware);
-char* LP_Get_linkplay_firmware();
+void LP_Set_linkplay_firmware_version(char* firmware);
+char* LP_Get_linkplay_firmware_version();
 
-void LP_Set_linkplay_build(char* firmware_build_type)
-char* LP_Get_linkplay_build()
+void LP_Set_linkplay_build(char* firmware_build_type);
+char* LP_Get_linkplay_build();
 
 void LP_Set_linkplay_project(char* project);
 char* LP_Get_linkplay_project();
 
-void LP_Set_linkplay_private_project();
-uint8_t LP_Get_linkplay_private_project();
+void LP_Set_linkplay_private_project(char* private_project);
+char* LP_Get_linkplay_private_project();
 
-void LP_Set_linkplay_firmware_private_project();
-uint8_t LP_Get_linkplay_firmare_private_project();
+void LP_Set_linkplay_firmware_release(uint16_t firmware_release);
+uint16_t LP_Get_linkplay_firmare_release();
 
-void LP_Set_linkplay_firmware_release();
-uint8_t LP_Get_linkplay_firmare_release();
-
-void LP_Set_linkplay_firmware_branch();
-uint8_t LP_Get_linkplay_firmare_branch();
+void LP_Set_linkplay_firmware_branch(char* firmware_branch);
+char* LP_Get_linkplay_firmare_branch();
 
 void LP_Set_linkplay_group();
 uint8_t LP_Get_linkplay_group();
 
-void LP_Set_linkplay_expierd();
-uint8_t LP_Get_linkplay_expierd();
+void LP_Set_linkplay_verion_expierd(bool firmware_expierd);
+bool LP_Get_linkplay_version_expierd();
 
-void LP_Set_linkplay_internet_status (Linkplay_Internet_Status_t internet_status);
-Linkplay_Internet_Status_t LP_Get_linkplay_internet_status();
+void LP_Set_linkplay_internet_status (bool internet_status);
+bool LP_Get_linkplay_internet_status();
 
-void LP_Set_linkplay_uuid();
-uint8_t LP_Get_linkplay_uuid();
+void LP_Set_linkplay_uuid(char* );
+char* LP_Get_linkplay_uuid();
 
 void LP_Set_linkplay_mac_address();
 uint8_t LP_Get_linkplay_mac_address();

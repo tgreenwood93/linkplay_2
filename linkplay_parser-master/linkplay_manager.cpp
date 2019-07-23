@@ -5,7 +5,6 @@
 
 static LinkPlay_Firmware_Update_t linkplay_update_status; 
 static LinkPlay_Audio_Channel_Options_t linkplay_channel_config; 
-static Linkplay_Internet_Status_t linkplay_internet_status;
 static LinkPlay_Playback_Mode_t linkplay_playback_mode;
 static LinkPlay_Wireless_Status_t linkplay_wireless_status;
 static LinkPlay_Audio_Channel_Options_t linkplay_audio_channel_options;
@@ -23,6 +22,13 @@ static uint8_t linkplay_ssid_strategy;
 static char linkplay_firmware_version[20]; 
 static char linkplay_firmware_build_type[20];
 static char linkplay_project_title[30];
+static char linkplay_private_project_title[30];
+static uint16_t linkplay_firmware_release; 
+static char linkplay_firmware_branch[30];
+static uint16_t linkplay_group;
+static bool linkplay_firmware_version_expierd; 
+
+
 
 // ----------------------------------------------------------------------------
 // Linkplay State Setters and Getters
@@ -49,12 +55,12 @@ LinkPlay_Audio_Channel_Options_t LP_Get_linkplay_audio_channel_status()
 }
 
 
-void LP_Set_linkplay_internet_status (Linkplay_Internet_Status_t internet_status)
+void LP_Set_linkplay_internet_status (bool internet_status)
 {
     linkplay_internet_status = internet_status;
 }
 
-Linkplay_Internet_Status_t LP_Get_linkplay_internet_status()
+bool LP_Get_linkplay_internet_status()
 {
     return linkplay_internet_status;
 }
@@ -157,7 +163,7 @@ bool LP_Get_linkplay_factory_status()
 }
 
 
-void LP_Set_linkplay_ssid(char* ssid);
+void LP_Set_linkplay_ssid(char* ssid)
 {
     memeset(linkplay_ssid, 0, 70);
     strncpy(linkplay_ssid, ssid, strlen(ssid));
@@ -167,6 +173,7 @@ char* LP_Get_linkplay_ssid();
 {
     return linkplay_ssid; 
 }
+
 
 void LP_Set_linkplay_language(Linkplay_Language_t language)
 {
@@ -189,6 +196,7 @@ bool LP_Get_linkplay_ssid_hidden()
     return linkplay_ssid_hidden_status;
 }
 
+
 /* !Need to figure out what the different strategys are! */
 void LP_Set_linkplay_ssid_strategy(uint8_t ssid_strategy)
 {
@@ -201,16 +209,17 @@ uint8_t LP_Get_linkplay_ssid_strategy()
 }
 
 
-void LP_Set_linkplay_firmware(char* firmware);
+void LP_Set_linkplay_firmware_version(char* firmware_version)
 {
     memset(linkplay_firmware_version, 0, 20);
-    strncpy(linkplay_firmware_version, firmware, strlen(firmware));
+    strncpy(linkplay_firmware_version, firmware_version, strlen(firmware_version));
 }
 
-char* LP_Get_linkplay_firmware();
+char* LP_Get_linkplay_firmware_version()
 {
     return linkplay_firmware_version;
 }
+
 
 void LP_Set_linkplay_build(char* firmware_build_type)
 {
@@ -226,13 +235,72 @@ char* LP_Get_linkplay_build()
 
 void LP_Set_linkplay_project(char* project)
 {
-    linkplay_project = project; 
+    memset(linkplay_project_title, 0, 30);
+    strncpy(linkplay_project_title, project, strnlen(project)); 
 }
 
 char* LP_Get_linkplay_project()
 {
-    return linkplay_project;
+    return linkplay_project_title;
 }
+
+
+void LP_Set_linkplay_private_project(char* private_project)
+{
+    memset(linkplay_private_project_title, 0, 30);
+    strncpy(linkplay_private_project_title, private_project, strnlen(private_project)); 
+}
+
+char* LP_Get_linkplay_private_project()
+{
+    return linkplay_private_project_title;
+}
+
+
+void LP_Set_linkplay_firmware_release(uint16_t firmware_release)
+{
+    linkplay_firmware_release = firmware_release;
+}
+
+uint16_t LP_Get_linkplay_firmare_release()
+{
+    return linkplay_firmware_release;    
+}
+
+
+void LP_Set_linkplay_firmware_branch(char* firmware_branch)
+{
+    memset(linkplay_firmware_branch, 0, 30);
+    strncpy(linkplay_firmware_branch, firmware_branch, strlen(firmware_branch));
+}
+
+char* LP_Get_linkplay_firmare_branch()
+{
+    return linkplay_firmware_branch;
+}
+
+
+void LP_Set_linkplay_group(uint16_t group)
+{
+    linkplay_group = group;
+}
+
+uint8_t LP_Get_linkplay_group()
+{
+    return linkplay_group;
+}
+
+
+void LP_Set_linkplay_verion_expierd(bool firmware_expierd)
+{
+    linkplay_firmware_version_expierd = firmware_expierd;
+}
+
+bool LP_Get_linkplay_version_expierd()
+{
+    return linkplay_firmware_version_expierd
+}
+
 
 
 
