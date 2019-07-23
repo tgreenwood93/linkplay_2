@@ -643,30 +643,45 @@ uint8_t inf_command_parser(uint16_t current_inf, char* char_buf)
         case e_inf_language:
             Serial.print("language: ");
             Serial.println(char_buf);
+            if (strcmp(char_buf, en_us) == 0)
+            {
+                LP_Set_linkplay_language(e_linkplay_lang_en_us);
+            }
+            else
+            {
+                /* error wrong language! */
+                Serial.println("Wrong language set!!");
+            }
             break;
         case e_inf_ssid:
             Serial.print("ssid: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_ssid(char_buf);
             break;
         case e_inf_hide_ssid:
             Serial.print("hide ssid: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_ssid_hidden(atoi(char_buf));
             break;
         case e_inf_ssid_strategy:
             Serial.print("ssid strategy: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_ssid_strategy(atoi(char_buf));
             break;
         case e_inf_link_play_fimrware:
             Serial.print("linkplay firmware: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_firmware(char_buf);
             break;
         case e_inf_build:
             Serial.print("linkplay build: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_build(char_buf);
             break;
         case e_inf_project:
             Serial.print("linkplay project: ");
             Serial.println(char_buf);
+            
             break;
         case e_inf_firmware_private_project:
             Serial.print("linkplay private project: ");

@@ -5,6 +5,21 @@
 #ifndef linkplay_manager_h
 #define linkplay_manager_h
 
+
+typedef enum 
+{
+    e_linkplay_lang_en_us = 0, 
+    e_linkplay_lang_zh_cn,
+    e_linkplay_lang_french,
+    e_linkplay_lang_portuguese,
+    e_linkplay_lang_italian,
+    e_linkplay_lang_Ger_de,
+    e_linkplay_lang_spanish,
+} Linkplay_Language_t; 
+
+// ----------------------------------------------------------------------------
+// Linkplay State Setters and Getters
+// ----------------------------------------------------------------------------
 void LP_Set_linkplay_firmware_update_status(LinkPlay_Firmware_Update_t update_status);
 LinkPlay_Firmware_Update_t LP_Get_linkplay_firmware_update_status(); 
 
@@ -17,29 +32,30 @@ uint8_t LP_Get_linkplay_in_reset();
 void LP_Set_linkplay_ethernet_status (Linkplay_Ethernet_Status_t ethernet_status);
 Linkplay_Ethernet_Status_t LP_Get_linkplay_ethernet_status();
 
-void LP_Set_linkplay_factory_status();
-uint8_t LP_Get_linkplay_factory_status();
+void LP_Set_linkplay_factory_status(bool factory_status);
+bool LP_Get_linkplay_factory_status();
 
-void LP_Set_linkplay_ssid();
-uint8_t LP_Get_linkplay_ssid();
+void LP_Set_linkplay_ssid(char* ssid);
+char* LP_Get_linkplay_ssid();
 
-void LP_Set_linkplay_language();
-uint8_t LP_Get_linkplay_language();
+void LP_Set_linkplay_language(Linkplay_Language_t language);
+Linkplay_Language_t LP_Get_linkplay_language();
 
-void LP_Set_linkplay_ssid_hidden();
-uint8_t LP_Get_linkplay_ssid_hidden();
+void LP_Set_linkplay_ssid_hidden(bool ssid_hidden_status)
+bool LP_Get_linkplay_ssid_hidden();
 
-void LP_Set_linkplay_ssid_strategy();
+/* !Need to figure out what the different strategys are! */
+void LP_Set_linkplay_ssid_strategy(uint8_t ssid_strategy)
 uint8_t LP_Get_linkplay_ssid_strategy();
 
-void LP_Set_linkplay_firmware();
-uint8_t LP_Get_linkplay_firmware();
+void LP_Set_linkplay_firmware(char* firmware);
+char* LP_Get_linkplay_firmware();
 
-void LP_Set_linkplay_build();
-uint8_t LP_Get_linkplay_build();
+void LP_Set_linkplay_build(char* firmware_build_type)
+char* LP_Get_linkplay_build()
 
-void LP_Set_linkplay_project();
-uint8_t LP_Get_linkplay_project();
+void LP_Set_linkplay_project(char* project);
+char* LP_Get_linkplay_project();
 
 void LP_Set_linkplay_private_project();
 uint8_t LP_Get_linkplay_private_project();

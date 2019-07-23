@@ -15,8 +15,18 @@ static LinkPlay_Shuffle_Repeat_Status_t linkplay_shuffle_repeat_status;
 static Linkplay_Hotspot_status_t linkplay_hotspot_status;
 static Linkplay_Playback_Status_t linkplay_playback_status;
 static Linkplay_Mute_Status_t linkplay_mute_status; 
+static bool linkplay_factory_reset_status;
+static char linkplay_ssid[70];
+static Linkplay_Language_t linkplay_language;
+static bool linkplay_ssid_hidden_status;
+static uint8_t linkplay_ssid_strategy; 
+static char linkplay_firmware_version[20]; 
+static char linkplay_firmware_build_type[20];
+static char linkplay_project_title[30];
 
-
+// ----------------------------------------------------------------------------
+// Linkplay State Setters and Getters
+// ----------------------------------------------------------------------------
 void LP_Set_linkplay_firmware_update_status(LinkPlay_Firmware_Update_t update_status)
 {
     linkplay_update_status = update_status;
@@ -134,6 +144,102 @@ Linkplay_Mute_Status_t LP_Get_linkplay_mute()
 {
     return linkplay_mute_status;
 }
+
+
+void LP_Set_linkplay_factory_status(bool factory_status)
+{
+    linkplay_factory_reset_status = factory_status;
+}
+
+bool LP_Get_linkplay_factory_status()
+{
+    return linkplay_factory_reset_status;
+}
+
+
+void LP_Set_linkplay_ssid(char* ssid);
+{
+    memeset(linkplay_ssid, 0, 70);
+    strncpy(linkplay_ssid, ssid, strlen(ssid));
+}
+
+char* LP_Get_linkplay_ssid();
+{
+    return linkplay_ssid; 
+}
+
+void LP_Set_linkplay_language(Linkplay_Language_t language)
+{
+    linkplay_language = language
+}
+
+Linkplay_Language_t LP_Get_linkplay_language()
+{
+    return linkplay_language; 
+}
+
+
+void LP_Set_linkplay_ssid_hidden(bool ssid_hidden_status)
+{
+    linkplay_ssid_hidden_status = ssid_hidden_status;
+}
+
+bool LP_Get_linkplay_ssid_hidden()
+{
+    return linkplay_ssid_hidden_status;
+}
+
+/* !Need to figure out what the different strategys are! */
+void LP_Set_linkplay_ssid_strategy(uint8_t ssid_strategy)
+{
+    linkplay_ssid_strategy = ssid_strategy; 
+}
+
+uint8_t LP_Get_linkplay_ssid_strategy()
+{
+    return linkplay_ssid_strategy; 
+}
+
+
+void LP_Set_linkplay_firmware(char* firmware);
+{
+    memset(linkplay_firmware_version, 0, 20);
+    strncpy(linkplay_firmware_version, firmware, strlen(firmware));
+}
+
+char* LP_Get_linkplay_firmware();
+{
+    return linkplay_firmware_version;
+}
+
+void LP_Set_linkplay_build(char* firmware_build_type)
+{
+    memset(linkplay_firmware_build_type, 0, 20);
+    strncpy(linkplay_firmware_build_type, firmware_build_type, strlen(firmware_build_type));
+}
+
+char* LP_Get_linkplay_build()
+{
+    return linkplay_firmware_build_type; 
+}
+
+
+void LP_Set_linkplay_project(char* project)
+{
+    linkplay_project = project; 
+}
+
+char* LP_Get_linkplay_project()
+{
+    return linkplay_project;
+}
+
+
+
+
+
+
+
 
 void LP_get_pic_channel_config()
 {
