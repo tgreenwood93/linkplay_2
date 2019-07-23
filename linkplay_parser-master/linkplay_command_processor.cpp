@@ -5,7 +5,7 @@
 
 void processCommand(char* linkplay_command)
 {   
-    uint8_t error_handler = e_no_error;
+    LinkPlay_Error_t error_handler = e_no_error;
         
     if (strncmp(linkplay_command, "AXX", 3) == 0)
     {
@@ -24,9 +24,9 @@ void processCommand(char* linkplay_command)
 }
 
  
-uint8_t process_linkplay_commands(char* linkplay_command)
+LinkPlay_Error_t process_linkplay_commands(char* linkplay_command)
 {
-    uint8_t error_handler = e_no_error; 
+    LinkPlay_Error_t error_handler = e_no_error; 
     
     switch (linkplay_command[4])
     {
@@ -88,9 +88,9 @@ uint8_t process_linkplay_commands(char* linkplay_command)
     return error_handler; 
 }
  
-uint8_t process_b_commands(char* linkplay_command)
+LinkPlay_Error_t process_b_commands(char* linkplay_command)
 {
-    uint8_t error_handler = e_no_error; 
+    LinkPlay_Error_t error_handler = e_no_error; 
     
     switch (linkplay_command[5])
     {
@@ -107,9 +107,9 @@ uint8_t process_b_commands(char* linkplay_command)
     return error_handler;     
 }
  
-uint8_t process_c_commands(char* linkplay_command)
+LinkPlay_Error_t process_c_commands(char* linkplay_command)
 {
-    uint8_t error_handler = e_no_error; 
+    LinkPlay_Error_t error_handler = e_no_error; 
     
     switch (linkplay_command[5])
     {
@@ -126,9 +126,9 @@ uint8_t process_c_commands(char* linkplay_command)
     return error_handler; 
 }
  
-uint8_t process_d_commands(char* linkplay_command)
+LinkPlay_Error_t process_d_commands(char* linkplay_command)
 {
-    uint8_t error_handler = e_no_error;
+    LinkPlay_Error_t error_handler = e_no_error;
      
     switch (linkplay_command[5])
     {
@@ -142,9 +142,9 @@ uint8_t process_d_commands(char* linkplay_command)
     return error_handler; 
 }
  
-uint8_t process_e_commands(char* linkplay_command)
+LinkPlay_Error_t process_e_commands(char* linkplay_command)
 {
-    uint8_t error_handler = e_no_error;
+    LinkPlay_Error_t error_handler = e_no_error;
      
     switch (linkplay_command[5])
     {
@@ -158,9 +158,9 @@ uint8_t process_e_commands(char* linkplay_command)
     return error_handler; 
 }
  
-uint8_t process_f_commands(char* linkplay_command)
+LinkPlay_Error_t process_f_commands(char* linkplay_command)
 {
-    uint8_t error_handler = e_no_error; 
+    LinkPlay_Error_t error_handler = e_no_error; 
     
     switch (linkplay_command[5])
     {
@@ -174,9 +174,9 @@ uint8_t process_f_commands(char* linkplay_command)
     return error_handler; 
 }
 
-uint8_t process_g_commands(char* linkplay_command)
+LinkPlay_Error_t process_g_commands(char* linkplay_command)
 {
-    uint8_t error_handler = e_no_error; 
+    LinkPlay_Error_t error_handler = e_no_error; 
     
     switch (linkplay_command[5])
     {
@@ -190,9 +190,9 @@ uint8_t process_g_commands(char* linkplay_command)
     return error_handler; 
 }
 
-uint8_t process_i_commands(char* linkplay_command)
+LinkPlay_Error_t process_i_commands(char* linkplay_command)
 {
-    uint8_t error_handler = e_no_error; 
+    LinkPlay_Error_t error_handler = e_no_error; 
     
     switch (linkplay_command[5])
     { 
@@ -209,9 +209,9 @@ uint8_t process_i_commands(char* linkplay_command)
     return error_handler; 
 }
 
-uint8_t process_k_commands(char* linkplay_command)
+LinkPlay_Error_t process_k_commands(char* linkplay_command)
 {
-    uint8_t error_handler = e_no_error; 
+    LinkPlay_Error_t error_handler = e_no_error; 
     
     switch (linkplay_command[5])
     { 
@@ -225,9 +225,9 @@ uint8_t process_k_commands(char* linkplay_command)
     return error_handler; 
 }
 
-uint8_t process_l_commands(char* linkplay_command)
+LinkPlay_Error_t process_l_commands(char* linkplay_command)
 {
-    uint8_t error_handler = e_no_error; 
+    LinkPlay_Error_t error_handler = e_no_error; 
     
     switch (linkplay_command[5])
     {
@@ -241,9 +241,9 @@ uint8_t process_l_commands(char* linkplay_command)
     return error_handler;  
 }
  
-uint8_t process_m_commands(char* linkplay_command)
+LinkPlay_Error_t process_m_commands(char* linkplay_command)
 {
-    uint8_t error_handler = e_no_error; 
+    LinkPlay_Error_t error_handler = e_no_error; 
     
     switch (linkplay_command[5])
     {
@@ -269,9 +269,9 @@ uint8_t process_m_commands(char* linkplay_command)
     return error_handler; 
 }
 
-uint8_t process_n_commands(char* linkplay_command)
+LinkPlay_Error_t process_n_commands(char* linkplay_command)
 {
-    uint8_t error_handler = e_no_error; 
+    LinkPlay_Error_t error_handler = e_no_error; 
     
     switch (linkplay_command[5])
     {
@@ -285,9 +285,9 @@ uint8_t process_n_commands(char* linkplay_command)
     return error_handler;  
 }
 
-uint8_t process_p_commands(char* linkplay_command)
+LinkPlay_Error_t process_p_commands(char* linkplay_command)
 {
-    uint8_t error_handler = e_no_error; 
+    LinkPlay_Error_t error_handler = e_no_error; 
     
     switch (linkplay_command[6])
     {
@@ -313,9 +313,9 @@ uint8_t process_p_commands(char* linkplay_command)
     return error_handler; 
 }
  
-uint8_t process_r_commands(char* linkplay_command)
+LinkPlay_Error_t process_r_commands(char* linkplay_command)
 {
-    uint8_t error_handler = e_no_error; 
+    LinkPlay_Error_t error_handler = e_no_error; 
     
     switch (linkplay_command[5])
     {
@@ -329,9 +329,9 @@ uint8_t process_r_commands(char* linkplay_command)
     return error_handler; 
 }
  
-uint8_t process_s_commands(char* linkplay_command)
+LinkPlay_Error_t process_s_commands(char* linkplay_command)
 {
-    uint8_t error_handler = e_no_error; 
+    LinkPlay_Error_t error_handler = e_no_error; 
     
     switch (linkplay_command[5])
     {
@@ -354,9 +354,9 @@ uint8_t process_s_commands(char* linkplay_command)
     return error_handler; 
 }
  
-uint8_t process_v_commands(char* linkplay_command)
+LinkPlay_Error_t process_v_commands(char* linkplay_command)
 {
-    uint8_t error_handler = e_no_error; 
+    LinkPlay_Error_t error_handler = e_no_error; 
     
     switch (linkplay_command[5])
     {
@@ -370,9 +370,9 @@ uint8_t process_v_commands(char* linkplay_command)
     return error_handler; 
 }
  
-uint8_t process_w_commands(char* linkplay_command)
+LinkPlay_Error_t process_w_commands(char* linkplay_command)
 {
-    uint8_t error_handler = e_no_error; 
+    LinkPlay_Error_t error_handler = e_no_error; 
     
     switch (linkplay_command[5])
     {
@@ -392,7 +392,7 @@ uint8_t process_w_commands(char* linkplay_command)
     return error_handler; 
 }
 
-uint8_t process_bot_command(char* linkplay_command)                   // Linkplay firmware updating commands
+LinkPlay_Error_t process_bot_command(char* linkplay_command)                   // Linkplay firmware updating commands
 {
     if (strncmp((linkplay_command + 8), "DON", 3) == 0)
     {   
@@ -408,7 +408,7 @@ uint8_t process_bot_command(char* linkplay_command)                   // Linkpla
 }
 
 
-uint8_t process_bur_command(char* linkplay_command)                   // Linkplay firmware updating commands
+LinkPlay_Error_t process_bur_command(char* linkplay_command)                   // Linkplay firmware updating commands
 {
 /*
         "AXX+BURNING"                                                   // wifi is updating firmware
@@ -436,7 +436,7 @@ uint8_t process_bur_command(char* linkplay_command)                   // Linkpla
     return e_no_error;   
 }
  
-uint8_t process_cap_command(char* linkplay_command)                   // Linkplay commands after factory reset
+LinkPlay_Error_t process_cap_command(char* linkplay_command)                   // Linkplay commands after factory reset
 {   /*
         "AXX+CAP+GET"                                                   // command on the first boot after a factory reset. The returned information will be saved permanently.
     */
@@ -460,7 +460,7 @@ uint8_t process_cap_command(char* linkplay_command)                   // Linkpla
     return e_unknown_cap_command;
 }
  
-uint8_t process_chn_command(char* linkplay_command)                    // Linkplay channel information (stereo / mono left / mono right)
+LinkPlay_Error_t process_chn_command(char* linkplay_command)                    // Linkplay channel information (stereo / mono left / mono right)
 {   /*
         "AXX+CHN+GET"                                                   // What is our output channel config set to?
         "AXX+CHN+nnn"                                                   // WiFi sends this command to update the channel information
@@ -468,7 +468,7 @@ uint8_t process_chn_command(char* linkplay_command)                    // Linkpl
                                                                         // 001 Left channel
                                                                         // 002 Right channel
     */
-    uint8_t error_handler = e_no_error; 
+    LinkPlay_Error_t error_handler = e_no_error; 
     
     if (strncmp((linkplay_command + 8), "GET", 3) == 0)
     {
@@ -505,7 +505,7 @@ uint8_t process_chn_command(char* linkplay_command)                    // Linkpl
     return error_handler;
 }
  
-uint8_t process_dev_command(char* linkplay_command)                    // Linkplay device query commands
+LinkPlay_Error_t process_dev_command(char* linkplay_command)                    // Linkplay device query commands
 {
        // "AXX+DEV+RST"                                                   // MCU should NOT automatically reboot or power off WiFi module after updating the firmware.
                                                                         // It should wait for WiFi module to send AXX+DEV+RST or AXX+DEV+RST in case AXX+DEV+RST gets lost.
@@ -518,7 +518,7 @@ uint8_t process_dev_command(char* linkplay_command)                    // Linkpl
     return e_unknown_dev_command;  
 }
  
-uint8_t process_eth_command(char* linkplay_command)                    // Linkplay ethernet commands
+LinkPlay_Error_t process_eth_command(char* linkplay_command)                    // Linkplay ethernet commands
 {
     /*
         "AXX+ETH+xxx"                                                   // WiFi sends this command to update the Ethernet status to MCU,
@@ -528,7 +528,7 @@ uint8_t process_eth_command(char* linkplay_command)                    // Linkpl
                                                                         // FFF Disabled
     */
   
-    uint8_t error_handler = e_no_error;
+    LinkPlay_Error_t error_handler = e_no_error;
 
     if (strncmp((linkplay_command + 8), "FFF", 3) == 0)
     {
@@ -553,11 +553,11 @@ uint8_t process_eth_command(char* linkplay_command)                    // Linkpl
     return error_handler;
 }
  
-uint8_t process_fac_command(char* linkplay_command)                    // Linkplay factory reset commands
+LinkPlay_Error_t process_fac_command(char* linkplay_command)                    // Linkplay factory reset commands
 {
     //   "AXX+FACTORY"                                                 // WiFi sends this command to notify MCU that it is going to do a factory reset
 
-    uint8_t error_handler = e_no_error; 
+    LinkPlay_Error_t error_handler = e_no_error; 
 
     if (strncmp((linkplay_command + 8), "ORY", 3) == 0)
     {
@@ -575,7 +575,7 @@ uint8_t process_fac_command(char* linkplay_command)                    // Linkpl
     return error_handler; 
 }
 
-uint8_t process_get_command(char* linkplay_command)
+LinkPlay_Error_t process_get_command(char* linkplay_command)
 {
 
     if (strncmp((linkplay_command + 8), "SID", 3) == 0)
@@ -588,7 +588,7 @@ uint8_t process_get_command(char* linkplay_command)
     return e_unknown_get_command; 
 }
 
-uint8_t process_inf_command(char* linkplay_command)                    // Linkplay inf commands
+LinkPlay_Error_t process_inf_command(char* linkplay_command)                    // Linkplay inf commands
 { 
 /*
         AXX+INF+INF{ "language": "en_us", "ssid": "LinkPlayA31_1CB8", "hideSSID": "1", "SSIDStrategy": "2", 
@@ -606,7 +606,7 @@ uint8_t process_inf_command(char* linkplay_command)                    // Linkpl
         "silenceOTATime": "", "ignore_silenceOTATime": "1", "iheartradio_new": "1", "privacy_mode": "0", 
         "user1": "315:524", "user2": "5935:6291", "DeviceName": "Linkplay Demo", "GroupName": "Linkplay Demo" }&
 */  
-
+    LinkPlay_Error_t error_handler = e_no_error; 
     uint16_t num_args = 1;
     uint16_t data_start_point = 0;
     uint16_t data_end_point = 0;
@@ -624,7 +624,7 @@ uint8_t process_inf_command(char* linkplay_command)                    // Linkpl
                     if ((linkplay_command[data_end_point] == '"') && (linkplay_command[data_end_point+1] == ','))
                     {
                         strncpy(char_buf, (linkplay_command+(data_start_point+data_offset)), (data_end_point-(data_start_point+data_offset)));
-                        inf_command_parser((num_args-1), char_buf);
+                        error_handler = inf_command_parser((num_args-1), char_buf);
                         memset(char_buf, 0, 100);
                         break;
                     }  
@@ -632,12 +632,12 @@ uint8_t process_inf_command(char* linkplay_command)                    // Linkpl
                 num_args ++;
             }
         }
-        return e_no_error; 
+        return error_handler; 
     }
-    return e_unknown_inf_command; 
+    return e_unknown_inf_command;
 }
 
-uint8_t inf_command_parser(uint16_t current_inf, char* char_buf)
+LinkPlay_Error_t inf_command_parser(uint16_t current_inf, char* char_buf)
 {
     switch (current_inf)
     {
@@ -973,7 +973,7 @@ void process_essid(char* hex_ap)
     LP_Set_linkplay_essid(ascii_ap);
 }
 
-uint8_t process_i2s_command(char* linkplay_command)
+LinkPlay_Error_t process_i2s_command(char* linkplay_command)
 {
     // AXX+I2S+INF44100_16&
     char c_sample_rate[50];
@@ -1030,20 +1030,20 @@ uint8_t process_i2s_command(char* linkplay_command)
     return e_unknown_i2s_command; 
 }
 
-uint8_t process_key_command(char* linkplay_command)
+LinkPlay_Error_t process_key_command(char* linkplay_command)
 {
 
     return e_unknown_key_command; 
 }
 
-uint8_t process_led_command(char* linkplay_command)                     // Linkplay factory teset commands
+LinkPlay_Error_t process_led_command(char* linkplay_command)                     // Linkplay factory teset commands
 {
     //  "AXX+LED+TES"                                                   // Notify MCU that the module is in factory test mode
     Serial.println("Linkplay is in test mode. flashing LEDs (not hooked up)");
     return e_no_error;
 }
  
-uint8_t process_mcu_command(char* linkplay_command)                     // Linkplay queries of our microprocessor
+LinkPlay_Error_t process_mcu_command(char* linkplay_command)                     // Linkplay queries of our microprocessor
 {
     /*  
         "AXX+MCU+VER"                                                   // command to check MCU frimware version"
@@ -1075,7 +1075,7 @@ uint8_t process_mcu_command(char* linkplay_command)                     // Linkp
     return e_unknown_mcu_command;
 }
  
-uint8_t process_mea_command(char* linkplay_command)                    // Linkplay meadia metadata commands
+LinkPlay_Error_t process_mea_command(char* linkplay_command)                    // Linkplay meadia metadata commands
 {
     /*
         "AXX+MEA+RDY"                                                   // Notify MCU that the WiFi module is ready to respond to MCU+MEA+GET
@@ -1154,9 +1154,9 @@ uint8_t process_mea_command(char* linkplay_command)                    // Linkpl
     }
 }
 
-uint8_t process_mic_command(char* linkplay_command)
+LinkPlay_Error_t process_mic_command(char* linkplay_command)
 {
-    uint8_t error_handler = e_no_error; 
+    LinkPlay_Error_t error_handler = e_no_error; 
     
     switch(linkplay_command_data_extraction(linkplay_command))
     {
@@ -1170,13 +1170,13 @@ uint8_t process_mic_command(char* linkplay_command)
     return error_handler;
 }
  
-uint8_t process_mut_command(char* linkplay_command)                    // Linkplay command to mute audio
+LinkPlay_Error_t process_mut_command(char* linkplay_command)                    // Linkplay command to mute audio
 {
     /*
         "AXX+MUT+000"                                                   // WiFi sends this command to request MCU to unmute the spekaer
         "AXX+MUT+001"                                                   // WiFi sends this command to request MCU to mute the speaker
     */
-    uint8_t error_handler = e_no_error; 
+    LinkPlay_Error_t error_handler = e_no_error; 
     
     switch(linkplay_command_data_extraction(linkplay_command))
     {
@@ -1193,13 +1193,13 @@ uint8_t process_mut_command(char* linkplay_command)                    // Linkpl
     return error_handler;
 }
  
-uint8_t process_m2s_command(char* linkplay_command)                    // Linkplay master to slave command pass through
+LinkPlay_Error_t process_m2s_command(char* linkplay_command)                    // Linkplay master to slave command pass through
 {
        // "AXX+M2S+nnn"                                                // When a pass-through session starts, slave speakers will receive AXX+M2S+nnn
        return e_unknown_m2s_command;
 }
 
-uint8_t process_nxt_command(char* linkplay_command)                    // Linkplay alarm commands
+LinkPlay_Error_t process_nxt_command(char* linkplay_command)                    // Linkplay alarm commands
 {
     // Not supporting alarm commands
         
@@ -1212,7 +1212,7 @@ uint8_t process_nxt_command(char* linkplay_command)                    // Linkpl
     return e_unknown_nxt_command;   
 }
 
-uint8_t process_plm_command(char* linkplay_command)                    // Linkplay playback mode commands
+LinkPlay_Error_t process_plm_command(char* linkplay_command)                    // Linkplay playback mode commands
 {
     /*
         "AAX+PLM+GET"
@@ -1234,7 +1234,7 @@ uint8_t process_plm_command(char* linkplay_command)                    // Linkpl
                                                                         // 099 - Slave
     */
  
-    uint8_t error_handler = e_no_error;
+    LinkPlay_Error_t error_handler = e_no_error;
     
     if (strncmp((linkplay_command + 8), "GET", 3) == 0)
     {
@@ -1285,7 +1285,7 @@ uint8_t process_plm_command(char* linkplay_command)                    // Linkpl
     return error_handler;
 }
  
-uint8_t process_plp_command(char* linkplay_command)                    // Linkplay repeat mode commands
+LinkPlay_Error_t process_plp_command(char* linkplay_command)                    // Linkplay repeat mode commands
 {
     /*
         "AXX+PLP+xxx"                                                   // WiFi sends this command to update the repeat mode, where xxx is
@@ -1297,7 +1297,7 @@ uint8_t process_plp_command(char* linkplay_command)                    // Linkpl
     */
     // spotify doesn't trigger these messages. 
     
-    uint8_t error_handler = e_no_error;
+    LinkPlay_Error_t error_handler = e_no_error;
 
     switch (linkplay_command_data_extraction(linkplay_command))
     {
@@ -1320,7 +1320,7 @@ uint8_t process_plp_command(char* linkplay_command)                    // Linkpl
     return error_handler;
 }
  
-uint8_t process_ply_command(char* linkplay_command)                    // Linkplay playback commands
+LinkPlay_Error_t process_ply_command(char* linkplay_command)                    // Linkplay playback commands
 {
     /*
         "AXX+PLY+xxx"                                                   // WiFi sends this command to update the playback status, where xxx is the status
@@ -1331,7 +1331,7 @@ uint8_t process_ply_command(char* linkplay_command)                    // Linkpl
   
     char playback_time[50];
     uint16_t i = 0; 
-    uint8_t error_handler = e_no_error; 
+    LinkPlay_Error_t error_handler = e_no_error; 
     
     if (strncmp((linkplay_command + 8), "POS", 3) == 0)
     {
@@ -1370,7 +1370,7 @@ uint8_t process_ply_command(char* linkplay_command)                    // Linkpl
     return error_handler;
 }
 
-uint8_t process_pmt_command(char* linkplay_command)                    // Linkplay voice prompt commands
+LinkPlay_Error_t process_pmt_command(char* linkplay_command)                    // Linkplay voice prompt commands
 {
     switch(linkplay_command_data_extraction(linkplay_command))
     {
@@ -1390,7 +1390,7 @@ uint8_t process_pmt_command(char* linkplay_command)                    // Linkpl
     return e_no_error;
 }
 
-uint8_t process_pow_command(char* linkplay_command)                    // Linkplay wifi access point information commands
+LinkPlay_Error_t process_pow_command(char* linkplay_command)                    // Linkplay wifi access point information commands
 {
   /*
     AXX+POW+OFF 
@@ -1402,7 +1402,7 @@ uint8_t process_pow_command(char* linkplay_command)                    // Linkpl
     return e_unknown_pow_command; 
 }
 
-uint8_t process_ra0_command(char* linkplay_command)                    // Linkplay wifi access point information commands
+LinkPlay_Error_t process_ra0_command(char* linkplay_command)                    // Linkplay wifi access point information commands
 {
     /*
         "AXX+RA0+xxx"                                                   // WiFi sends this command to update its hotspot status to MCU,
@@ -1412,7 +1412,7 @@ uint8_t process_ra0_command(char* linkplay_command)                    // Linkpl
                                                                         // 002 One client disconnected but there are still some clients connected
                                                                         // FFF Hotspot is hidden
     */
-    uint8_t error_handler = e_no_error; 
+    LinkPlay_Error_t error_handler = e_no_error; 
     
     if (strncmp((linkplay_command + 8), "+ON", 3) == 0)
     {
@@ -1455,7 +1455,7 @@ uint8_t process_ra0_command(char* linkplay_command)                    // Linkpl
     return error_handler;
 }
  
-uint8_t process_set_command(char* linkplay_command)                    // Linkplay set time change commands (YYYYMMDDHHMMSS and mon/tue/wed/.../sun)
+LinkPlay_Error_t process_set_command(char* linkplay_command)                    // Linkplay set time change commands (YYYYMMDDHHMMSS and mon/tue/wed/.../sun)
 {
     /*   
         "AXX+SET+RTCYYYYMMDDHHMMSS&"                                    // Notify MCU the time change, where YYYYMMDDHHMMSS is the new time                           
@@ -1482,7 +1482,7 @@ uint8_t process_set_command(char* linkplay_command)                    // Linkpl
 
         Serial.print("current YYYY: ");
         Serial.println(atoi(c_current_year)); 
-        LP_Set_linkplay_year(atoi(c_current_year))
+        LP_Set_linkplay_year(atoi(c_current_year));
 
         Serial.print("MM: ");
         Serial.println(atoi(c_current_month)); 
@@ -1539,14 +1539,14 @@ uint8_t process_set_command(char* linkplay_command)                    // Linkpl
     return e_no_error;
 }
 
-uint8_t process_sli_command(char* linkplay_command)   
+LinkPlay_Error_t process_sli_command(char* linkplay_command)   
 {
     //AXX+SLI+OTA
     //AXX+SLI+DON
     return e_unknown_sli_command;
 }
  
-uint8_t process_sta_command(char* linkplay_command)                    // Linkplay wireless status commands
+LinkPlay_Error_t process_sta_command(char* linkplay_command)                    // Linkplay wireless status commands
 {
     /*
         "AXX+STA+000"                                                   // Failed to connect to the AP
@@ -1594,14 +1594,14 @@ uint8_t process_sta_command(char* linkplay_command)                    // Linkpl
     return e_no_error;
 }
  
-uint8_t process_s2m_command(char* linkplay_command)                    // Linkplay slave to master command pass through
+LinkPlay_Error_t process_s2m_command(char* linkplay_command)                    // Linkplay slave to master command pass through
 {
        // "AXX+S2M+nnn"                                                   // When a pass-through session starts, master speaker MCU will receive AXX+S2M+nnn
       Serial.println("PIC initiated master pass thorugh to slave linkplays");
       return e_no_error;
 }
  
-uint8_t process_vol_command(char* linkplay_command)                    // Linkplay volume adjusting commands
+LinkPlay_Error_t process_vol_command(char* linkplay_command)                    // Linkplay volume adjusting commands
 {
     /*
         "AXX+VOL+GET"                                                   // Get the current volume level
@@ -1637,7 +1637,8 @@ uint8_t process_vol_command(char* linkplay_command)                    // Linkpl
     }
     return e_no_error;  
 }
-uint8_t process_wan_command(char *linkplay_command)
+
+LinkPlay_Error_t process_wan_command(char *linkplay_command)
 {
     //  AXX+WAN+LST4E4554474541523137,0,1;7866696E69747977696669,0,0;726F636C6F6E65,0,1&
     //  AXX+WAN+LST5053415544494F,10,1;50534755455354,10,1;5053417564696F5850,10,1&
@@ -1666,7 +1667,7 @@ uint8_t process_wan_command(char *linkplay_command)
     else
     {
         Serial.println("Can't find any networks");
-        return 1; 
+        return e_no_networks_found; 
     }
     
     for (pos = 12; pos < 1024; pos++)
@@ -1725,7 +1726,7 @@ uint8_t process_wan_command(char *linkplay_command)
     return e_no_error;
 }
 
-uint8_t process_wps_command(char* linkplay_command)                    // Linkplay wireless WPS config commands
+LinkPlay_Error_t process_wps_command(char* linkplay_command)                    // Linkplay wireless WPS config commands
 {
     /*
         "AXX+WPS++ON"                                                   // WPS/Smart Config process starts
@@ -1747,7 +1748,7 @@ uint8_t process_wps_command(char* linkplay_command)                    // Linkpl
      return e_no_error;      
 }
  
-uint8_t process_www_command(char* linkplay_command)                    // Linkplay internet connection commands
+LinkPlay_Error_t process_www_command(char* linkplay_command)                    // Linkplay internet connection commands
 {  
     /*
         "AXX+WWW+xxx"                                                   // WiFi sends this command to update its Internet connection status to MCU,

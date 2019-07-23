@@ -168,65 +168,65 @@ enum {
 };
 
 void processCommand(char* msgAddr);
-uint8_t process_linkplay_commands(char* linkplay_command);
+LinkPlay_Error_t process_linkplay_commands(char* linkplay_command);
 
-uint8_t process_b_commands(char* linkplay_command);
-uint8_t process_c_commands(char* linkplay_command);
-uint8_t process_d_commands(char* linkplay_command);
-uint8_t process_e_commands(char* linkplay_command);
-uint8_t process_f_commands(char* linkplay_command);
-uint8_t process_g_commands(char* linkplay_command);
-uint8_t process_i_commands(char* linkplay_command);
-uint8_t process_k_commands(char* linkplay_command);
-uint8_t process_l_commands(char* linkplay_command);
-uint8_t process_m_commands(char* linkplay_command);
-uint8_t process_n_commands(char* linkplay_command);
-uint8_t process_p_commands(char* linkplay_command);
-uint8_t process_r_commands(char* linkplay_command);
-uint8_t process_s_commands(char* linkplay_command);
-uint8_t process_v_commands(char* linkplay_command);
-uint8_t process_v_commands(char* linkplay_command);
-uint8_t process_w_commands(char* linkplay_command);
+LinkPlay_Error_t process_b_commands(char* linkplay_command);
+LinkPlay_Error_t process_c_commands(char* linkplay_command);
+LinkPlay_Error_t process_d_commands(char* linkplay_command);
+LinkPlay_Error_t process_e_commands(char* linkplay_command);
+LinkPlay_Error_t process_f_commands(char* linkplay_command);
+LinkPlay_Error_t process_g_commands(char* linkplay_command);
+LinkPlay_Error_t process_i_commands(char* linkplay_command);
+LinkPlay_Error_t process_k_commands(char* linkplay_command);
+LinkPlay_Error_t process_l_commands(char* linkplay_command);
+LinkPlay_Error_t process_m_commands(char* linkplay_command);
+LinkPlay_Error_t process_n_commands(char* linkplay_command);
+LinkPlay_Error_t process_p_commands(char* linkplay_command);
+LinkPlay_Error_t process_r_commands(char* linkplay_command);
+LinkPlay_Error_t process_s_commands(char* linkplay_command);
+LinkPlay_Error_t process_v_commands(char* linkplay_command);
+LinkPlay_Error_t process_v_commands(char* linkplay_command);
+LinkPlay_Error_t process_w_commands(char* linkplay_command);
 
-uint8_t process_bur_command(char* linkplay_command);                    // Linkplay firmware updating commands
-uint8_t process_bot_command(char* linkplay_command);                    // Linkplay firmware updating commands
-uint8_t process_cap_command(char* linkplay_command);                    // Linkplay commands after factory reset
-uint8_t process_chn_command(char* linkplay_command);                    // Linkplay channel information (stereo / mono left / mono right)
-uint8_t process_dev_command(char* linkplay_command);                    // Linkplay device query commands
-uint8_t process_eth_command(char* linkplay_command);                    // Linkplay ethernet commands
-uint8_t process_fac_command(char* linkplay_command);                    // Linkplay factory reset commands
-uint8_t process_get_command(char* linkplay_command);                    // Linkplay get commands
-uint8_t process_inf_command(char* linkplay_command);                    // Linkplay i2s commands
-uint8_t process_i2s_command(char* linkplay_command);                    // Linkplay i2s commands
-uint8_t process_key_command(char* linkplay_command);                    // Linkplay key (button press) commands
-uint8_t process_led_command(char* linkplay_command);                    // Linkplay factory teset commands
-uint8_t process_mcu_command(char* linkplay_command);                    // Linkplay queries of our microprocessor
-uint8_t process_mea_command(char* linkplay_command);                    // Linkplay meadia metadata commands
-uint8_t process_mic_command(char* linkplay_command);                    // Linkplay process microphone commands
-uint8_t process_mut_command(char* linkplay_command);                    // Linkplay command to mute audio
-uint8_t process_m2s_command(char* linkplay_command);                    // Linkplay master to slave command pass through
-uint8_t process_nxt_command(char* linkplay_command);                    // Linkplay alarm commands
-uint8_t process_plm_command(char* linkplay_command);                    // Linkplay playback mode commands
-uint8_t process_plp_command(char* linkplay_command);                    // Linkplay repeat mode commands
-uint8_t process_ply_command(char* linkplay_command);                    // Linkplay playback commands
-uint8_t process_pmt_command(char* linkplay_command);                    // Linkplay voice prompt commands
-uint8_t process_pow_command(char* linkplay_command);                    // Linkplay power commands
-uint8_t process_ra0_command(char* linkplay_command);                    // Linkplay wifi access point information commands
-uint8_t process_set_command(char* linkplay_command);                    // Linkplay set time change commands (YYYYMMDDHHMMSS and mon/tue/wed/.../sun)
-uint8_t process_sli_command(char* linkplay_command);
-uint8_t process_sta_command(char* linkplay_command);                    // Linkplay wireless status commands
-uint8_t process_s2m_command(char* linkplay_command);                    // Linkplay slave to master command pass through
-uint8_t process_uid_command(char* linkplay_command);                    // Linkplay uuid commands
-uint8_t process_vol_command(char* linkplay_command);                    // Linkplay volume adjusting commands
-uint8_t process_wan_command(char* linkplay_command);                    // Linkplay wireless acress points 
-uint8_t process_wps_command(char* linkplay_command);                    // Linkplay wireless WPS config commands
-uint8_t process_www_command(char* linkplay_command);                    // Linkplay internet connection commands
+LinkPlay_Error_t process_bur_command(char* linkplay_command);                    // Linkplay firmware updating commands
+LinkPlay_Error_t process_bot_command(char* linkplay_command);                    // Linkplay firmware updating commands
+LinkPlay_Error_t process_cap_command(char* linkplay_command);                    // Linkplay commands after factory reset
+LinkPlay_Error_t process_chn_command(char* linkplay_command);                    // Linkplay channel information (stereo / mono left / mono right)
+LinkPlay_Error_t process_dev_command(char* linkplay_command);                    // Linkplay device query commands
+LinkPlay_Error_t process_eth_command(char* linkplay_command);                    // Linkplay ethernet commands
+LinkPlay_Error_t process_fac_command(char* linkplay_command);                    // Linkplay factory reset commands
+LinkPlay_Error_t process_get_command(char* linkplay_command);                    // Linkplay get commands
+LinkPlay_Error_t process_inf_command(char* linkplay_command);                    // Linkplay i2s commands
+LinkPlay_Error_t process_i2s_command(char* linkplay_command);                    // Linkplay i2s commands
+LinkPlay_Error_t process_key_command(char* linkplay_command);                    // Linkplay key (button press) commands
+LinkPlay_Error_t process_led_command(char* linkplay_command);                    // Linkplay factory teset commands
+LinkPlay_Error_t process_mcu_command(char* linkplay_command);                    // Linkplay queries of our microprocessor
+LinkPlay_Error_t process_mea_command(char* linkplay_command);                    // Linkplay meadia metadata commands
+LinkPlay_Error_t process_mic_command(char* linkplay_command);                    // Linkplay process microphone commands
+LinkPlay_Error_t process_mut_command(char* linkplay_command);                    // Linkplay command to mute audio
+LinkPlay_Error_t process_m2s_command(char* linkplay_command);                    // Linkplay master to slave command pass through
+LinkPlay_Error_t process_nxt_command(char* linkplay_command);                    // Linkplay alarm commands
+LinkPlay_Error_t process_plm_command(char* linkplay_command);                    // Linkplay playback mode commands
+LinkPlay_Error_t process_plp_command(char* linkplay_command);                    // Linkplay repeat mode commands
+LinkPlay_Error_t process_ply_command(char* linkplay_command);                    // Linkplay playback commands
+LinkPlay_Error_t process_pmt_command(char* linkplay_command);                    // Linkplay voice prompt commands
+LinkPlay_Error_t process_pow_command(char* linkplay_command);                    // Linkplay power commands
+LinkPlay_Error_t process_ra0_command(char* linkplay_command);                    // Linkplay wifi access point information commands
+LinkPlay_Error_t process_set_command(char* linkplay_command);                    // Linkplay set time change commands (YYYYMMDDHHMMSS and mon/tue/wed/.../sun)
+LinkPlay_Error_t process_sli_command(char* linkplay_command);
+LinkPlay_Error_t process_sta_command(char* linkplay_command);                    // Linkplay wireless status commands
+LinkPlay_Error_t process_s2m_command(char* linkplay_command);                    // Linkplay slave to master command pass through
+LinkPlay_Error_t process_uid_command(char* linkplay_command);                    // Linkplay uuid commands
+LinkPlay_Error_t process_vol_command(char* linkplay_command);                    // Linkplay volume adjusting commands
+LinkPlay_Error_t process_wan_command(char* linkplay_command);                    // Linkplay wireless acress points 
+LinkPlay_Error_t process_wps_command(char* linkplay_command);                    // Linkplay wireless WPS config commands
+LinkPlay_Error_t process_www_command(char* linkplay_command);                    // Linkplay internet connection commands
 
 uint16_t linkplay_command_data_extraction(char* linkplay_command);
 
 int16_t hex2ascii(const char *hexArray, char *asciiArray, uint8_t hexArrayLength, uint8_t charArrayLength);
 
-uint8_t inf_command_parser(uint16_t current_inf, char* char_buf);
+LinkPlay_Error_t inf_command_parser(uint16_t current_inf, char* char_buf);
 void process_date(char* date);
 void process_time(char* time);
 void process_essid(char* hex_ap);

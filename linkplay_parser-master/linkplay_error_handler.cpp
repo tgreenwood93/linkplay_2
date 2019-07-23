@@ -2,7 +2,7 @@
 #include "linkplay_manager.h"
 #include "linkplay_error_handler.h"
 
-void linkplay_error_handler(uint8_t error_handler, char* linkplay_command)
+void linkplay_error_handler(LinkPlay_Error_t error_handler, char* linkplay_command)
 {
     if (error_handler == e_no_error)
     {
@@ -179,6 +179,8 @@ void linkplay_error_handler(uint8_t error_handler, char* linkplay_command)
         case e_volume_out_of_bounds:
             break;
         case e_empty_i2s_command:
+            break;
+        case e_no_networks_found:
             break;
         default:
             break;
