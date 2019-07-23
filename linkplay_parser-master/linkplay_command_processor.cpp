@@ -1,6 +1,7 @@
 #include "linkplay_command_processor.h"
 #include "linkplay_manager.h"
 #include "linkplay_error_handler.h"
+#include "standin_functions.h"
 
 void processCommand(char* linkplay_command)
 {   
@@ -643,7 +644,7 @@ uint8_t inf_command_parser(uint16_t current_inf, char* char_buf)
         case e_inf_language:
             Serial.print("language: ");
             Serial.println(char_buf);
-            if (strcmp(char_buf, en_us) == 0)
+            if (strncmp(char_buf, "en_us", 5) == 0)
             {
                 LP_Set_linkplay_language(e_linkplay_lang_en_us);
             }
@@ -721,7 +722,7 @@ uint8_t inf_command_parser(uint16_t current_inf, char* char_buf)
         case e_inf_mac:
             Serial.print("mac address: ");
             Serial.println(char_buf);
-            LP_Set_linkplay_mac_address(char_buf)
+            LP_Set_linkplay_mac_address(char_buf);
             break;
         case e_inf_sta_mac:
             Serial.print("sta mac address: ");
@@ -756,10 +757,12 @@ uint8_t inf_command_parser(uint16_t current_inf, char* char_buf)
         case e_inf_apcli0:
             Serial.print("wifi IP: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_wifi_ip(char_buf);
             break;
         case e_inf_eth2:
             Serial.print("ethernet IP: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_ethernet_ip(char_buf);
             break;
         case e_inf_hardware:
             Serial.print("hardware: ");
@@ -923,7 +926,7 @@ uint8_t inf_command_parser(uint16_t current_inf, char* char_buf)
     return e_no_error;
 }
 
-void process_date(char* date);
+void process_date(char* date)
 {
     char c_current_year[6];
     char c_current_month[4];
@@ -937,12 +940,12 @@ void process_date(char* date);
     strncpy(c_current_month, date+5, 2);
     strncpy(c_current_day, date+8, 2);
     
-    LP_Set_linkplay_rtc_year(atoi(c_current_year));
-    LP_Set_linkplay_rtc_month(atoi(c_current_month));
-    LP_Set_linkplay_rtc_day(atoi(c_current_day);
+    LP_Set_linkplay_year(atoi(c_current_year));
+    LP_Set_linkplay_month(atoi(c_current_month));
+    LP_Set_linkplay_day(atoi(c_current_day));
 }
 
-void process_time(char* time);
+void process_time(char* time)
 {
     char c_current_hour[4];
     char c_current_minute[4];
@@ -952,13 +955,13 @@ void process_time(char* time);
     memset(c_current_minute, 0, 4); 
     memset(c_current_second, 0, 4); 
 
-    strncpy(c_current_hour, date, 2);
-    strncpy(c_current_minute, date+3, 2);
-    strncpy(c_current_second, date+6, 2);
+    strncpy(c_current_hour, time, 2);
+    strncpy(c_current_minute, time+3, 2);
+    strncpy(c_current_second, time+6, 2);
     
-    LP_Set_linkplay_rtc_hour(atoi(c_current_hour));
-    LP_Set_linkplay_rtc_minute(atoi(c_current_minute));
-    LP_Set_linkplay_rtc_second(atoi(c_current_second);
+    LP_Set_linkplay_hour(atoi(c_current_hour));
+    LP_Set_linkplay_minute(atoi(c_current_minute));
+    LP_Set_linkplay_second(atoi(c_current_second));
 }
 
 void process_essid(char* hex_ap)
@@ -1479,21 +1482,27 @@ uint8_t process_set_command(char* linkplay_command)                    // Linkpl
 
         Serial.print("current YYYY: ");
         Serial.println(atoi(c_current_year)); 
-      
+        LP_Set_linkplay_year(atoi(c_current_year))
+
         Serial.print("MM: ");
         Serial.println(atoi(c_current_month)); 
-      
+        LP_Set_linkplay_month(atoi(c_current_month));
+
         Serial.print("DD: ");
         Serial.println(atoi(c_current_day)); 
-      
+        LP_Set_linkplay_day(atoi(c_current_day));
+
         Serial.print("HH: ");
         Serial.println(atoi(c_current_hour)); 
-      
+        LP_Set_linkplay_hour(atoi(c_current_hour));
+
         Serial.print("MM: ");
         Serial.println(atoi(c_current_minute)); 
-      
+        LP_Set_linkplay_minute(atoi(c_current_minute));
+
         Serial.print("SS: ");
         Serial.println(atoi(c_current_second)); 
+        LP_Set_linkplay_second(atoi(c_current_second));
     }
     else if (strncmp((linkplay_command + 8), "WEK", 3) == 0)
     {

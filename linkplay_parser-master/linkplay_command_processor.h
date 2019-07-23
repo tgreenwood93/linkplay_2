@@ -1,4 +1,5 @@
 #include "Arduino.h"
+#include "linkplay_error_handler.h"
 
 
 #ifndef linkplay_command_processor_h

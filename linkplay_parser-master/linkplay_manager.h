@@ -66,8 +66,8 @@ uint16_t LP_Get_linkplay_firmare_release();
 void LP_Set_linkplay_firmware_branch(char* firmware_branch);
 char* LP_Get_linkplay_firmare_branch();
 
-void LP_Set_linkplay_group();
-uint8_t LP_Get_linkplay_group();
+void LP_Set_linkplay_group(uint16_t group);
+uint16_t LP_Get_linkplay_group();
 
 void LP_Set_linkplay_verion_expierd(bool firmware_expierd);
 bool LP_Get_linkplay_version_expierd();
@@ -87,27 +87,20 @@ char* LP_Get_linkplay_sta_mac_address();
 void LP_Set_linkplay_time_zone(uint8_t time_zone);
 uint8_t LP_Get_linkplay_time_zone();
 
-void void LP_Set_linkplay_network_status(uint8_t network_status);
+void LP_Set_linkplay_network_status(uint8_t network_status);
 uint8_t LP_Get_linkplay_network_status();
 
 void LP_Set_linkplay_essid(char* router_ssid);
-{
-
-}
-
 char* LP_Get_linkplay_essid();
-{
-    
-}
 
-void LP_Set_linkplay_wifi_ip();
-uint8_t LP_Get_linkplay_wifi_ip();
+void LP_Set_linkplay_wifi_ip(char* wifi_ip);
+char* LP_Get_linkplay_wifi_ip();
 
-void LP_Set_linkplay_ethernet_ip();
-uint8_t LP_Get_linkplay_ethernet_ip();
+void LP_Set_linkplay_ethernet_ip(char* etherent_ip);
+char* LP_Get_linkplay_ethernet_ip();
 
-void LP_Set_linkplay_hardware();
-uint8_t LP_Get_linkplay_hardware();
+void LP_Set_linkplay_hardware(char* hardware_module);
+char* LP_Get_linkplay_hardware();
 
 void LP_Set_linkplay_version_update();
 uint8_t LP_Get_linkplay_version_update();
@@ -277,25 +270,25 @@ uint8_t LP_Get_linkplay_power_status();
 void LP_Set_linkplay_hotspot_status (Linkplay_Hotspot_status_t hotspot_status);
 Linkplay_Hotspot_status_t LP_Get_linkplay_hotspot_status();
 
-void LP_Set_linkplay_rtc_year();
+void LP_Set_linkplay_year(uint16_t year);
 uint8_t LP_Get_linkplay_rtc_year();
 
-void LP_Set_linkplay_rtc_month();
-uint8_t LP_Get_linkplay_rtc_month();
+void LP_Set_linkplay_month(uint8_t month);
+uint8_t LP_Get_linkplay_month();
 
-void LP_Set_linkplay_rtc_day();
-uint8_t LP_Get_linkplay_rtc_day();
+void LP_Set_linkplay_day(uint8_t day);
+uint8_t LP_Get_linkplay_day();
 
-void LP_Set_linkplay_rtc_hour();
-uint8_t LP_Get_linkplay_rtc_hour();
+void LP_Set_linkplay_hour(uint8_t hour);
+uint8_t LP_Get_linkplay_hour();
 
-void LP_Set_linkplay_rtc_minute();
-uint8_t LP_Get_linkplay_rtc_minute();
+void LP_Set_linkplay_minute(uint8_t minute);
+uint8_t LP_Get_linkplay_minute();
 
-void LP_Set_linkplay_rtc_second();
-uint8_t LP_Get_linkplay_rtc_second();
+void LP_Set_linkplay_second(uint8_t second);
+uint8_t LP_Get_linkplay_second();
 
-void LP_Set_linkplay_rtc_weekday (LinkPlay_Weekday_t weekday);
+void LP_Set_linkplay_weekday (LinkPlay_Weekday_t weekday);
 LinkPlay_Weekday_t LP_Get_linkplay_rtc_weekday();
 
 void LP_Set_linkplay_silent_firmware_update();

@@ -7,7 +7,7 @@ static LinkPlay_Firmware_Update_t linkplay_update_status;
 static LinkPlay_Audio_Channel_Options_t linkplay_channel_config; 
 static LinkPlay_Playback_Mode_t linkplay_playback_mode;
 static LinkPlay_Wireless_Status_t linkplay_wireless_status;
-static LinkPlay_Audio_Channel_Options_t linkplay_audio_channel_options;
+//static LinkPlay_Audio_Channel_Options_t linkplay_audio_channel_options;
 static Linkplay_Ethernet_Status_t linkplay_ethernet_status;
 static LinkPlay_Weekday_t linkplay_weekday; 
 static LinkPlay_Shuffle_Repeat_Status_t linkplay_shuffle_repeat_status;
@@ -34,7 +34,15 @@ static uint8_t linkplay_time_zone;
 static uint8_t linkplay_network_status; 
 static char connected_ap_ssid[65];
 static char linkplay_wifi_ip[20];
-
+static char linkplay_ethernet_ip[20];
+static char linkplay_hardware_module[5];
+static bool linkplay_internet_status;
+static uint16_t rtc_year;
+static uint8_t rtc_month;
+static uint8_t rtc_day;
+static uint8_t rtc_hour;
+static uint8_t rtc_minute;
+static uint8_t rtc_second;
 
 // ----------------------------------------------------------------------------
 // Linkplay State Setters and Getters
@@ -171,11 +179,11 @@ bool LP_Get_linkplay_factory_status()
 
 void LP_Set_linkplay_ssid(char* ssid)
 {
-    memeset(linkplay_ssid, 0, 70);
+    memset(linkplay_ssid, 0, 70);
     strncpy(linkplay_ssid, ssid, strlen(ssid));
 }
 
-char* LP_Get_linkplay_ssid();
+char* LP_Get_linkplay_ssid()
 {
     return linkplay_ssid; 
 }
@@ -183,7 +191,7 @@ char* LP_Get_linkplay_ssid();
 
 void LP_Set_linkplay_language(Linkplay_Language_t language)
 {
-    linkplay_language = language
+    linkplay_language = language;
 }
 
 Linkplay_Language_t LP_Get_linkplay_language()
@@ -242,7 +250,7 @@ char* LP_Get_linkplay_build()
 void LP_Set_linkplay_project(char* project)
 {
     memset(linkplay_project_title, 0, 30);
-    strncpy(linkplay_project_title, project, strnlen(project)); 
+    strncpy(linkplay_project_title, project, strlen(project)); 
 }
 
 char* LP_Get_linkplay_project()
@@ -254,7 +262,7 @@ char* LP_Get_linkplay_project()
 void LP_Set_linkplay_private_project(char* private_project)
 {
     memset(linkplay_private_project_title, 0, 30);
-    strncpy(linkplay_private_project_title, private_project, strnlen(private_project)); 
+    strncpy(linkplay_private_project_title, private_project, strlen(private_project)); 
 }
 
 char* LP_Get_linkplay_private_project()
@@ -291,7 +299,7 @@ void LP_Set_linkplay_group(uint16_t group)
     linkplay_group = group;
 }
 
-uint8_t LP_Get_linkplay_group()
+uint16_t LP_Get_linkplay_group()
 {
     return linkplay_group;
 }
@@ -304,7 +312,7 @@ void LP_Set_linkplay_verion_expierd(bool firmware_expierd)
 
 bool LP_Get_linkplay_version_expierd()
 {
-    return linkplay_firmware_version_expierd
+    return linkplay_firmware_version_expierd;
 }
 
 void LP_Set_linkplay_uuid(char* uuid)
@@ -332,7 +340,7 @@ char* LP_Get_linkplay_mac_address()
 void LP_Set_linkplay_sta_mac_address(char* sta_mac_address)
 {
     memset(linkplay_sta_mac_address, 0, 20);
-    strncpy(linkplay_sta_mac_address, mac_address, strlen(sta_mac_address));
+    strncpy(linkplay_sta_mac_address, sta_mac_address, strlen(sta_mac_address));
 }
 
 char* LP_Get_linkplay_sta_mac_address()
@@ -387,13 +395,97 @@ char* LP_Get_linkplay_wifi_ip()
 }
 
 
+void LP_Set_linkplay_ethernet_ip(char* ethernet_ip)
+{
+    memset(linkplay_ethernet_ip, 0, 20);
+    strncpy(linkplay_ethernet_ip, ethernet_ip, strlen(ethernet_ip));
+}
+
+char* LP_Get_linkplay_ethernet_ip()
+{
+    return linkplay_ethernet_ip; 
+}
+
+void LP_Set_linkplay_hardware(char* hardware_module)
+{
+    memset(linkplay_hardware_module, 0, 5);
+    strncpy(linkplay_hardware_module, hardware_module, strlen(hardware_module));
+}
+
+char* LP_Get_linkplay_hardware()
+{
+    return linkplay_hardware_module; 
+}
 
 
+void LP_Set_linkplay_year(uint16_t year)
+{
+    rtc_year = year;
+}
+
+uint8_t LP_Get_linkplay_year()
+{
+    return rtc_year;
+}
 
 
+void LP_Set_linkplay_month(uint8_t month)
+{
+    rtc_month = month;
+}
+
+uint8_t LP_Get_linkplay_month()
+{
+    return rtc_month;
+}
 
 
+void LP_Set_linkplay_day(uint8_t day)
+{
+    rtc_day = day;
+}
 
+uint8_t LP_Get_linkplay_day()
+{
+    return rtc_day;
+
+}
+
+
+void LP_Set_linkplay_hour(uint8_t hour)
+{
+    rtc_hour = hour;
+}
+
+uint8_t LP_Get_linkplay_hour()
+{
+    return rtc_hour;
+
+}
+
+
+void LP_Set_linkplay_minute(uint8_t minute)
+{
+    rtc_minute = minute;
+}
+
+uint8_t LP_Get_linkplay_minute()
+{
+    return rtc_minute;
+
+}
+
+
+void LP_Set_linkplay_second(uint8_t second)
+{
+    rtc_second = second;
+}
+
+uint8_t LP_Get_linkplay_second()
+{
+    return rtc_second;
+
+}
 
 
 
