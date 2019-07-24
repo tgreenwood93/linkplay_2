@@ -1086,25 +1086,25 @@ LinkPlay_Error_t process_mea_command(char* linkplay_command)                    
     // linkplay song titles can only be 64 chars
 
     
-    char hex_title[100];
-    char hex_artist[100];
-    char hex_album[100];
+    char hex_title[70];
+    char hex_artist[70];
+    char hex_album[70];
     
-    char ascii_title[100];
-    char ascii_artist[100];
-    char ascii_album[100];
+    char ascii_title[70];
+    char ascii_artist[70];
+    char ascii_album[70];
     
     uint16_t title_char_counter = 0; 
     uint16_t artist_char_counter = 0;     
     uint16_t album_char_counter = 0; 
 
-    memset(hex_title, 0, 100);
-    memset(hex_artist, 0, 100);    
-    memset(hex_album, 0, 100);
+    memset(hex_title, 0, 70);
+    memset(hex_artist, 0, 70);    
+    memset(hex_album, 0, 70);
 
-    memset(ascii_title, 0, 100);
-    memset(ascii_artist, 0, 100);    
-    memset(ascii_album, 0, 100);
+    memset(ascii_title, 0, 70);
+    memset(ascii_artist, 0, 70);    
+    memset(ascii_album, 0, 70);
     
     if (strncmp((linkplay_command + 8), "RDY", 3) == 0)
     {
@@ -1412,7 +1412,36 @@ LinkPlay_Error_t process_pow_command(char* linkplay_command)                    
                                     002 = firmware upgrade - cants power down
                                     003 = the device is restarting
   */
-    return e_unknown_pow_command; 
+    if (linkplay_command[8] == '0')
+    {
+        switch(linkplay_command_data_extraction(linkplay_command))
+        {
+            case e_linkplay_power_normal: 
+                Serial.println("voice prompt start");
+                LP_Set_linkplay_voice_promt();
+                break;
+            case e_linkplay_saving_mode:
+                Serial.println("voice prompt stopped");
+                LP_Set_linkplay_voice_promt();
+                break; 
+            case e_linkplay_firmware_upgrade:
+                Serial.println("voice prompt disabled");
+                LP_Set_linkplay_voice_promt();
+                break; 
+            case e_linkplay_device_restarting: 
+                Serial.println("voice prompt can be triggered by PIC");
+                LP_Set_linkplay_voice_promt();
+                break;
+            default:
+                return e_unknown_pow_command;        
+        }
+        return e_no_error;
+    }   
+    else
+    {
+        return e_unknown_pow_command;
+    }
+     
 }
 
 LinkPlay_Error_t process_ra0_command(char* linkplay_command)                    // Linkplay wifi access point information commands

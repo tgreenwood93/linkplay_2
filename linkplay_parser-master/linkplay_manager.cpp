@@ -72,14 +72,24 @@ static bool linkplay_iheartradio_new;
 static bool linkplay_privacy_mode;
 static char* linkplay_user_1[20];
 static char* linkplay_user_2[20];
-static char* linkplay_device_name[65]
-
+static char* linkplay_device_name[65];
 static uint16_t rtc_year;
 static uint8_t rtc_month;
 static uint8_t rtc_day;
 static uint8_t rtc_hour;
 static uint8_t rtc_minute;
 static uint8_t rtc_second;
+static Linkpaly_Sample_Rate_t linkplay_sample_rate;
+static Linkpaly_Bit_Depth_t linkplay_bit_depth; 
+static char* linkplay_title[70];
+static char* linkplay_artist[70];
+static char* linkplay_album[70];
+static uint32_t linkplay_songtime_ms;
+static int16_t linkplay_alarm_status;
+static Linkplay_Voice_Prompt_t linkplay_vprompt_status;
+static Linlplay_Power_Status_t linkplay_power_status;
+static bool linkplay_silent_firmware_update;
+static uint8_t num_access_points_found;
 
 // ----------------------------------------------------------------------------
 // Linkplay State Setters and Getters
@@ -845,64 +855,80 @@ char* LP_Get_linkplay_device_name()
 
 void LP_Set_linkplay_sample_rate(Linkpaly_sample_rate_t sample_rate)
 {
-    linkplay_
+    strncpy(linkplay_sample_rate, sample_rate, strlen(sample_rate));
 }
 Linkpaly_sample_rate_t LP_Get_linkplay_sample_rate()
 {
-    return linkplay_
+    return linkplay_sample_rate;
 } 
 
 void LP_Set_linkplay_bit_depth(Linkpaly_bit_depth_t bit_depth)
 {
-
+    linkplay_bit_depth = bit_depth;
 }
+
 Linkpaly_bit_depth_t LP_Get_linkplay_bit_depth()
 {
-
+    return linkplay_bit_depth; 
 }
 
 void LP_Set_linkplay_communication_status()
 {
 
 }
+
 uint8_t LP_Get_linkplay_communication_status()
 {
-
+     
 }
 
 void LP_Set_linkplay_title(char* title)
 {
-
+    memset(linkplay_title, 0, 70);
+    strncpy(linkplay_title, title, strlen(title));
 }
 char* LP_Get_linkplay_title()
 {
-
+    return linkplay_title;
 }
 
 void LP_Set_linkplay_artist(char* artist)
 {
-
+    memset(linkplay_artist, 0, 70);
+    strncpy(linkplay_artist, artist, strlen(artist));
 }
 char* LP_Get_linkplay_artist()
 {
-
+    return linkplay_artist;
 }
 
 void LP_Set_linkplay_album(char* album)
 {
-
+    memset(linkplay_album, 0, 70);
+    strncpy(linkplay_album, album, strlen(album));
 }
 char* LP_Get_linkplay_album()
 {
-
+    return linkplay_album;
 }
 
 void LP_Set_linkplay_song_time(uint32_t songtime_ms)
 {
-
+    linkplay_songtime_ms = songtime_ms;
 }
+
 uint32_t LP_Get_linkplay_song_time()
 {
+    return linkplay_songtime_ms;
+}
+
+void LP_Set_linkplay_microphones()
+{
+
+}
+
+uint8_t LP_Get_linkplay_micrphones()
+{
 
 }
 
@@ -915,94 +941,33 @@ uint8_t LP_Get_linkplay_micrphones()
 
 }
 
-void LP_Set_linkplay_mute (Linkplay_Mute_Status_t mute_status)
+void LP_Set_linkplay_alarm(int16_t alarm_status)
 {
-
+    linkplay_alarm_status = alarm_status;
 }
-Linkplay_Mute_Status_t LP_Get_linkplay_mute()
+int16_t LP_Get_linkplay_alarm()
 {
-
-}
-
-void LP_Set_linkplay_microphones()
-{
-
-}
-uint8_t LP_Get_linkplay_micrphones()
-{
-
-}
-
-void LP_Set_linkplay_alarm()
-{
-
-}
-uint8_t LP_Get_linkplay_alarm()
-{
-
-}
-
-void LP_Set_linkplay_playback_mode (LinkPlay_Playback_Mode_t playback_mode)
-{
-
-}
-LinkPlay_Playback_Mode_t LP_Get_linkplay_playback_mode()
-{
-
-}
-
-void LP_Set_linkplay_repeat_shuffle (LinkPlay_Shuffle_Repeat_Status_t shuffle_repeat_status)
-{
-
-}
-LinkPlay_Shuffle_Repeat_Status_t LP_Get_linkplay_repeat_shuffle()
-{
-
-}
-
-void LP_Set_linkplay_playback_status (Linkplay_Playback_Status_t playback_status)
-{
-
-}
-Linkplay_Playback_Status_t LP_Get_linkplay_playback_status()
-{
-
-}
-
-void LP_Set_linkplay_playback_time()
-{
-
-}
-uint8_t LP_Get_linkplay_playback_time()
-{
-
+    return linkplay_alarm_status;
 }
 
 void LP_Set_linkplay_voice_promt(Linkplay_voice_prompt_t vprompt_status)
 {
-
+    linkplay_vprompt_status = vprompt_status;
 }
+
 uint8_t LP_Get_linkplay_voice_promt()
 {
-
+    return linkplay_vprompt_status;
 }
 
-void LP_Set_linkplay_power_status()
+void LP_Set_linkplay_power_status(Linlplay_Power_Status_t power_status)
 {
-
-}
-uint8_t LP_Get_linkplay_power_status()
-{
-
+    linkplay_power_status = power_status;
 }
 
-void LP_Set_linkplay_hotspot_status (Linkplay_Hotspot_status_t hotspot_status)
+Linlplay_Power_Status_t LP_Get_linkplay_power_status()
 {
-
-}
-Linkplay_Hotspot_status_t LP_Get_linkplay_hotspot_status()
-{
-
+    return linkplay_power_status;
 }
 
 
@@ -1036,7 +1001,6 @@ void LP_Set_linkplay_day(uint8_t day)
 uint8_t LP_Get_linkplay_day()
 {
     return rtc_day;
-
 }
 
 
@@ -1048,7 +1012,6 @@ void LP_Set_linkplay_hour(uint8_t hour)
 uint8_t LP_Get_linkplay_hour()
 {
     return rtc_hour;
-
 }
 
 
@@ -1060,7 +1023,6 @@ void LP_Set_linkplay_minute(uint8_t minute)
 uint8_t LP_Get_linkplay_minute()
 {
     return rtc_minute;
-
 }
 
 
@@ -1072,26 +1034,27 @@ void LP_Set_linkplay_second(uint8_t second)
 uint8_t LP_Get_linkplay_second()
 {
     return rtc_second;
-
 }
 
+void LP_Set_linkplay_silent_firmware_update(bool silent_firmware_update)
+{
+    linkplay_silent_firmware_update = silent_firmware_update;
+}
 
-void LP_Set_linkplay_weekday (LinkPlay_Weekday_t weekday);
-LinkPlay_Weekday_t LP_Get_linkplay_rtc_weekday();
+bool LP_Get_linkplay_silent_firmware_update()
+{
+    return linkplay_silent_firmware_update;
+}
 
-void LP_Set_linkplay_silent_firmware_update(bool silent_firmware_update);
-bool LP_Get_linkplay_silent_firmware_update();
+void set_num_access_points(uint8_t num_aps)
+{
+    num_access_points_found = num_aps;
+}
 
-void LP_Set_linkplay_wireless_access_status (LinkPlay_Wireless_Status_t wireless_status);
-LinkPlay_Wireless_Status_t LP_Get_linkplay_wireless_access_status();
-
-
-
-void num_access_points(uint8_t num_aps);
-
-
-
-
+void get_num_access_points(uint8_t num_aps)
+{
+    return num_access_points_found;
+}
 
 void LP_get_pic_channel_config()
 {

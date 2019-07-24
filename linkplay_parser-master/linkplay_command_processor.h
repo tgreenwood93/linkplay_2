@@ -102,6 +102,13 @@ enum {
     e_ap_channel,
  };
 
+typedef enum {
+    e_linkplay_power_normal = 0,
+    e_linkplay_saving_mode,
+    e_linkplay_firmware_upgrade,
+    e_linkplay_device_restarting,
+} Linlplay_Power_Status_t;
+
 enum {
     e_inf_language = 0,
     e_inf_ssid,

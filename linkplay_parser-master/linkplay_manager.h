@@ -252,14 +252,11 @@ LinkPlay_Shuffle_Repeat_Status_t LP_Get_linkplay_repeat_shuffle();
 void LP_Set_linkplay_playback_status (Linkplay_Playback_Status_t playback_status);
 Linkplay_Playback_Status_t LP_Get_linkplay_playback_status();
 
-void LP_Set_linkplay_playback_time();
-uint8_t LP_Get_linkplay_playback_time();
-
 void LP_Set_linkplay_voice_promt(Linkplay_voice_prompt_t vprompt_status);
 uint8_t LP_Get_linkplay_voice_promt();
 
-void LP_Set_linkplay_power_status();
-uint8_t LP_Get_linkplay_power_status();
+void LP_Set_linkplay_power_status(Linlplay_Power_Status_t power_status);
+Linlplay_Power_Status_t LP_Get_linkplay_power_status();
 
 void LP_Set_linkplay_hotspot_status (Linkplay_Hotspot_status_t hotspot_status);
 Linkplay_Hotspot_status_t LP_Get_linkplay_hotspot_status();
@@ -295,11 +292,16 @@ LinkPlay_Wireless_Status_t LP_Get_linkplay_wireless_access_status();
 void LP_send_linkplay_pic_volume(); 
 void LP_set_pic_volume(uint8_t lp_volume); 
 
-void num_access_points(uint8_t num_aps);
+void set_num_access_points(uint8_t num_aps);
+void get_num_access_points(uint8_t num_aps)
+
 
 void LP_Set_linkplay_access_points(uint8_t ap_num, char* ap); 
 char* LP_Get_linkplay_access_points();
 
 void LP_get_pic_channel_config(); 
+
+void Set_meta_data_ready();
+void Get_meta_data_ready();
 
 #endif
