@@ -37,6 +37,43 @@ static char linkplay_wifi_ip[20];
 static char linkplay_ethernet_ip[20];
 static char linkplay_hardware_module[5];
 static bool linkplay_internet_status;
+static bool linkplay_update_available;
+static bool linkplay_update_available;
+static bool linkplay_new_version_number;
+static uint16_t linkplay_pic_firmware_version;
+static uint16_t linkplay_pic_new_firmware_verison; 
+static uint16_t linkplay_dsp_firmware_version;
+static uint16_t linkplay_dsp_new_firmware_version;    
+static char* linkplay_internal_server_port[20]; 
+static char* linkplay_temp_uuid[20];
+static uint16_t linkplay_capl;
+static uint8_t linkplay_languages;
+static uint16_t linkplay_dsp_version;
+static uint32_t linkplay_streaming_settings;
+static uint32_t linkplay_streams;
+static uint16_t linkplay_region;
+static uint16_t linkplay_external;
+static uint8_t linkplay_preset_keys;
+static uint8_t linkplay_inf_plm_support;
+static bool linkplay_spotify_active;
+static uint16_t linkplay_wifi_channel;
+static int16_t linkplay_rssi;
+static bool linkplay_battery;
+static uint8_t linkplay_bat_percent;
+static bool linkplay_secure_mode;
+static uint16_t linkplay_unpn_version;
+static char* linkplay_unpn_uuid[40];
+static char* linkplay_pass_port[8];
+static char* linkplay_comm_port[8];
+static bool linkplay_firmware_update_hidden;
+static uint16_t linkplay_web_login_result;
+static bool linkplay_ignore_talk_start;
+static bool linkplay_iheartradio_new;
+static bool linkplay_privacy_mode;
+static char* linkplay_user_1[20];
+static char* linkplay_user_2[20];
+static char* linkplay_device_name[65]
+
 static uint16_t rtc_year;
 static uint8_t rtc_month;
 static uint8_t rtc_day;
@@ -418,14 +455,555 @@ char* LP_Get_linkplay_hardware()
 }
 
 
+void LP_Set_linkplay_version_update(bool update_available)
+{
+    linkplay_update_available = update_available; 
+}
+
+bool LP_Get_linkplay_version_update()
+{
+    return linkplay_update_available
+}
 
 
+void LP_Set_linkplay_new_version(uint16_t new_firmware_version)
+{
+    linkplay_new_version_number = new_firmware_version
+}
+
+uint16_t LP_Get_linkplay_new_version()
+{
+    return linkplay_new_version_number;
+}
 
 
+void LP_Set_linkplay_pic_firmware_verison(uint16_t pic_firmware_verison)
+{
+    linkplay_pic_firmware_version = pic_firmware_verison;
+}
+
+uint16_t LP_Get_linkplay_pic_firmware_verison()
+{
+    return linkplay_pic_firmware_version; 
+}
 
 
+void LP_Set_linkplay_pic_new_firmware_verison(uint16_t pic_new_firmware_verison)
+{
+    linkplay_pic_new_firmware_verison = pic_new_firmware_verison;
+}
+
+uint16_t LP_Get_linkplay_pic_new_firmware_verison()
+{
+    return linkplay_pic_new_firmware_verison; 
+}
+
+void LP_Set_linkplay_dsp_firmware_verison(uint16_t dsp_firmware_verison)
+{
+    linkplay_dsp_firmware_version = dsp_firmware_verison;
+}
+
+uint16_t LP_Get_linkplay_dsp_firmware_verison()
+{
+    return linkplay_dsp_firmware_version;
+}
+
+void LP_Set_linkplay_dsp_new_firmware_verison(uint16_t dsp_new_firmware_verison)
+{
+    linkplay_dsp_new_firmware_version = dsp_new_firmware_verison;
+}
+
+uint8_t LP_Get_linkplay_dsp_new_firmware_verison()
+{
+    return linkplay_dsp_new_firmware_version;    
+}
 
 
+void LP_Set_linkplay_internal_server_port(char* internal_server_port)
+{
+    memset(linkplay_internal_server_port, 0, 20);
+    strncpy(linkplay_internal_server_port, internal_server_port, strlen(internal_server_port));
+}
+
+char* LP_Get_linkplay_internal_server_port()
+{
+    return linkplay_internal_server_port; 
+}   
+
+
+void LP_Set_linkplay_temp_uuid(char* temp_uuid)
+{
+    memset(linkplay_temp_uuid, 0, 20);
+    strncpy(linkplay_temp_uuid, temp_uuid, strlen(temp_uuid));
+}
+
+char* LP_Get_linkplay_temp_uuid()
+{
+    return linkplay_temp_uuid; 
+}
+
+
+void LP_Set_linkplay_capl(uint16_t capl)
+{
+    linkplay_capl = capl;
+}
+
+uint16_t LP_Get_linkplay_capl()
+{
+    return linkplay_capl;
+}
+
+
+void LP_Set_linkplay_languages(uint8_t languages)
+{
+    linkplay_languages = languages;
+}
+
+uint8_t LP_Get_linkplay_languages()
+{
+    return linkplay_languages;
+}
+
+
+void LP_Set_linkplay_dsp_version(uint16_t dsp_version)
+{
+    linkplay_dsp_version = dsp_version;
+}
+
+uint16_t LP_Get_linkplay_dsp_version()
+{
+    return linkplay_dsp_version;
+}
+
+
+void LP_Set_linkplay_steaming_settings(uint32_t streaming_settings)
+{
+    linkplay_streaming_settings = streaming_settings;
+}
+
+uint32_t LP_Get_linkplay_steaming_settings()
+{
+    return linkplay_streaming_settings;
+}
+
+
+void LP_Set_linkplay_streams(uint32_t streams)
+{
+    linkplay_streams = streams;
+}
+
+uint32_t LP_Get_linkplay_streams()
+{
+    return linkplay_streams
+}
+
+
+void LP_Set_linkplay_region(uint16_t region)
+{
+    linkplay_region = region;
+}
+
+uint16_t LP_Get_linkplay_region()
+{
+    return linkplay_region;
+}
+
+
+void LP_Set_linkplay_external(uint16_t external)
+{
+    linkplay_external = external;
+}
+
+uint16_t LP_Get_linkplay_external()
+{
+    return linkplay_external;
+}
+
+
+void LP_Set_linkplay_preset_keys(uint8_t preset_keys)
+{
+    linkplay_preset_keys = preset_keys; 
+}
+
+uint8_t LP_Get_linkplay_preset_keys()
+{
+    return linkplay_preset_keys;
+}
+
+
+void LP_Set_linkplay_plm_support(uint8_t inf_plm_support)
+{
+    linkplay_inf_plm_support = e_inf_plm_support;
+}
+
+uint8_t LP_Get_linkplay_plm_support()
+{
+    return linkplay_inf_plm_support;
+}
+
+
+void LP_Set_linkplay_spotify_active(bool spotify_active)
+{
+    linkplay_spotify_active = spotify_active;
+}
+
+bool LP_Get_linkplay_spotify_active()
+{
+    return linkplay_spotify_active;
+}
+
+
+void LP_Set_linkplay_wifi_channel(uint16_t wifi_channel)
+{
+    linkplay_wifi_channel = wifi_channel;
+}
+
+uint16_t LP_Get_linkplay_wifi_channel()
+{
+    return linkplay_wifi_channel;
+}
+
+
+void LP_Set_linkplay_rssi(int16_t rssi)
+{
+    linkplay_rssi = rssi;
+}
+
+uint16_t LP_Get_linkplay_rssi()
+{
+    return linkplay_rssi;
+}
+
+
+void LP_Set_linkplay_battery(bool battery)
+{
+    linkplay_battery = battery;
+}
+
+bool LP_Get_linkplay_battery()
+{
+    return linkplay_battery;
+}
+
+
+void LP_Set_linkplay_battery_percent(uint8_t bat_percent)
+{
+    linkplay_bat_percent = bat_percent;
+}
+
+uint8_t LP_Get_linkplay_battery_percent()
+{
+    return linkplay_bat_percent;
+}
+
+
+void LP_Set_linkplay_secure_mode(bool secure_mode)
+{
+    linkplay_secure_mode = secure_mode;
+}
+
+bool LP_Get_linkplay_secure_mode()
+{
+    return linkplay_secure_mode;
+}
+
+
+void LP_Set_linkplay_upnp_version(uint16_t unpn_version)
+{
+    linkplay_unpn_version = unpn_version;
+}
+
+uint16_t LP_Get_linkplay_upnp_version()
+{
+    return linkplay_unpn_version;
+}
+
+
+void LP_Set_linkplay_upnp_uuid(char* unpn_uuid)
+{
+    memset(linkplay_unpn_uuid, 0, 40);
+    strncpy(linkplay_unpn_uuid, unpn_uuid, strlen(unpn_uuid));
+}
+
+char* LP_Get_linkplay_upnp_uuid()
+{
+    return linkplay_unpn_uuid;
+}
+
+
+void LP_Set_linkplay_pass_port(char* pass_port)
+{
+    memset(linkplay_pass_port, 0, 8);
+    strncpy(linkplay_pass_port, pass_port, strlen(pass_port));
+}
+
+char* LP_Get_linkplay_pass_port()
+{
+    return linkplay_pass_port;
+}
+
+
+void LP_Set_linkplay_communication_port(char* comm_port)
+{
+    memset(linkplay_comm_port, 0, 8);
+    strncpy(linkplay_comm_port, comm_port, strlen(comm_port));
+}
+
+char* LP_Get_linkplay_communication_port()
+{
+    return linkplay_comm_port;
+}
+
+
+void LP_Set_linkplay_firmware_update_hidden(bool firmware_update_hidden)
+{
+    linkplay_firmware_update_hidden = firmware_update_hidden;
+}
+
+bool LP_Get_linkplay_firmware_update_hidden()
+{
+    return linkplay_firmware_update_hidden;
+}
+
+
+void LP_Set_linkplay_web_login_result(int16_t web_login_result)
+{
+    linkplay_web_login_result = web_login_result;
+}
+
+uint16_t LP_Get_linkplay_web_login_result()
+{
+    return linkplay_web_login_result;
+}
+
+
+void LP_Set_linkplay_ignore_talk_start(bool ignore_talk_start)
+{
+    linkplay_ignore_talk_start = ignore_talk_start;
+}
+
+bool LP_Get_linkplay_ignore_talk_start()
+{
+    return linkplay_ignore_talk_start;
+}
+
+
+void LP_Set_linkplay_iHeartRadio_new(bool iheartradio_new)
+{
+    linkplay_
+}
+
+bool LP_Get_linkplay_iHeartRadio_new()
+{
+    return linkplay_iheartradio_new;
+}
+
+
+void LP_Set_linkplay_privacy_mode(bool privacy_mode)
+{
+    linkplay_privacy_mode = privacy_mode;
+}
+
+bool LP_Get_linkplay_privacy_mode()
+{
+    return linkplay_privacy_mode;
+}
+
+
+void LP_Set_linkplay_user1(char* user_1)
+{
+    linkplay_user_1, user_1,
+}
+
+char* LP_Get_linkplay_user1()
+{
+    return linkplay_user_1;
+}
+
+
+void LP_Set_linkplay_user2(char* user_2)
+{
+    linkplay_user_2, user_2
+}
+
+char* LP_Get_linkplay_user2()
+{
+    return linkplay_user_2;
+}
+
+
+void LP_Set_linkplay_device_name(char* device_name)
+{
+    linkplay_device_name, device_name
+}
+
+char* LP_Get_linkplay_device_name()
+{
+    return linkplay_device_name;
+}
+
+
+void LP_Set_linkplay_sample_rate(Linkpaly_sample_rate_t sample_rate)
+{
+    linkplay_
+}
+Linkpaly_sample_rate_t LP_Get_linkplay_sample_rate()
+{
+    return linkplay_
+} 
+
+void LP_Set_linkplay_bit_depth(Linkpaly_bit_depth_t bit_depth)
+{
+
+}
+Linkpaly_bit_depth_t LP_Get_linkplay_bit_depth()
+{
+
+}
+
+void LP_Set_linkplay_communication_status()
+{
+
+}
+uint8_t LP_Get_linkplay_communication_status()
+{
+
+}
+
+void LP_Set_linkplay_title(char* title)
+{
+
+}
+char* LP_Get_linkplay_title()
+{
+
+}
+
+void LP_Set_linkplay_artist(char* artist)
+{
+
+}
+char* LP_Get_linkplay_artist()
+{
+
+}
+
+void LP_Set_linkplay_album(char* album)
+{
+
+}
+char* LP_Get_linkplay_album()
+{
+
+}
+
+void LP_Set_linkplay_song_time(uint32_t songtime_ms)
+{
+
+}
+uint32_t LP_Get_linkplay_song_time()
+{
+
+}
+
+void LP_Set_linkplay_microphones()
+{
+
+}
+uint8_t LP_Get_linkplay_micrphones()
+{
+
+}
+
+void LP_Set_linkplay_mute (Linkplay_Mute_Status_t mute_status)
+{
+
+}
+Linkplay_Mute_Status_t LP_Get_linkplay_mute()
+{
+
+}
+
+void LP_Set_linkplay_microphones()
+{
+
+}
+uint8_t LP_Get_linkplay_micrphones()
+{
+
+}
+
+void LP_Set_linkplay_alarm()
+{
+
+}
+uint8_t LP_Get_linkplay_alarm()
+{
+
+}
+
+void LP_Set_linkplay_playback_mode (LinkPlay_Playback_Mode_t playback_mode)
+{
+
+}
+LinkPlay_Playback_Mode_t LP_Get_linkplay_playback_mode()
+{
+
+}
+
+void LP_Set_linkplay_repeat_shuffle (LinkPlay_Shuffle_Repeat_Status_t shuffle_repeat_status)
+{
+
+}
+LinkPlay_Shuffle_Repeat_Status_t LP_Get_linkplay_repeat_shuffle()
+{
+
+}
+
+void LP_Set_linkplay_playback_status (Linkplay_Playback_Status_t playback_status)
+{
+
+}
+Linkplay_Playback_Status_t LP_Get_linkplay_playback_status()
+{
+
+}
+
+void LP_Set_linkplay_playback_time()
+{
+
+}
+uint8_t LP_Get_linkplay_playback_time()
+{
+
+}
+
+void LP_Set_linkplay_voice_promt(Linkplay_voice_prompt_t vprompt_status)
+{
+
+}
+uint8_t LP_Get_linkplay_voice_promt()
+{
+
+}
+
+void LP_Set_linkplay_power_status()
+{
+
+}
+uint8_t LP_Get_linkplay_power_status()
+{
+
+}
+
+void LP_Set_linkplay_hotspot_status (Linkplay_Hotspot_status_t hotspot_status)
+{
+
+}
+Linkplay_Hotspot_status_t LP_Get_linkplay_hotspot_status()
+{
+
+}
 
 
 void LP_Set_linkplay_year(uint16_t year)
@@ -498,9 +1076,18 @@ uint8_t LP_Get_linkplay_second()
 }
 
 
+void LP_Set_linkplay_weekday (LinkPlay_Weekday_t weekday);
+LinkPlay_Weekday_t LP_Get_linkplay_rtc_weekday();
+
+void LP_Set_linkplay_silent_firmware_update(bool silent_firmware_update);
+bool LP_Get_linkplay_silent_firmware_update();
+
+void LP_Set_linkplay_wireless_access_status (LinkPlay_Wireless_Status_t wireless_status);
+LinkPlay_Wireless_Status_t LP_Get_linkplay_wireless_access_status();
 
 
 
+void num_access_points(uint8_t num_aps);
 
 
 

@@ -121,7 +121,7 @@ void LP_Set_linkplay_dsp_new_firmware_verison(uint16_t dsp_new_firmware_verison)
 uint8_t LP_Get_linkplay_dsp_new_firmware_verison();
 
 void LP_Set_linkplay_internal_server_port(char* internal_server_port);
-uint8_t LP_Get_linkplay_internal_server_port();
+char* LP_Get_linkplay_internal_server_port();
 
 void LP_Set_linkplay_temp_uuid(char* temp_uuid);
 char* LP_Get_linkplay_temp_uuid();
@@ -147,10 +147,10 @@ uint16_t LP_Get_linkplay_region();
 void LP_Set_linkplay_external(uint16_t external);
 uint16_t LP_Get_linkplay_external();
 
-void LP_Set_linkplay_preset_key(uint8_t preset_keys);
-uint8_t LP_Get_linkplay_preset_key();
+void LP_Set_linkplay_preset_keys(uint8_t preset_keys);
+uint8_t LP_Get_linkplay_preset_keys();
 
-void LP_Set_linkplay_plm_support(uint8_t e_inf_plm_support);
+void LP_Set_linkplay_plm_support(uint8_t inf_plm_support);
 uint8_t LP_Get_linkplay_plm_support();
 
 void LP_Set_linkplay_spotify_active(bool spotify_active);
