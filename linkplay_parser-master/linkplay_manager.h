@@ -75,7 +75,7 @@ bool LP_Get_linkplay_version_expierd();
 void LP_Set_linkplay_internet_status (bool internet_status);
 bool LP_Get_linkplay_internet_status();
 
-void LP_Set_linkplay_uuid(char* );
+void LP_Set_linkplay_uuid(char* uuid);
 char* LP_Get_linkplay_uuid();
 
 void LP_Set_linkplay_mac_address(char* mac_address);
@@ -102,140 +102,134 @@ char* LP_Get_linkplay_ethernet_ip();
 void LP_Set_linkplay_hardware(char* hardware_module);
 char* LP_Get_linkplay_hardware();
 
-void LP_Set_linkplay_version_update();
-uint8_t LP_Get_linkplay_version_update();
+void LP_Set_linkplay_version_update(bool update_available);
+bool LP_Get_linkplay_version_update();
 
-void LP_Set_linkplay_new_version();
-uint8_t LP_Get_linkplay_new_version();
+void LP_Set_linkplay_new_version(uint16_t new_firmware_version);
+uint16_t LP_Get_linkplay_new_version();
 
-void LP_Set_linkplay_pic_firmware_verison();
-uint8_t LP_Get_linkplay_pic_firmware_verison();
+void LP_Set_linkplay_pic_firmware_verison(uint16_t pic_firmware_verison);
+uint16_t LP_Get_linkplay_pic_firmware_verison();
 
-void LP_Set_linkplay_pic_new_firmware_verison();
-uint8_t LP_Get_linkplay_pic_new_firmware_verison();
+void LP_Set_linkplay_pic_new_firmware_verison(uint16_t pic_new_firmware_verison);
+uint16_t LP_Get_linkplay_pic_new_firmware_verison();
 
-void LP_Set_linkplay_dsp_firmware_verison();
-uint8_t LP_Get_linkplay_dsp_firmware_verison();
+void LP_Set_linkplay_dsp_firmware_verison(uint16_t dsp_firmware_verison);
+uint16_t LP_Get_linkplay_dsp_firmware_verison();
 
-void LP_Set_linkplay_dsp_new_firmware_verison();
+void LP_Set_linkplay_dsp_new_firmware_verison(uint16_t dsp_new_firmware_verison);
 uint8_t LP_Get_linkplay_dsp_new_firmware_verison();
 
-void LP_Set_linkplay_internal_server_port();
+void LP_Set_linkplay_internal_server_port(char* internal_server_port);
 uint8_t LP_Get_linkplay_internal_server_port();
 
-void LP_Set_linkplay_temp_uuid();
-uint8_t LP_Get_linkplay_temp_uuid();
+void LP_Set_linkplay_temp_uuid(char* temp_uuid);
+char* LP_Get_linkplay_temp_uuid();
 
-void LP_Set_linkplay_pass_port();
-uint8_t LP_Get_linkplay_pass_port();
+void LP_Set_linkplay_capl(uint16_t capl);
+uint16_t LP_Get_linkplay_capl();
 
-void LP_Set_linkplay_capl();
-uint8_t LP_Get_linkplay_capl();
-
-void LP_Set_linkplay_languages();
+void LP_Set_linkplay_languages(uint8_t languages);
 uint8_t LP_Get_linkplay_languages();
 
-void LP_Set_linkplay_dsp_version();
-uint8_t LP_Get_linkplay_dsp_version();
+void LP_Set_linkplay_dsp_version(uint16_t dsp_version);
+uint16_t LP_Get_linkplay_dsp_version();
 
-void LP_Set_linkplay_steaming_settings();
-uint8_t LP_Get_linkplay_steaming_settings();
+void LP_Set_linkplay_steaming_settings(uint32_t streaming_settings);
+uint32_t LP_Get_linkplay_steaming_settings();
 
-void LP_Set_linkplay_streams();
-uint8_t LP_Get_linkplay_streams();
+void LP_Set_linkplay_streams(uint32_t streams);
+uint32_t LP_Get_linkplay_streams();
 
-void LP_Set_linkplay_region();
-uint8_t LP_Get_linkplay_region();
+void LP_Set_linkplay_region(uint16_t region);
+uint16_t LP_Get_linkplay_region();
 
-void LP_Set_linkplay_external();
-uint8_t LP_Get_linkplay_external();
+void LP_Set_linkplay_external(uint16_t external);
+uint16_t LP_Get_linkplay_external();
 
-void LP_Set_linkplay_preset_key();
+void LP_Set_linkplay_preset_key(uint8_t preset_keys);
 uint8_t LP_Get_linkplay_preset_key();
 
-void LP_Set_linkplay_plm_support();
+void LP_Set_linkplay_plm_support(uint8_t e_inf_plm_support);
 uint8_t LP_Get_linkplay_plm_support();
 
-void LP_Set_linkplay_spotify_active();
-uint8_t LP_Get_linkplay_spotify_active();
+void LP_Set_linkplay_spotify_active(bool spotify_active);
+bool LP_Get_linkplay_spotify_active();
 
-void LP_Set_linkplay_wifi_channel();
-uint8_t LP_Get_linkplay_wifi_channel();
+void LP_Set_linkplay_wifi_channel(uint16_t wifi_channel);
+uint16_t LP_Get_linkplay_wifi_channel();
 
-void LP_Set_linkplay_rssi();
-uint8_t LP_Get_linkplay_rssi();
+void LP_Set_linkplay_rssi(int16_t rssi);
+uint16_t LP_Get_linkplay_rssi();
 
-void LP_Set_linkplay_battery();
-uint8_t LP_Get_linkplay_battery();
+void LP_Set_linkplay_battery(bool battery);
+bool LP_Get_linkplay_battery();
 
-void LP_Set_linkplay_battery_percent();
+void LP_Set_linkplay_battery_percent(uint8_t bat_percent);
 uint8_t LP_Get_linkplay_battery_percent();
 
-void LP_Set_linkplay_secure_mode();
-uint8_t LP_Get_linkplay_secure_mode();
+void LP_Set_linkplay_secure_mode(bool secure_mode);
+bool LP_Get_linkplay_secure_mode();
 
-void LP_Set_linkplay_upnp_version();
-uint8_t LP_Get_linkplay_upnp_version();
+void LP_Set_linkplay_upnp_version(uint16_t unpn_version);
+uint16_t LP_Get_linkplay_upnp_version();
 
-void LP_Set_linkplay_upnp_uuid();
-uint8_t LP_Get_linkplay_upnp_uuid();
+void LP_Set_linkplay_upnp_uuid(char* unpn_uuid);
+char* LP_Get_linkplay_upnp_uuid();
 
-void LP_Set_linkplay_pass_port();
-uint8_t LP_Get_linkplay_pass_port();
+void LP_Set_linkplay_pass_port(char* pass_port);
+char* LP_Get_linkplay_pass_port();
 
-void LP_Set_linkplay_communication_port();
-uint8_t LP_Get_linkplay_communication_port();
+void LP_Set_linkplay_communication_port(char* comm_port);
+char* LP_Get_linkplay_communication_port();
 
-void LP_Set_linkplay_firmware_update_hidden();
-uint8_t LP_Get_linkplay_firmware_update_hidden();
+void LP_Set_linkplay_firmware_update_hidden(bool firmware_update_hidden);
+bool LP_Get_linkplay_firmware_update_hidden();
 
-void LP_Set_linkplay_web_login_result();
-uint8_t LP_Get_linkplay_web_login_result();
+void LP_Set_linkplay_web_login_result(int16_t web_login_result);
+uint16_t LP_Get_linkplay_web_login_result();
 
-void LP_Set_linkplay_ignore_talk_start();
-uint8_t LP_Get_linkplay_ignore_talk_start();
+void LP_Set_linkplay_ignore_talk_start(bool ignore_talk_start);
+bool LP_Get_linkplay_ignore_talk_start();
 
 void LP_Set_linkplay_silence_OTA_time();
 uint8_t LP_Get_linkplay_silence_OTA_time();
 
-void LP_Set_linkplay_ignore_silence_OTA_time();
-uint8_t LP_Get_linkplay_ignore_silence_OTA_time();
+void LP_Set_linkplay_iHeartRadio_new(bool iheartradio_new);
+bool LP_Get_linkplay_iHeartRadio_new();
 
-void LP_Set_linkplay_iHeartRadio_new();
-uint8_t LP_Get_linkplay_iHeartRadio_new();
+void LP_Set_linkplay_privacy_mode(bool privacy_mode);
+bool LP_Get_linkplay_privacy_mode();
 
-void LP_Set_linkplay_privacy_mode();
-uint8_t LP_Get_linkplay_privacy_mode();
+void LP_Set_linkplay_user1(char* user_1);
+char* LP_Get_linkplay_user1();
 
-void LP_Set_linkplay_user1();
-uint8_t LP_Get_linkplay_user1();
+void LP_Set_linkplay_user2(char* user_2);
+char* LP_Get_linkplay_user2();
 
-void LP_Set_linkplay_user2();
-uint8_t LP_Get_linkplay_user2();
+void LP_Set_linkplay_device_name(char* device_name);
+char* LP_Get_linkplay_device_name();
 
-void LP_Set_linkplay_device_name();
-uint8_t LP_Get_linkplay_device_name();
+void LP_Set_linkplay_sample_rate(Linkpaly_sample_rate_t sample_rate);
+Linkpaly_sample_rate_t LP_Get_linkplay_sample_rate();
 
-void LP_Set_linkplay_sample_rate();
-uint8_t LP_Get_linkplay_sample_rate();
-
-void LP_Set_linkplay_bit_depth();
-uint8_t LP_Get_linkplay_bit_depth();
+void LP_Set_linkplay_bit_depth(Linkpaly_bit_depth_t bit_depth);
+Linkpaly_bit_depth_t LP_Get_linkplay_bit_depth();
 
 void LP_Set_linkplay_communication_status();
 uint8_t LP_Get_linkplay_communication_status();
 
-void LP_Set_linkplay_title();
-uint8_t LP_Get_linkplay_title();
+void LP_Set_linkplay_title(char* title);
+char* LP_Get_linkplay_title();
 
-void LP_Set_linkplay_artist();
-uint8_t LP_Get_linkplay_artist();
+void LP_Set_linkplay_artist(char* artist);
+char* LP_Get_linkplay_artist();
 
-void LP_Set_linkplay_album();
-uint8_t LP_Get_linkplay_album();
+void LP_Set_linkplay_album(char* album);
+char* LP_Get_linkplay_album();
 
-void LP_Set_linkplay_song_time();
-uint8_t LP_Get_linkplay_song_time();
+void LP_Set_linkplay_song_time(uint32_t songtime_ms);
+uint32_t LP_Get_linkplay_song_time();
 
 void LP_Set_linkplay_microphones();
 uint8_t LP_Get_linkplay_micrphones();
@@ -291,17 +285,20 @@ uint8_t LP_Get_linkplay_second();
 void LP_Set_linkplay_weekday (LinkPlay_Weekday_t weekday);
 LinkPlay_Weekday_t LP_Get_linkplay_rtc_weekday();
 
-void LP_Set_linkplay_silent_firmware_update();
-uint8_t LP_Get_linkplay_silent_firmware_update();
+void LP_Set_linkplay_silent_firmware_update(bool silent_firmware_update);
+bool LP_Get_linkplay_silent_firmware_update();
 
 void LP_Set_linkplay_wireless_access_status (LinkPlay_Wireless_Status_t wireless_status);
 LinkPlay_Wireless_Status_t LP_Get_linkplay_wireless_access_status();
 
+
 void LP_send_linkplay_pic_volume(); 
 void LP_set_pic_volume(uint8_t lp_volume); 
 
-void LP_Set_linkplay_access_points(); 
-uint8_t LP_Get_linkplay_access_points();
+void num_access_points(uint8_t num_aps);
+
+void LP_Set_linkplay_access_points(uint8_t ap_num, char* ap); 
+char* LP_Get_linkplay_access_points();
 
 void LP_get_pic_channel_config(); 
 

@@ -1182,9 +1182,11 @@ LinkPlay_Error_t process_mut_command(char* linkplay_command)                    
     {
         case e_linkplay_unmute:
             Serial.println("unmute output");
+            LP_Set_linkplay_mute(e_linkplay_unmute);
             break; 
         case e_linkplay_mute:
             Serial.println("mute output");
+            LP_Set_linkplay_mute(e_linkplay_mute);
             break; 
         default:
             error_handler = e_unknown_mut_command; 

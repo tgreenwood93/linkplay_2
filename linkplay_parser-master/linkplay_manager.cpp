@@ -418,6 +418,16 @@ char* LP_Get_linkplay_hardware()
 }
 
 
+
+
+
+
+
+
+
+
+
+
 void LP_Set_linkplay_year(uint16_t year)
 {
     rtc_year = year;
