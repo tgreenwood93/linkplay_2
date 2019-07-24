@@ -1305,15 +1305,19 @@ LinkPlay_Error_t process_plp_command(char* linkplay_command)                    
     {
         case e_repeat_all:
             Serial.print("repeat all songs");
+            LP_Set_linkplay_repeat_shuffle(e_repeat_all);
             break;
         case e_repeat_current:
             Serial.print("repeat all currnet song");
+            LP_Set_linkplay_repeat_shuffle(e_repeat_current);
             break;
         case e_shuffle_repeat:
             Serial.print("shuffle and repeat playlist");
+            LP_Set_linkplay_repeat_shuffle(e_shuffle_repeat);
             break;
         case e_shuffle_no_repeat:
             Serial.print("shuffle, no repeat");
+            LP_Set_linkplay_repeat_shuffle(e_shuffle_no_repeat);
             break;  
         default:
             error_handler = e_unknown_plp_command; 
@@ -1349,6 +1353,7 @@ LinkPlay_Error_t process_ply_command(char* linkplay_command)                    
             memset(playback_time, 0, 50);
             strncpy(playback_time, linkplay_command+11, (i-11));
             Serial.println(atoi(playback_time));
+            LP_Set_linkplay_playback_time(atoi(playback_time));
         }
     }
     else if (linkplay_command[8] == '0')
@@ -1357,9 +1362,11 @@ LinkPlay_Error_t process_ply_command(char* linkplay_command)                    
         {
             case e_stopped_playback:
                 Serial.println("playback stopped");
+                LP_Set_linkplay_playback_status(e_stopped_playback);
                 break;  
             case e_playback_started:
                 Serial.println("playback started");
+                LP_Set_linkplay_playback_status(e_playback_started);
                 break;
             default: 
                 error_handler = e_unknown_playback_status; 
@@ -1378,15 +1385,19 @@ LinkPlay_Error_t process_pmt_command(char* linkplay_command)                    
     {
         case 0: 
             Serial.println("voice prompt start");
+            LP_Set_linkplay_voice_promt();
             break;
         case 1:
             Serial.println("voice prompt stopped");
+            LP_Set_linkplay_voice_promt();
             break; 
         case 2:
             Serial.println("voice prompt disabled");
+            LP_Set_linkplay_voice_promt();
             break; 
         case 3: 
             Serial.println("voice prompt can be triggered by PIC");
+            LP_Set_linkplay_voice_promt();
             break;        
     }
     return e_no_error;

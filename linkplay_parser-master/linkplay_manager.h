@@ -26,8 +26,8 @@ LinkPlay_Firmware_Update_t LP_Get_linkplay_firmware_update_status();
 void LP_Set_linkplay_audio_channel_status(LinkPlay_Audio_Channel_Options_t channel_config);
 LinkPlay_Audio_Channel_Options_t LP_Get_linkplay_audio_channel_status();
 
-void LP_Set_linkplay_in_reset();
-uint8_t LP_Get_linkplay_in_reset();
+void LP_Set_linkplay_in_reset(bool linkplay_in_reset);
+bool LP_Get_linkplay_in_reset();
 
 void LP_Set_linkplay_ethernet_status (Linkplay_Ethernet_Status_t ethernet_status);
 Linkplay_Ethernet_Status_t LP_Get_linkplay_ethernet_status();
@@ -255,7 +255,7 @@ Linkplay_Playback_Status_t LP_Get_linkplay_playback_status();
 void LP_Set_linkplay_playback_time();
 uint8_t LP_Get_linkplay_playback_time();
 
-void LP_Set_linkplay_voice_promt();
+void LP_Set_linkplay_voice_promt(Linkplay_voice_prompt_t vprompt_status);
 uint8_t LP_Get_linkplay_voice_promt();
 
 void LP_Set_linkplay_power_status();
