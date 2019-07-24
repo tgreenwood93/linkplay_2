@@ -258,6 +258,9 @@ Linlplay_Power_Status_t LP_Get_linkplay_power_status();
 void LP_Set_linkplay_hotspot_status (Linkplay_Hotspot_Status_t hotspot_status);
 Linkplay_Hotspot_Status_t LP_Get_linkplay_hotspot_status();
 
+void LP_Set_linkplay_hotspot_connections_status (Linkplay_Hotspot_Connections_Status_t hotspot_connections_status);
+Linkplay_Hotspot_Connections_Status_t LP_Get_linkplay_hotspot_connections_status();
+
 void LP_Set_linkplay_year(uint16_t year);
 uint8_t LP_Get_linkplay_rtc_year();
 
@@ -285,13 +288,14 @@ bool LP_Get_linkplay_silent_firmware_update();
 void LP_Set_linkplay_wireless_access_status (LinkPlay_Wireless_Status_t wireless_status);
 LinkPlay_Wireless_Status_t LP_Get_linkplay_wireless_access_status();
 
-
 void LP_send_linkplay_pic_volume(); 
 void LP_set_pic_volume(uint8_t lp_volume); 
 
 void set_num_access_points(uint8_t num_aps);
 uint8_t get_num_access_points(uint8_t num_aps);
 
+void Linkplay_Set_wps_status(Linkplay_WPS_Status_t wps_status);
+Linkplay_WPS_Status_t Linkplay_Set_wps_status();
 
 void LP_Set_linkplay_access_points(uint8_t ap_num, char* ap); 
 char* LP_Get_linkplay_access_points();
@@ -300,5 +304,8 @@ void LP_get_pic_channel_config();
 
 void Set_meta_data_ready();
 void Get_meta_data_ready();
+
+void LP_Set_linkplay_ready_for_communication(bool ready);
+bool LP_Set_linkplay_ready_for_communication();
 
 #endif

@@ -1004,21 +1004,27 @@ LinkPlay_Error_t process_i2s_command(char* linkplay_command)
             {
                 case e_linkplay_44100:
                     Serial.println("44.1 k");
+                    LP_Set_linkplay_sample_rate(e_linkplay_44100);
                     break;
                 case e_linkplay_48000:
                     Serial.println("48 k");
+                    LP_Set_linkplay_sample_rate(e_linkplay_48000);
                     break;
                 case e_linkplay_88200:
                     Serial.println("88.2 k");
+                    LP_Set_linkplay_sample_rate(e_linkplay_88200);
                     break;
                 case e_linkplay_96000:
                     Serial.println("96 k");
+                    LP_Set_linkplay_sample_rate(e_linkplay_96000);
                     break;
                 case e_linkplay_176400:
                     Serial.println("176.4 k");
+                    LP_Set_linkplay_sample_rate(e_linkplay_176400);
                     break;
                 case e_linkplay_192000:
                     Serial.println("192.2 k");
+                    LP_Set_linkplay_sample_rate(e_linkplay_192000);
                     break;
             }
     
@@ -1063,6 +1069,7 @@ LinkPlay_Error_t process_mcu_command(char* linkplay_command)                    
     if (strncmp((linkplay_command + 8), "RDY", 3) == 0)
     {
         Serial.println("Linkplay is ready for communication!");
+        LP_Set_linkplay_ready_for_communication(true);
         return e_no_error;
     }
     else if (strncmp((linkplay_command + 8), "VER", 3) == 0)
@@ -1124,6 +1131,7 @@ LinkPlay_Error_t process_mea_command(char* linkplay_command)                    
         strncpy(hex_title, (linkplay_command + title_offset), title_char_counter-title_offset);
         hex2ascii(hex_title, ascii_title, strlen(hex_title), strlen(ascii_title));
         Serial.print("Title: "); Serial.println(ascii_title);
+        LP_Set_linkplay_title(ascii_title);
 
         for(artist_char_counter = (title_char_counter+artist_offset); artist_char_counter < 1024; artist_char_counter++)
         {
@@ -1135,6 +1143,8 @@ LinkPlay_Error_t process_mea_command(char* linkplay_command)                    
         strncpy(hex_artist, (linkplay_command + (title_char_counter+artist_offset)), (artist_char_counter - (title_char_counter+artist_offset)));
         hex2ascii(hex_artist, ascii_artist, strlen(hex_artist), strlen(ascii_artist));
         Serial.print("Artist: "); Serial.println(ascii_artist);
+        LP_Set_linkplay_title(ascii_artist);
+
 
         for(album_char_counter = (artist_char_counter+album_offset); album_char_counter < 1024; album_char_counter++)
         {
@@ -1146,6 +1156,8 @@ LinkPlay_Error_t process_mea_command(char* linkplay_command)                    
         strncpy(hex_album, (linkplay_command + (artist_char_counter+album_offset)), (album_char_counter - (artist_char_counter+album_offset))); 
         hex2ascii(hex_album, ascii_album, strlen(hex_album), strlen(ascii_album));
         Serial.print("Album: "); Serial.println(ascii_album);
+        LP_Set_linkplay_title(ascii_album);
+
         return e_no_error; 
     }
     else
@@ -1208,6 +1220,7 @@ LinkPlay_Error_t process_nxt_command(char* linkplay_command)                    
     if (linkplay_command[11] == '-')
     {
         Serial.println("Linkplay alarm feature is disabled");
+        LP_Set_linkplay_alarm(-1);
         return e_no_error; 
     }
     
@@ -1248,36 +1261,47 @@ LinkPlay_Error_t process_plm_command(char* linkplay_command)                    
         {
             case e_none:
                 Serial.println("no Linkplay input selected");
+                LP_Set_linkplay_playback_mode(e_none);
                 break;
             case e_airplay:
                 Serial.println("Airplay input selected");
+                LP_Set_linkplay_playback_mode(e_airplay);
                 break;
             case e_DLNA:
                 Serial.println("DLNA input selected");
+                LP_Set_linkplay_playback_mode(e_DLNA);
                 break;
             case e_thumb_drive:
                 Serial.println("thumb drive input selected");
+                LP_Set_linkplay_playback_mode(e_thumb_drive);
                 break;
             case e_line_in:
                 Serial.println("line-in input selected");
+                LP_Set_linkplay_playback_mode(e_line_in);
                 break;
             case e_bluetooth:
                 Serial.println("bluetooth input selected");
+                LP_Set_linkplay_playback_mode(e_bluetooth);
                 break;
             case e_optical:
                 Serial.println("optical input selected");
+                LP_Set_linkplay_playback_mode(e_optical);
                 break;
             case e_rca:
                 Serial.println("rca input selected");
+                LP_Set_linkplay_playback_mode(e_rca);
                 break;
             case e_coaxial:
                 Serial.println("coaxial Linkplay input selected");
+                LP_Set_linkplay_playback_mode(e_coaxial);
                 break;
             case e_mirror:
                 Serial.println("mirror input selected");
+                LP_Set_linkplay_playback_mode(e_mirror);
                 break;
             case e_slave:
                 Serial.println("slave input selected");
+                LP_Set_linkplay_playback_mode(e_slave);
                 break;
             default:
                 error_handler = e_unknown_plm_command;
@@ -1458,19 +1482,23 @@ LinkPlay_Error_t process_ra0_command(char* linkplay_command)                    
     
     if (strncmp((linkplay_command + 8), "+ON", 3) == 0)
     {
-        Serial.println("Linkplay hotspot is on");           
+        Serial.println("Linkplay hotspot is on");
+        LP_Set_linkplay_hotspot_status(e_hotspot_on);         
     }
     else if (strncmp((linkplay_command + 8), "OFF", 3) == 0)
     {
-        Serial.println("Linkplay hotspot is off");           
+        Serial.println("Linkplay hotspot is off");
+        LP_Set_linkplay_hotspot_status(e_hotspot_off);         
     }
     else if (strncmp((linkplay_command + 8), "FFF", 3) == 0)
     {
-        Serial.println("Linkplay hotspot is hidden");           
+        Serial.println("Linkplay hotspot is hidden");
+        LP_Set_linkplay_hotspot_status(e_hotspot_hidden);
     }
     else if (strncmp((linkplay_command + 8), "FFE", 3) == 0)
     {
         Serial.println("Linkplay hotspot is not hidden");
+        LP_Set_linkplay_hotspot_status(e_hotspot_not_hidden);
     }
     else if (linkplay_command[8] == '0')
     {
@@ -1478,12 +1506,15 @@ LinkPlay_Error_t process_ra0_command(char* linkplay_command)                    
         {
             case 0:
                 Serial.println("no devices connected");
+                LP_Set_linkplay_hotspot_connections_status(e_no_devices_connected);
                 break; 
             case 1:
                 Serial.println("a new device has connected to the hotspot");
+                LP_Set_linkplay_hotspot_connections_status(e_new_devices_has_connected);
                 break;
             case 2:
                 Serial.println("Some devices are disconnected,\nbut there are other devices connected");
+                LP_Set_linkplay_hotspot_connections_status(e_some_devices_are_connected);
                 break;   
             default:
                 error_handler = e_unknown_connection_status;
@@ -1554,25 +1585,32 @@ LinkPlay_Error_t process_set_command(char* linkplay_command)                    
         switch(day_of_the_week)
         {
             case e_sunday:
-                Serial.println("Sunday"); 
+                Serial.println("Sunday");
+                LP_Set_linkplay_weekday(e_sunday);
                 break;
             case e_monday:
-                Serial.println("Monday"); 
+                Serial.println("Monday");
+                LP_Set_linkplay_weekday(e_monday);
                 break;
             case e_tuesday:
-                Serial.println("Tuesday"); 
+                Serial.println("Tuesday");
+                LP_Set_linkplay_weekday(e_tuesday);
                 break;
             case e_wednesday:
-                Serial.println("Wednesday"); 
+                Serial.println("Wednesday");
+                LP_Set_linkplay_weekday(e_wednesday);
                 break;
             case e_thursday:
-                Serial.println("Thursday"); 
+                Serial.println("Thursday");
+                LP_Set_linkplay_weekday(e_thursday);
                 break;
             case e_friday:
-                Serial.println("Friday"); 
+                Serial.println("Friday");
+                LP_Set_linkplay_weekday(e_friday);
                 break;
             case e_saturday:
-                Serial.println("Saturday"); 
+                Serial.println("Saturday");
+                LP_Set_linkplay_weekday(e_saturday);
                 break;
             default:
                 break;
@@ -1608,27 +1646,35 @@ LinkPlay_Error_t process_sta_command(char* linkplay_command)                    
     {
       case e_failed_to_connect:
           Serial.println("failed to connect to access point"); 
+          LP_Set_linkplay_wireless_access_status(e_failed_to_connect);
           break;
       case e_succesfully_connected:
-          Serial.println("successfully connected to access point!"); 
+          Serial.println("successfully connected to access point!");  
+          LP_Set_linkplay_wireless_access_status(e_succesfully_connected);
           break;
       case e_connecting_to_ap:
-          Serial.println("connecting to access point..."); 
+          Serial.println("connecting to access point...");
+          LP_Set_linkplay_wireless_access_status(e_connecting_to_ap);
           break;
       case e_bad_rssi:
-          Serial.println("failed to connect, bad rssi"); 
+          Serial.println("failed to connect, bad rssi");
+          LP_Set_linkplay_wireless_access_status(e_bad_rssi);
           break;
       case e_wrong_password:
           Serial.println("failed to connect, wrong password"); 
+          LP_Set_linkplay_wireless_access_status(e_wrong_password);
           break;
       case e_wrong_security_type:
           Serial.println("failed to connect, wrong security type"); 
+          LP_Set_linkplay_wireless_access_status(e_wrong_security_type);
           break;
       case e_cant_find_ap:
           Serial.println("failed to connect, can't find access point"); 
+          LP_Set_linkplay_wireless_access_status(e_cant_find_ap);
           break;
       case e_failed_to_get_ip_address: 
           Serial.println("failed to connect, can't get ip address"); 
+          LP_Set_linkplay_wireless_access_status(e_failed_to_get_ip_address);
           break;
        default:
           break; 
@@ -1651,7 +1697,7 @@ LinkPlay_Error_t process_vol_command(char* linkplay_command)                    
         "AXX+VOL+nnn"                                                   // WiFi module sends this command to request volume change,
                                                                         // where nnn is the volume (0 to 100)
     */
-        uint16_t volume_int = 0;
+    uint16_t volume_int = 0;
 
     if (strncmp((linkplay_command + 8), "GET", 3) == 0)
     {
@@ -1709,6 +1755,7 @@ LinkPlay_Error_t process_wan_command(char *linkplay_command)
     else
     {
         Serial.println("Can't find any networks");
+        set_num_access_points(0);
         return e_no_networks_found; 
     }
     
@@ -1727,6 +1774,7 @@ LinkPlay_Error_t process_wan_command(char *linkplay_command)
     Serial.print("Found ");
     Serial.print(num_aps);
     Serial.println(" network(s):");   
+    set_num_access_points(num_aps);
     
     for ( current_wan_status = 0; current_wan_status < (num_aps * num_status_per_wan); current_wan_status++)
     {
@@ -1777,12 +1825,15 @@ LinkPlay_Error_t process_wps_command(char* linkplay_command)                    
      {
         case 'F':
             Serial.println("WPS has been turned off");
+            Linkplay_Set_wps_status(e_wps_off);
             break;
         case 'N':
             Serial.println("WPS has been turned on");
+            Linkplay_Set_wps_status(e_wps_on);
             break;
         case 'D':
             Serial.println("WPS connection setup has ended");
+            Linkplay_Set_wps_status(e_wps_ended);
             break;
         default:
             break;
@@ -1807,10 +1858,12 @@ LinkPlay_Error_t process_www_command(char* linkplay_command)                    
     {
       case e_no_internet_connection:
           Serial.println("no internet connection!");
+          LP_Set_linkplay_internet_status(false);
           break;
       case e_connected_to_internet:
           Serial.println("connected to the internet!");
           Serial1.println("MCU+INF+GET");
+          LP_Set_linkplay_internet_status(true);
           break;   
       default: 
           break;

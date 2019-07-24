@@ -7,11 +7,12 @@ static LinkPlay_Firmware_Update_t linkplay_update_status;
 static LinkPlay_Audio_Channel_Options_t linkplay_channel_config; 
 static LinkPlay_Playback_Mode_t linkplay_playback_mode;
 static LinkPlay_Wireless_Status_t linkplay_wireless_status;
-//static LinkPlay_Audio_Channel_Options_t linkplay_audio_channel_options;
+static LinkPlay_Audio_Channel_Options_t linkplay_audio_channel_options;
 static Linkplay_Ethernet_Status_t linkplay_ethernet_status;
 static LinkPlay_Weekday_t linkplay_weekday; 
 static LinkPlay_Shuffle_Repeat_Status_t linkplay_shuffle_repeat_status;
 static Linkplay_Hotspot_Status_t linkplay_hotspot_status;
+static Linkplay_Hotspot_Connections_Status_t linkplay_hotspot_connections_status;
 static Linkplay_Playback_Status_t linkplay_playback_status;
 static Linkplay_Mute_Status_t linkplay_mute_status; 
 static bool linkplay_factory_reset_status;
@@ -89,6 +90,9 @@ static Linkplay_Voice_Prompt_t linkplay_vprompt_status;
 static Linlplay_Power_Status_t linkplay_power_status;
 static bool linkplay_silent_firmware_update;
 static uint8_t num_access_points_found;
+static Linkplay_WPS_Status_t linkplay_wps_status;
+static bool linkplay_ready_for_communication = false;
+
 
 // ----------------------------------------------------------------------------
 // Linkplay State Setters and Getters
@@ -191,6 +195,15 @@ Linkplay_Hotspot_Status_t LP_Get_linkplay_hotspot_status()
     return linkplay_hotspot_status;
 }
 
+void LP_Set_linkplay_hotspot_connections_status (Linkplay_Hotspot_Connections_Status_t hotspot_connections_status)
+{
+    linkplay_hotspot_connections_status = hotspot_connections_status;
+}
+
+Linkplay_Hotspot_Connections_Status_t LP_Get_linkplay_hotspot_connections_status()
+{
+    return linkplay_hotspot_connections_status;
+}
 
 void LP_Set_linkplay_playback_status (Linkplay_Playback_Status_t playback_status)
 {
@@ -1049,6 +1062,17 @@ uint8_t get_num_access_points(uint8_t num_aps)
     return num_access_points_found;
 }
 
+
+void Linkplay_Set_wps_status(Linkplay_WPS_Status_t wps_status)
+{
+    linkplay_wps_status = wps_status;
+}
+
+Linkplay_WPS_Status_t Linkplay_Set_wps_status()
+{
+    return linkplay_wps_status;
+}
+
 void LP_get_pic_channel_config()
 {
 
@@ -1089,4 +1113,14 @@ void LP_set_pic_volume(uint8_t lp_volume)
         default:
             break;
     }
+}
+
+void LP_Set_linkplay_ready_for_communication(bool ready)
+{
+    linkplay_ready_for_communication = ready;
+}
+
+bool LP_Set_linkplay_ready_for_communication()
+{
+    return linkplay_ready_for_communication;
 }

@@ -82,8 +82,16 @@ typedef enum {
 
 typedef enum {
     e_hotspot_off = 0,
-    e_hotspot_on
+    e_hotspot_on,
+    e_hotspot_hidden,
+    e_hotspot_not_hidden,
 }Linkplay_Hotspot_Status_t;
+
+typedef enum {
+    e_no_devices_connected = 0,
+    e_new_devices_has_connected,
+    e_some_devices_are_connected,
+}Linkplay_Hotspot_Connections_Status_t;
 
 typedef enum {
     e_stopped_playback = 0,
@@ -120,6 +128,12 @@ typedef enum {
 } Linkpaly_Sample_Rate_t;
 
 typedef enum {
+    e_wps_off = 0,
+    e_wps_on,
+    e_wps_ended
+}Linkplay_WPS_Status_t;
+
+typedef enum {
     e_linkplay_16 = 16,
     e_linkplay_24 = 24,
 } Linkpaly_Bit_Depth_t;
@@ -130,6 +144,7 @@ typedef enum {
     e_voice_prompt_disabled,
     e_voice_prompt_can_be_triggered,
 } Linkplay_Voice_Prompt_t;
+
 enum {
     e_inf_language = 0,
     e_inf_ssid,
