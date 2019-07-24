@@ -1002,22 +1002,22 @@ LinkPlay_Error_t process_i2s_command(char* linkplay_command)
             strncpy(c_sample_rate,linkplay_command+11, sample_rate_chars);
             switch(atoi(c_sample_rate))
             {
-                case 44100:
+                case e_linkplay_44100:
                     Serial.println("44.1 k");
                     break;
-                case 48000:
+                case e_linkplay_48000:
                     Serial.println("48 k");
                     break;
-                case 88200:
+                case e_linkplay_88200:
                     Serial.println("88.2 k");
                     break;
-                case 96000:
+                case e_linkplay_96000:
                     Serial.println("96 k");
                     break;
-                case 176400:
+                case e_linkplay_176400:
                     Serial.println("176.4 k");
                     break;
-                case 192000:
+                case e_linkplay_192000:
                     Serial.println("192.2 k");
                     break;
             }
@@ -1353,7 +1353,7 @@ LinkPlay_Error_t process_ply_command(char* linkplay_command)                    
             memset(playback_time, 0, 50);
             strncpy(playback_time, linkplay_command+11, (i-11));
             Serial.println(atoi(playback_time));
-            LP_Set_linkplay_playback_time(atoi(playback_time));
+            LP_Set_linkplay_song_time(atoi(playback_time));
         }
     }
     else if (linkplay_command[8] == '0')
@@ -1383,21 +1383,21 @@ LinkPlay_Error_t process_pmt_command(char* linkplay_command)                    
 {
     switch(linkplay_command_data_extraction(linkplay_command))
     {
-        case 0: 
+        case e_voice_prompt_start: 
             Serial.println("voice prompt start");
-            LP_Set_linkplay_voice_promt();
+            LP_Set_linkplay_voice_promt(e_voice_prompt_start);
             break;
-        case 1:
+        case e_voice_prompt_stopped:
             Serial.println("voice prompt stopped");
-            LP_Set_linkplay_voice_promt();
+            LP_Set_linkplay_voice_promt(e_voice_prompt_stopped);
             break; 
-        case 2:
+        case e_voice_prompt_disabled:
             Serial.println("voice prompt disabled");
-            LP_Set_linkplay_voice_promt();
+            LP_Set_linkplay_voice_promt(e_voice_prompt_disabled);
             break; 
-        case 3: 
+        case e_voice_prompt_can_be_triggered: 
             Serial.println("voice prompt can be triggered by PIC");
-            LP_Set_linkplay_voice_promt();
+            LP_Set_linkplay_voice_promt(e_voice_prompt_can_be_triggered);
             break;        
     }
     return e_no_error;
@@ -1418,19 +1418,19 @@ LinkPlay_Error_t process_pow_command(char* linkplay_command)                    
         {
             case e_linkplay_power_normal: 
                 Serial.println("voice prompt start");
-                LP_Set_linkplay_voice_promt();
+                LP_Set_linkplay_power_status(e_linkplay_power_normal);
                 break;
             case e_linkplay_saving_mode:
                 Serial.println("voice prompt stopped");
-                LP_Set_linkplay_voice_promt();
+                LP_Set_linkplay_power_status(e_linkplay_saving_mode);
                 break; 
             case e_linkplay_firmware_upgrade:
                 Serial.println("voice prompt disabled");
-                LP_Set_linkplay_voice_promt();
+                LP_Set_linkplay_power_status(e_linkplay_firmware_upgrade);
                 break; 
             case e_linkplay_device_restarting: 
                 Serial.println("voice prompt can be triggered by PIC");
-                LP_Set_linkplay_voice_promt();
+                LP_Set_linkplay_power_status(e_linkplay_device_restarting);
                 break;
             default:
                 return e_unknown_pow_command;        

@@ -210,11 +210,11 @@ char* LP_Get_linkplay_user2();
 void LP_Set_linkplay_device_name(char* device_name);
 char* LP_Get_linkplay_device_name();
 
-void LP_Set_linkplay_sample_rate(Linkpaly_sample_rate_t sample_rate);
-Linkpaly_sample_rate_t LP_Get_linkplay_sample_rate();
+void LP_Set_linkplay_sample_rate(Linkpaly_Sample_Rate_t sample_rate);
+Linkpaly_Sample_Rate_t LP_Get_linkplay_sample_rate();
 
-void LP_Set_linkplay_bit_depth(Linkpaly_bit_depth_t bit_depth);
-Linkpaly_bit_depth_t LP_Get_linkplay_bit_depth();
+void LP_Set_linkplay_bit_depth(Linkpaly_Bit_Depth_t bit_depth);
+Linkpaly_Bit_Depth_t LP_Get_linkplay_bit_depth();
 
 void LP_Set_linkplay_communication_status();
 uint8_t LP_Get_linkplay_communication_status();
@@ -237,11 +237,8 @@ uint8_t LP_Get_linkplay_micrphones();
 void LP_Set_linkplay_mute (Linkplay_Mute_Status_t mute_status);
 Linkplay_Mute_Status_t LP_Get_linkplay_mute();
 
-void LP_Set_linkplay_microphones();
-uint8_t LP_Get_linkplay_micrphones();
-
-void LP_Set_linkplay_alarm();
-uint8_t LP_Get_linkplay_alarm();
+void LP_Set_linkplay_alarm(int16_t alarm_status);
+int16_t LP_Get_linkplay_alarm();
 
 void LP_Set_linkplay_playback_mode (LinkPlay_Playback_Mode_t playback_mode);
 LinkPlay_Playback_Mode_t LP_Get_linkplay_playback_mode();
@@ -252,14 +249,14 @@ LinkPlay_Shuffle_Repeat_Status_t LP_Get_linkplay_repeat_shuffle();
 void LP_Set_linkplay_playback_status (Linkplay_Playback_Status_t playback_status);
 Linkplay_Playback_Status_t LP_Get_linkplay_playback_status();
 
-void LP_Set_linkplay_voice_promt(Linkplay_voice_prompt_t vprompt_status);
-uint8_t LP_Get_linkplay_voice_promt();
+void LP_Set_linkplay_voice_promt(Linkplay_Voice_Prompt_t vprompt_status);
+Linkplay_Voice_Prompt_t LP_Get_linkplay_voice_promt();
 
 void LP_Set_linkplay_power_status(Linlplay_Power_Status_t power_status);
 Linlplay_Power_Status_t LP_Get_linkplay_power_status();
 
-void LP_Set_linkplay_hotspot_status (Linkplay_Hotspot_status_t hotspot_status);
-Linkplay_Hotspot_status_t LP_Get_linkplay_hotspot_status();
+void LP_Set_linkplay_hotspot_status (Linkplay_Hotspot_Status_t hotspot_status);
+Linkplay_Hotspot_Status_t LP_Get_linkplay_hotspot_status();
 
 void LP_Set_linkplay_year(uint16_t year);
 uint8_t LP_Get_linkplay_rtc_year();
@@ -293,7 +290,7 @@ void LP_send_linkplay_pic_volume();
 void LP_set_pic_volume(uint8_t lp_volume); 
 
 void set_num_access_points(uint8_t num_aps);
-void get_num_access_points(uint8_t num_aps)
+uint8_t get_num_access_points(uint8_t num_aps);
 
 
 void LP_Set_linkplay_access_points(uint8_t ap_num, char* ap); 

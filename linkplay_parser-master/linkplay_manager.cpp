@@ -11,7 +11,7 @@ static LinkPlay_Wireless_Status_t linkplay_wireless_status;
 static Linkplay_Ethernet_Status_t linkplay_ethernet_status;
 static LinkPlay_Weekday_t linkplay_weekday; 
 static LinkPlay_Shuffle_Repeat_Status_t linkplay_shuffle_repeat_status;
-static Linkplay_Hotspot_status_t linkplay_hotspot_status;
+static Linkplay_Hotspot_Status_t linkplay_hotspot_status;
 static Linkplay_Playback_Status_t linkplay_playback_status;
 static Linkplay_Mute_Status_t linkplay_mute_status; 
 static bool linkplay_factory_reset_status;
@@ -38,14 +38,13 @@ static char linkplay_ethernet_ip[20];
 static char linkplay_hardware_module[5];
 static bool linkplay_internet_status;
 static bool linkplay_update_available;
-static bool linkplay_update_available;
 static bool linkplay_new_version_number;
 static uint16_t linkplay_pic_firmware_version;
 static uint16_t linkplay_pic_new_firmware_verison; 
 static uint16_t linkplay_dsp_firmware_version;
 static uint16_t linkplay_dsp_new_firmware_version;    
-static char* linkplay_internal_server_port[20]; 
-static char* linkplay_temp_uuid[20];
+static char linkplay_internal_server_port[20]; 
+static char linkplay_temp_uuid[20];
 static uint16_t linkplay_capl;
 static uint8_t linkplay_languages;
 static uint16_t linkplay_dsp_version;
@@ -62,17 +61,17 @@ static bool linkplay_battery;
 static uint8_t linkplay_bat_percent;
 static bool linkplay_secure_mode;
 static uint16_t linkplay_unpn_version;
-static char* linkplay_unpn_uuid[40];
-static char* linkplay_pass_port[8];
-static char* linkplay_comm_port[8];
+static char linkplay_unpn_uuid[40];
+static char linkplay_pass_port[8];
+static char linkplay_comm_port[8];
 static bool linkplay_firmware_update_hidden;
 static uint16_t linkplay_web_login_result;
 static bool linkplay_ignore_talk_start;
 static bool linkplay_iheartradio_new;
 static bool linkplay_privacy_mode;
-static char* linkplay_user_1[20];
-static char* linkplay_user_2[20];
-static char* linkplay_device_name[65];
+static char linkplay_user_1[20];
+static char linkplay_user_2[20];
+static char linkplay_device_name[65];
 static uint16_t rtc_year;
 static uint8_t rtc_month;
 static uint8_t rtc_day;
@@ -81,9 +80,9 @@ static uint8_t rtc_minute;
 static uint8_t rtc_second;
 static Linkpaly_Sample_Rate_t linkplay_sample_rate;
 static Linkpaly_Bit_Depth_t linkplay_bit_depth; 
-static char* linkplay_title[70];
-static char* linkplay_artist[70];
-static char* linkplay_album[70];
+static char linkplay_title[70];
+static char linkplay_artist[70];
+static char linkplay_album[70];
 static uint32_t linkplay_songtime_ms;
 static int16_t linkplay_alarm_status;
 static Linkplay_Voice_Prompt_t linkplay_vprompt_status;
@@ -182,12 +181,12 @@ LinkPlay_Shuffle_Repeat_Status_t LP_Get_linkplay_repeat_shuffle()
 }
 
 
-void LP_Set_linkplay_hotspot_status (Linkplay_Hotspot_status_t hotspot_status)
+void LP_Set_linkplay_hotspot_status (Linkplay_Hotspot_Status_t hotspot_status)
 {
     linkplay_hotspot_status = hotspot_status;
 }
 
-Linkplay_Hotspot_status_t LP_Get_linkplay_hotspot_status()
+Linkplay_Hotspot_Status_t LP_Get_linkplay_hotspot_status()
 {
     return linkplay_hotspot_status;
 }
@@ -472,13 +471,13 @@ void LP_Set_linkplay_version_update(bool update_available)
 
 bool LP_Get_linkplay_version_update()
 {
-    return linkplay_update_available
+    return linkplay_update_available;
 }
 
 
 void LP_Set_linkplay_new_version(uint16_t new_firmware_version)
 {
-    linkplay_new_version_number = new_firmware_version
+    linkplay_new_version_number = new_firmware_version;
 }
 
 uint16_t LP_Get_linkplay_new_version()
@@ -604,7 +603,7 @@ void LP_Set_linkplay_streams(uint32_t streams)
 
 uint32_t LP_Get_linkplay_streams()
 {
-    return linkplay_streams
+    return linkplay_streams;
 }
 
 
@@ -800,7 +799,7 @@ bool LP_Get_linkplay_ignore_talk_start()
 
 void LP_Set_linkplay_iHeartRadio_new(bool iheartradio_new)
 {
-    linkplay_
+    linkplay_iheartradio_new = iheartradio_new;
 }
 
 bool LP_Get_linkplay_iHeartRadio_new()
@@ -822,7 +821,8 @@ bool LP_Get_linkplay_privacy_mode()
 
 void LP_Set_linkplay_user1(char* user_1)
 {
-    linkplay_user_1, user_1,
+    memset(linkplay_user_1, 0, 20);
+    strncpy(linkplay_user_1, user_1, strlen(user_1));
 }
 
 char* LP_Get_linkplay_user1()
@@ -833,7 +833,8 @@ char* LP_Get_linkplay_user1()
 
 void LP_Set_linkplay_user2(char* user_2)
 {
-    linkplay_user_2, user_2
+    memset(linkplay_user_2, 0, 20);
+    strncpy(linkplay_user_2, user_2, strlen(user_2));
 }
 
 char* LP_Get_linkplay_user2()
@@ -844,7 +845,8 @@ char* LP_Get_linkplay_user2()
 
 void LP_Set_linkplay_device_name(char* device_name)
 {
-    linkplay_device_name, device_name
+    memset(linkplay_device_name, 0, 65);
+    strncpy(linkplay_device_name, device_name, strlen(device_name));
 }
 
 char* LP_Get_linkplay_device_name()
@@ -853,21 +855,21 @@ char* LP_Get_linkplay_device_name()
 }
 
 
-void LP_Set_linkplay_sample_rate(Linkpaly_sample_rate_t sample_rate)
+void LP_Set_linkplay_sample_rate(Linkpaly_Sample_Rate_t sample_rate)
 {
-    strncpy(linkplay_sample_rate, sample_rate, strlen(sample_rate));
+    linkplay_sample_rate = sample_rate;
 }
-Linkpaly_sample_rate_t LP_Get_linkplay_sample_rate()
+Linkpaly_Sample_Rate_t LP_Get_linkplay_sample_rate()
 {
     return linkplay_sample_rate;
 } 
 
-void LP_Set_linkplay_bit_depth(Linkpaly_bit_depth_t bit_depth)
+void LP_Set_linkplay_bit_depth(Linkpaly_Bit_Depth_t bit_depth)
 {
     linkplay_bit_depth = bit_depth;
 }
 
-Linkpaly_bit_depth_t LP_Get_linkplay_bit_depth()
+Linkpaly_Bit_Depth_t LP_Get_linkplay_bit_depth()
 {
     return linkplay_bit_depth; 
 }
@@ -879,7 +881,7 @@ void LP_Set_linkplay_communication_status()
 
 uint8_t LP_Get_linkplay_communication_status()
 {
-     
+    return 0;     
 }
 
 void LP_Set_linkplay_title(char* title)
@@ -929,16 +931,7 @@ void LP_Set_linkplay_microphones()
 
 uint8_t LP_Get_linkplay_micrphones()
 {
-
-}
-
-void LP_Set_linkplay_microphones()
-{
-
-}
-uint8_t LP_Get_linkplay_micrphones()
-{
-
+    return 0;
 }
 
 void LP_Set_linkplay_alarm(int16_t alarm_status)
@@ -950,12 +943,12 @@ int16_t LP_Get_linkplay_alarm()
     return linkplay_alarm_status;
 }
 
-void LP_Set_linkplay_voice_promt(Linkplay_voice_prompt_t vprompt_status)
+void LP_Set_linkplay_voice_promt(Linkplay_Voice_Prompt_t vprompt_status)
 {
     linkplay_vprompt_status = vprompt_status;
 }
 
-uint8_t LP_Get_linkplay_voice_promt()
+Linkplay_Voice_Prompt_t LP_Get_linkplay_voice_promt()
 {
     return linkplay_vprompt_status;
 }
@@ -1051,7 +1044,7 @@ void set_num_access_points(uint8_t num_aps)
     num_access_points_found = num_aps;
 }
 
-void get_num_access_points(uint8_t num_aps)
+uint8_t get_num_access_points(uint8_t num_aps)
 {
     return num_access_points_found;
 }

@@ -12,8 +12,8 @@ char newMsg[1600];
 static bool doneRecieving = false; 
 static bool doneRecievingUSB = false; 
 static uint8_t led = 13; 
-    static uint16_t i = 0;
-    static char tempCharLP = '\0';
+static uint16_t i = 0;
+static char tempCharLP = '\0';
 
     
 void setup() 
