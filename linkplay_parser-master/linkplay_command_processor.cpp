@@ -891,7 +891,7 @@ LinkPlay_Error_t inf_command_parser(uint16_t current_inf, char* char_buf)
             break;
         case e_inf_upnp_uuid:
             Serial.print("upnp uuid: ");
-            Serial.println(char_buf);
+            Serial.println(char_buf + 5);
             LP_Set_linkplay_upnp_uuid(char_buf);
             break;
         case e_inf_uart_pass_port:

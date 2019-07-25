@@ -19,48 +19,83 @@ typedef enum
 
 const char mcu_commands[50][12] = 
 {
-    "MCU+FACTORY",
+    "MCU+FACTORY", // 0
     "MCU+FCRYPOW",
     "MCU+WIF+WPS",
     "MCU+WIF+EPS",
     "MCU+WIF+WSS",
-    "MCU+STA++ON",
+    "MCU+STA++ON", // 5
     "MCU+STA+OFF",
     "MCU+STA+DEL",
     "MCU+RA0++ON",
     "MCU+RA0+OFF",
-    "MCU+STA+GET",
+    "MCU+STA+GET", // 10
     "MCU+ETH+GET",
     "MCU+WWW+GET",
     "MCU+RA0+GET",
     "MCU+RTC+GET",
-    "MCU+WEK+GET",
+    "MCU+WEK+GET", // 15
     "MCU+SND+RTC",
     "MCU+AP+SCAN", 
     "MCU+STA+INF",
     "MCU+PLM+GET",
-    "MCU+USB+GET",
+    "MCU+USB+GET", // 20
     "MCU+MMC+GET",
     "MCU+PLY+PUS",
     "MCU+PLY-PUS",
     "MCU+PLY-PLA",
-    "MCU+PLY-STP",
+    "MCU+PLY-STP", // 25
     "MCU+PLY+PUQ",
     "MCU+PLY+NXT",
     "MCU+PLY+PRV",
     "MCU+PLY+GET",
-    "MCU+PLP+GET",
+    "MCU+PLP+GET", // 30
     "MCU+INF+GET",
     "MCU+PINFGET",
     "MCU+STA+INF", 
     "MCU+WEA+GET",
-    "MCU+DEV+GET",
+    "MCU+DEV+GET", // 35
     "MCU+MEA+GET",
     "MCU+MEA+GBK",
     "MCU+AIR++ON",
     "MCU+AIR+OFF",
-    "MCU+AIR+GET",
+    "MCU+AIR+GET", // 40
 };
+/*
+    "MCU+CAP+PRJPSAUDIO_Stellar&"
+    "MCU+PTV+000"
+    "MCU+SPY+BRNPSAUDIO&"
+    "MCU+SPY+NAMStellarIntegrated&"
+    "MCU+SPY+TYP0&"
+    "MCU+CAP+00100001100&"
+    "MCU+CAP+00200000800&"
+    "MCU+CAP+LAUen_us&"
+    "MCU+CAP+STMfffffffc&"
+    "MCU+CAP+PLM00000000&"
+    "MCU+PRESET+3&"
+    "MCU+SID+StellarIntegrated"
+
+    "MCU+VER+version&"
+
+    "MCU+UPGRADEstart&"
+    "MCU+UPGRADErun:index&"      
+    "MCU+UPGRADEerror:reason&"
+
+    "MCU+AP+CONNapname:password&"
+
+    "MCU+WCH+SETn&"
+    "MCU+PWD+SETname&"
+    "MCU+SID+SETssid&"
+    "MCU+NAM+SETname&"
+    "MCU+M2S+nnn"
+    "MCU+S2M+nnn"
+    "MCU+PLM-xxx"
+    "MCU+PLP+xxx"
+    "MCU+BYP+000"
+    "MCU+BYP+001"
+    "MCU+BYP+002"
+*/
+
 // ----------------------------------------------------------------------------
 // Linkplay State Setters and Getters
 // ----------------------------------------------------------------------------
@@ -370,5 +405,7 @@ void get_access_points();
 void lp_retrieve_rtc();
 void lp_retrieve_metadata();
 void lp_retrieve_system_info();
+void lp_set_ssid();
+void lp_set_name();
 
 #endif

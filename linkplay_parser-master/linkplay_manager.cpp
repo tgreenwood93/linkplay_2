@@ -1447,3 +1447,29 @@ void get_access_points()
 {
 
 }
+
+
+void lp_retrieve_rtc()
+{
+
+}
+
+void lp_retrieve_metadata()
+{
+
+}
+
+void lp_retrieve_system_info()
+{
+    Serial1.println(mcu_commands[31]);
+}
+
+void lp_set_ssid()
+{
+    Serial1.println("MCU+SID+Stellar Integrated");
+}
+
+void lp_set_name()
+{
+    Serial1.println("MCU+NAM+SETStellar Integrated&");
+}

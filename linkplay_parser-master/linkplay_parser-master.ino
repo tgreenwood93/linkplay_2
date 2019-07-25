@@ -31,7 +31,6 @@ void loop() {
     checkSerialUSB();
     if (true == doneRecievingUSB)
     {
-        Serial.println(mcu_commands[0]);
         Serial.println(newMsgUSB);
         if (strcmp(newMsgUSB, "lp dump") == 0)
         {
@@ -68,6 +67,16 @@ void loop() {
         else if (strcmp(newMsgUSB, "lp macadd") == 0)
         {
             get_mac_address();
+        }
+        else if (strcmp(newMsgUSB, "lp sysinf") == 0)
+        {
+            lp_retrieve_system_info();
+        }
+        else if (strcmp(newMsgUSB, "lp setssid") == 0)
+        {
+            lp_set_ssid();
+            lp_set_name();
+
         }
         else
         {
