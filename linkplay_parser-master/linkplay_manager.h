@@ -60,8 +60,8 @@ char* LP_Get_linkplay_project();
 void LP_Set_linkplay_private_project(char* private_project);
 char* LP_Get_linkplay_private_project();
 
-void LP_Set_linkplay_firmware_release(uint16_t firmware_release);
-uint16_t LP_Get_linkplay_firmare_release();
+void LP_Set_linkplay_firmware_release(uint32_t firmware_release);
+uint32_t LP_Get_linkplay_firmare_release();
 
 void LP_Set_linkplay_firmware_branch(char* firmware_branch);
 char* LP_Get_linkplay_firmare_branch();
@@ -160,7 +160,7 @@ void LP_Set_linkplay_wifi_channel(uint16_t wifi_channel);
 uint16_t LP_Get_linkplay_wifi_channel();
 
 void LP_Set_linkplay_rssi(int16_t rssi);
-uint16_t LP_Get_linkplay_rssi();
+int16_t LP_Get_linkplay_rssi();
 
 void LP_Set_linkplay_battery(bool battery);
 bool LP_Get_linkplay_battery();
@@ -187,13 +187,13 @@ void LP_Set_linkplay_firmware_update_hidden(bool firmware_update_hidden);
 bool LP_Get_linkplay_firmware_update_hidden();
 
 void LP_Set_linkplay_web_login_result(int16_t web_login_result);
-uint16_t LP_Get_linkplay_web_login_result();
+int16_t LP_Get_linkplay_web_login_result();
 
 void LP_Set_linkplay_ignore_talk_start(bool ignore_talk_start);
 bool LP_Get_linkplay_ignore_talk_start();
 
-void LP_Set_linkplay_silence_OTA_time();
-uint8_t LP_Get_linkplay_silence_OTA_time();
+void LP_Set_linkplay_silence_OTA_time(uint16_t ota_time);
+uint16_t LP_Get_linkplay_silence_OTA_time();
 
 void LP_Set_linkplay_iHeartRadio_new(bool iheartradio_new);
 bool LP_Get_linkplay_iHeartRadio_new();
@@ -231,7 +231,7 @@ char* LP_Get_linkplay_album();
 void LP_Set_linkplay_song_time(uint32_t songtime_ms);
 uint32_t LP_Get_linkplay_song_time();
 
-void LP_Set_linkplay_microphones();
+void LP_Set_linkplay_microphones(uint8_t mic_status);
 uint8_t LP_Get_linkplay_micrphones();
 
 void LP_Set_linkplay_mute (Linkplay_Mute_Status_t mute_status);
@@ -262,7 +262,7 @@ void LP_Set_linkplay_hotspot_connections_status (Linkplay_Hotspot_Connections_St
 Linkplay_Hotspot_Connections_Status_t LP_Get_linkplay_hotspot_connections_status();
 
 void LP_Set_linkplay_year(uint16_t year);
-uint8_t LP_Get_linkplay_rtc_year();
+uint16_t LP_Get_linkplay_rtc_year();
 
 void LP_Set_linkplay_month(uint8_t month);
 uint8_t LP_Get_linkplay_month();
@@ -280,7 +280,7 @@ void LP_Set_linkplay_second(uint8_t second);
 uint8_t LP_Get_linkplay_second();
 
 void LP_Set_linkplay_weekday (LinkPlay_Weekday_t weekday);
-LinkPlay_Weekday_t LP_Get_linkplay_rtc_weekday();
+LinkPlay_Weekday_t LP_Get_linkplay_weekday();
 
 void LP_Set_linkplay_silent_firmware_update(bool silent_firmware_update);
 bool LP_Get_linkplay_silent_firmware_update();
@@ -307,5 +307,7 @@ void Get_meta_data_ready();
 
 void LP_Set_linkplay_ready_for_communication(bool ready);
 bool LP_Set_linkplay_ready_for_communication();
+
+void dump_stored_linkplay_data(void);
 
 #endif

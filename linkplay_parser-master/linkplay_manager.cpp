@@ -5,11 +5,11 @@
 
 static LinkPlay_Firmware_Update_t linkplay_update_status; 
 static LinkPlay_Audio_Channel_Options_t linkplay_channel_config; 
+static bool linkplay_resetting = false;
 static LinkPlay_Playback_Mode_t linkplay_playback_mode;
 static LinkPlay_Wireless_Status_t linkplay_wireless_status;
-static LinkPlay_Audio_Channel_Options_t linkplay_audio_channel_options;
+//static LinkPlay_Audio_Channel_Options_t linkplay_audio_channel_options;
 static Linkplay_Ethernet_Status_t linkplay_ethernet_status;
-static LinkPlay_Weekday_t linkplay_weekday; 
 static LinkPlay_Shuffle_Repeat_Status_t linkplay_shuffle_repeat_status;
 static Linkplay_Hotspot_Status_t linkplay_hotspot_status;
 static Linkplay_Hotspot_Connections_Status_t linkplay_hotspot_connections_status;
@@ -24,7 +24,7 @@ static char linkplay_firmware_version[20];
 static char linkplay_firmware_build_type[20];
 static char linkplay_project_title[30];
 static char linkplay_private_project_title[30];
-static uint16_t linkplay_firmware_release; 
+static uint32_t linkplay_firmware_release; 
 static char linkplay_firmware_branch[30];
 static uint16_t linkplay_group;
 static bool linkplay_firmware_version_expierd; 
@@ -79,6 +79,7 @@ static uint8_t rtc_day;
 static uint8_t rtc_hour;
 static uint8_t rtc_minute;
 static uint8_t rtc_second;
+static LinkPlay_Weekday_t linkplay_day_of_the_week;
 static Linkpaly_Sample_Rate_t linkplay_sample_rate;
 static Linkpaly_Bit_Depth_t linkplay_bit_depth; 
 static char linkplay_title[70];
@@ -92,7 +93,7 @@ static bool linkplay_silent_firmware_update;
 static uint8_t num_access_points_found;
 static Linkplay_WPS_Status_t linkplay_wps_status;
 static bool linkplay_ready_for_communication = false;
-
+static uint16_t linkplay_ota_time;
 
 // ----------------------------------------------------------------------------
 // Linkplay State Setters and Getters
@@ -118,6 +119,15 @@ LinkPlay_Audio_Channel_Options_t LP_Get_linkplay_audio_channel_status()
     return linkplay_channel_config;
 }
 
+void LP_Set_linkplay_in_reset(bool linkplay_in_reset)
+{
+    linkplay_resetting = linkplay_in_reset;
+}
+
+bool LP_Get_linkplay_in_reset()
+{
+    return linkplay_resetting;
+}
 
 void LP_Set_linkplay_internet_status (bool internet_status)
 {
@@ -160,17 +170,6 @@ void LP_Set_linkplay_ethernet_status (Linkplay_Ethernet_Status_t ethernet_status
 Linkplay_Ethernet_Status_t LP_Get_linkplay_ethernet_status()
 {
     return linkplay_ethernet_status;
-}
-
-
-void LP_Set_linkplay_rtc_weekday (LinkPlay_Weekday_t weekday)
-{
-    linkplay_weekday = weekday;
-}
-
-LinkPlay_Weekday_t LP_Get_linkplay_rtc_weekday()
-{
-    return linkplay_weekday;
 }
 
 
@@ -330,12 +329,12 @@ char* LP_Get_linkplay_private_project()
 }
 
 
-void LP_Set_linkplay_firmware_release(uint16_t firmware_release)
+void LP_Set_linkplay_firmware_release(uint32_t firmware_release)
 {
     linkplay_firmware_release = firmware_release;
 }
 
-uint16_t LP_Get_linkplay_firmare_release()
+uint32_t LP_Get_linkplay_firmare_release()
 {
     return linkplay_firmware_release;    
 }
@@ -691,7 +690,7 @@ void LP_Set_linkplay_rssi(int16_t rssi)
     linkplay_rssi = rssi;
 }
 
-uint16_t LP_Get_linkplay_rssi()
+int16_t LP_Get_linkplay_rssi()
 {
     return linkplay_rssi;
 }
@@ -744,7 +743,7 @@ uint16_t LP_Get_linkplay_upnp_version()
 void LP_Set_linkplay_upnp_uuid(char* unpn_uuid)
 {
     memset(linkplay_unpn_uuid, 0, 40);
-    strncpy(linkplay_unpn_uuid, unpn_uuid, strlen(unpn_uuid));
+    strncpy(linkplay_unpn_uuid, unpn_uuid+5, (strlen(unpn_uuid)-5));
 }
 
 char* LP_Get_linkplay_upnp_uuid()
@@ -793,7 +792,7 @@ void LP_Set_linkplay_web_login_result(int16_t web_login_result)
     linkplay_web_login_result = web_login_result;
 }
 
-uint16_t LP_Get_linkplay_web_login_result()
+int16_t LP_Get_linkplay_web_login_result()
 {
     return linkplay_web_login_result;
 }
@@ -809,6 +808,16 @@ bool LP_Get_linkplay_ignore_talk_start()
     return linkplay_ignore_talk_start;
 }
 
+
+void LP_Set_linkplay_silence_OTA_time(uint16_t ota_time)
+{
+    linkplay_ota_time = ota_time;
+}
+
+uint16_t LP_Get_linkplay_silence_OTA_time()
+{
+    return linkplay_ota_time;
+}
 
 void LP_Set_linkplay_iHeartRadio_new(bool iheartradio_new)
 {
@@ -937,7 +946,7 @@ uint32_t LP_Get_linkplay_song_time()
     return linkplay_songtime_ms;
 }
 
-void LP_Set_linkplay_microphones()
+void LP_Set_linkplay_microphones(uint8_t mic_status)
 {
 
 }
@@ -982,7 +991,7 @@ void LP_Set_linkplay_year(uint16_t year)
     rtc_year = year;
 }
 
-uint8_t LP_Get_linkplay_year()
+uint16_t LP_Get_linkplay_year()
 {
     return rtc_year;
 }
@@ -1041,6 +1050,17 @@ uint8_t LP_Get_linkplay_second()
 {
     return rtc_second;
 }
+
+void LP_Set_linkplay_weekday (LinkPlay_Weekday_t weekday)
+{
+    linkplay_day_of_the_week = weekday;
+}
+
+LinkPlay_Weekday_t LP_Get_linkplay_rtc_weekday()
+{
+    return linkplay_day_of_the_week; 
+}
+
 
 void LP_Set_linkplay_silent_firmware_update(bool silent_firmware_update)
 {
@@ -1123,4 +1143,186 @@ void LP_Set_linkplay_ready_for_communication(bool ready)
 bool LP_Set_linkplay_ready_for_communication()
 {
     return linkplay_ready_for_communication;
+}
+
+void dump_stored_linkplay_data()
+{
+    Serial.print("linkplay firmware update status: ");
+    Serial.println(LP_Get_linkplay_firmware_update_status());
+    Serial.print("linkplay audio channel status: ");
+    Serial.println(LP_Get_linkplay_audio_channel_status());
+    Serial.print("linkplay in reset?: ");
+    Serial.println(LP_Get_linkplay_in_reset());
+    Serial.print("internet status: ");
+    Serial.println(LP_Get_linkplay_internet_status());
+    Serial.print("playback mode: ");
+    Serial.println(LP_Get_linkplay_playback_mode());
+    Serial.print("wireless access status: ");
+    Serial.println(LP_Get_linkplay_wireless_access_status());
+    Serial.print("ethernet access status: ");
+    Serial.println(LP_Get_linkplay_ethernet_status());
+    Serial.print("repeat/shuffle status: ");
+    Serial.println(LP_Get_linkplay_repeat_shuffle());
+    Serial.print("hotspot status: ");
+    Serial.println(LP_Get_linkplay_hotspot_status());
+    Serial.print("hotspot connection status: ");
+    Serial.println(LP_Get_linkplay_hotspot_connections_status());
+    Serial.print("playback status: ");
+    Serial.println(LP_Get_linkplay_playback_status());
+    Serial.print("mute status: ");
+    Serial.println(LP_Get_linkplay_mute());
+    Serial.print("factory init status: ");
+    Serial.println(LP_Get_linkplay_factory_status());
+    Serial.print("ssid: ");
+    Serial.println(LP_Get_linkplay_ssid());
+    Serial.print("language: ");
+    Serial.println(LP_Get_linkplay_language());
+    Serial.print("ssid hidden?: ");
+    Serial.println(LP_Get_linkplay_ssid_hidden());
+    Serial.print("ssid strategy: ");
+    Serial.println(LP_Get_linkplay_ssid_strategy());
+    Serial.print("firmware version: ");
+    Serial.println(LP_Get_linkplay_firmware_version());
+    Serial.print("build: ");
+    Serial.println(LP_Get_linkplay_build());
+    Serial.print("project: ");
+    Serial.println(LP_Get_linkplay_project());
+    Serial.print("private project: ");
+    Serial.println(LP_Get_linkplay_private_project());
+    Serial.print("firmware type: ");
+    Serial.println(LP_Get_linkplay_firmare_release());
+    Serial.print("branch: ");
+    Serial.println(LP_Get_linkplay_firmare_branch());
+    Serial.print("group: ");
+    Serial.println(LP_Get_linkplay_group());
+    Serial.print("version is expiered?: ");
+    Serial.println(LP_Get_linkplay_version_expierd());
+    Serial.print("uuid: ");
+    Serial.println(LP_Get_linkplay_uuid());
+    Serial.print("mac: ");
+    Serial.println(LP_Get_linkplay_mac_address());
+    Serial.print("sta mac: ");
+    Serial.println(LP_Get_linkplay_sta_mac_address());
+    Serial.print("time zone: ");
+    Serial.println(LP_Get_linkplay_time_zone());
+    Serial.print("network status: ");
+    Serial.println(LP_Get_linkplay_network_status());
+    Serial.print("essid: ");
+    Serial.println(LP_Get_linkplay_essid());
+    Serial.print("wifi ip: ");
+    Serial.println(LP_Get_linkplay_wifi_ip());
+    Serial.print("ethernet ip: ");
+    Serial.println(LP_Get_linkplay_ethernet_ip());
+    Serial.print("linkplay hardware: ");
+    Serial.println(LP_Get_linkplay_hardware());
+    Serial.print("version update?: ");
+    Serial.println(LP_Get_linkplay_version_update());
+    Serial.print("new linkplay version: ");
+    Serial.println(LP_Get_linkplay_new_version());
+    Serial.print("pic firmware version: ");
+    Serial.println(LP_Get_linkplay_pic_firmware_verison());
+    Serial.print("pic new firmware version: ");
+    Serial.println(LP_Get_linkplay_pic_new_firmware_verison());
+    Serial.print("dsp firmware: ");
+    Serial.println(LP_Get_linkplay_dsp_firmware_verison());
+    Serial.print("dsp new firmware: ");
+    Serial.println(LP_Get_linkplay_dsp_new_firmware_verison());
+    Serial.print("internal server port: ");
+    Serial.println(LP_Get_linkplay_internal_server_port());
+    Serial.print("temp uuid: ");
+    Serial.println(LP_Get_linkplay_temp_uuid());
+    Serial.print("capl: ");
+    Serial.println(LP_Get_linkplay_capl());
+    Serial.print("linkplay languages: ");
+    Serial.println(LP_Get_linkplay_languages());
+    Serial.print("dsp version: ");
+    Serial.println(LP_Get_linkplay_dsp_version());
+    Serial.print("streaming settings: ");
+    Serial.println(LP_Get_linkplay_steaming_settings());
+    Serial.print("streams: ");
+    Serial.println(LP_Get_linkplay_streams());
+    Serial.print("region: ");
+    Serial.println(LP_Get_linkplay_region());
+    Serial.print("external: ");
+    Serial.println(LP_Get_linkplay_external());
+    Serial.print("reset keys: ");
+    Serial.println(LP_Get_linkplay_preset_keys());
+    Serial.print("plm support: ");
+    Serial.println(LP_Get_linkplay_plm_support());
+    Serial.print("spotify active: ");
+    Serial.println(LP_Get_linkplay_spotify_active());
+    Serial.print("wifi chann: ");
+    Serial.println(LP_Get_linkplay_wifi_channel());
+    Serial.print("rssi: ");
+    Serial.println(LP_Get_linkplay_rssi());
+    Serial.print("batt: ");
+    Serial.println(LP_Get_linkplay_battery());
+    Serial.print("batt percent: ");
+    Serial.println(LP_Get_linkplay_battery_percent());
+    Serial.print("secure mode: ");
+    Serial.println(LP_Get_linkplay_secure_mode());
+    Serial.print("unpn version: ");
+    Serial.println(LP_Get_linkplay_upnp_version());
+    Serial.print("unpn uuid: ");
+    Serial.println(LP_Get_linkplay_upnp_uuid());
+    Serial.print("pass port: ");
+    Serial.println(LP_Get_linkplay_pass_port());
+    Serial.print("comm port: ");
+    Serial.println(LP_Get_linkplay_communication_port());
+    Serial.print("firmware update hidden: ");
+    Serial.println(LP_Get_linkplay_firmware_update_hidden());
+    Serial.print("web login result: ");
+    Serial.println(LP_Get_linkplay_web_login_result());
+    Serial.print("ignore talk start: ");
+    Serial.println(LP_Get_linkplay_ignore_talk_start());
+    Serial.print("silence ota time: ");
+    Serial.println(LP_Get_linkplay_silence_OTA_time());
+    Serial.print("iHeartRadio new: ");
+    Serial.println(LP_Get_linkplay_iHeartRadio_new());
+    Serial.print("privacy mode: ");
+    Serial.println(LP_Get_linkplay_privacy_mode());
+    Serial.print("user1: ");
+    Serial.println(LP_Get_linkplay_user1());
+    Serial.print("user2: ");
+    Serial.println(LP_Get_linkplay_user2());
+    Serial.print("device name: ");
+    Serial.println(LP_Get_linkplay_device_name());
+    Serial.print("sample rate: ");
+    Serial.println(LP_Get_linkplay_sample_rate());
+    Serial.print("bit depth: ");
+    Serial.println(LP_Get_linkplay_bit_depth());
+    Serial.print("comm status: ");
+    Serial.println(LP_Get_linkplay_communication_status());
+    Serial.print("title: ");
+    Serial.println(LP_Get_linkplay_title());
+    Serial.print("artist: ");
+    Serial.println(LP_Get_linkplay_artist());
+    Serial.print("album: ");
+    Serial.println(LP_Get_linkplay_album());
+    Serial.print("song time: ");
+    Serial.println(LP_Get_linkplay_song_time());
+    Serial.print("microphone status: ");
+    Serial.println(LP_Get_linkplay_micrphones());
+    Serial.print("alarm status: ");
+    Serial.println(LP_Get_linkplay_alarm());
+    Serial.print("voice prompt: ");
+    Serial.println(LP_Get_linkplay_voice_promt());
+    Serial.print("power status: ");
+    Serial.println(LP_Get_linkplay_power_status());
+    Serial.print("year: ");
+    Serial.println(LP_Get_linkplay_year());
+    Serial.print("month: ");
+    Serial.println(LP_Get_linkplay_month());
+    Serial.print("day: ");
+    Serial.println(LP_Get_linkplay_day());
+    Serial.print("hour: ");
+    Serial.println(LP_Get_linkplay_hour());
+    Serial.print("minute: ");
+    Serial.println(LP_Get_linkplay_minute());
+    Serial.print("second: ");
+    Serial.println(LP_Get_linkplay_second());
+    Serial.print("weekday: ");
+    Serial.println(LP_Get_linkplay_rtc_weekday());
+    Serial.print("silent firmware upgrade: ");
+    Serial.println(LP_Get_linkplay_silent_firmware_update());
 }

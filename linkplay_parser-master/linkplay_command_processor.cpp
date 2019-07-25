@@ -512,6 +512,7 @@ LinkPlay_Error_t process_dev_command(char* linkplay_command)                    
     if (strncmp((linkplay_command + 8), "RST", 3) == 0)
     {
         Serial.println("linkplay is resetting - don't poll it until it gives the ok");
+        LP_Set_linkplay_in_reset(true);
         return e_no_error;
     }
 
@@ -767,10 +768,12 @@ LinkPlay_Error_t inf_command_parser(uint16_t current_inf, char* char_buf)
         case e_inf_hardware:
             Serial.print("hardware: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_hardware(char_buf);
             break;
         case e_inf_version_update:
             Serial.print("version update: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_version_update(atoi(char_buf));
             break;
         case e_inf_new_version:
             Serial.print("new linkplay firmware version: ");
@@ -779,114 +782,142 @@ LinkPlay_Error_t inf_command_parser(uint16_t current_inf, char* char_buf)
         case e_inf_mcu_version:
             Serial.print("pic firmware version: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_new_version(atoi(char_buf));
             break;
         case e_inf_mcu_new_version:
             Serial.print("pic new firmware version: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_pic_new_firmware_verison(atoi(char_buf));
             break;
         case e_inf_dsp_ver_new:
             Serial.print("dsp new firmware version: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_dsp_new_firmware_verison(atoi(char_buf));
             break;
         case e_inf_ra0:
             Serial.print("internal server IP: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_internal_server_port(char_buf);
             break;
         case e_inf_temp_uuid:
             Serial.print("temp uuid: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_temp_uuid(char_buf);
             break;
         case e_inf_cap1:
             Serial.print("capl: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_capl(atoi(char_buf));
             break;
         case e_inf_capability:
             Serial.print("capability: ");
             Serial.println(char_buf);
+            
             break;
         case e_inf_languages:
             Serial.print("language: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_languages(atoi(char_buf));
             break;
         case e_inf_dsp_ver:
             Serial.print("dsp version: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_dsp_version(atoi(char_buf));
             break;
         case e_inf_streams_all:
             Serial.print("steaming settings: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_steaming_settings(atoi(char_buf));
             break;
         case e_inf_streams:
             Serial.print("streams: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_streams(atoi(char_buf));
             break;
         case e_inf_region:
             Serial.print("region: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_region(atoi(char_buf));
             break;
         case e_inf_external:
             Serial.print("external: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_external(atoi(char_buf));
             break;
         case e_inf_preset_key:
             Serial.print("preset key: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_preset_keys(atoi(char_buf));
             break;
         case e_inf_plm_support:
             Serial.print("plm support: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_plm_support(atoi(char_buf));
             break;
         case e_inf_spotify_active:
             Serial.print("spotify active: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_spotify_active(atoi(char_buf));
             break;
         case e_inf_WifiChannel:
             Serial.print("wifi channel: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_wifi_channel(atoi(char_buf));
             break;
         case e_inf_RSSI:
             Serial.print("rssi: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_rssi(atoi(char_buf));
             break;
         case e_inf_battery:
             Serial.print("battery: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_battery(atoi(char_buf));
             break;
         case e_inf_battery_percent:
             Serial.print("battery percent: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_battery_percent(atoi(char_buf));
             break;
         case e_inf_securemode:
             Serial.print("secure mode: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_secure_mode(atoi(char_buf));
             break;
         case e_inf_upnp_version:
             Serial.print("upnp version: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_upnp_version(atoi(char_buf));
             break;
         case e_inf_upnp_uuid:
             Serial.print("upnp uuid: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_upnp_uuid(char_buf);
             break;
         case e_inf_uart_pass_port:
             Serial.print("pass port: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_pass_port(char_buf);
             break;
         case e_inf_communication_port:
             Serial.print("communication port: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_communication_port(char_buf);
             break;
         case e_inf_web_firmware_update_hide:
             Serial.print("firmware update hidden: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_firmware_update_hidden(atoi(char_buf));
             break;
         case e_inf_web_login_result:
             Serial.print("web login result: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_web_login_result(atoi(char_buf));
             break;
         case e_inf_ignore_talkstart:
             Serial.print("ignore talk start: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_ignore_talk_start(atoi(char_buf));
             break;
         case e_inf_silenceOTATime:
             Serial.print("silence OTA time: ");
@@ -895,26 +926,32 @@ LinkPlay_Error_t inf_command_parser(uint16_t current_inf, char* char_buf)
         case e_inf_ignore_silenceOTATime:
             Serial.print("ignore silence OTA time: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_silence_OTA_time(atoi(char_buf));
             break;
         case e_inf_iheartradio_new:
             Serial.print("iHeartRadio new: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_iHeartRadio_new(atoi(char_buf));
             break;
         case e_inf_privacy_mode:
             Serial.print("privacy mode: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_privacy_mode(atoi(char_buf));
             break;
         case e_inf_user1:
             Serial.print("user1: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_user1(char_buf);
             break;
         case e_inf_user2:
             Serial.print("user2: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_user2(char_buf);
             break;
         case e_inf_DeviceName:
             Serial.print("device name: ");
             Serial.println(char_buf);
+            LP_Set_linkplay_device_name(char_buf);
             break;
         case e_inf_GroupName:
             Serial.print("group name: ");
@@ -1030,6 +1067,21 @@ LinkPlay_Error_t process_i2s_command(char* linkplay_command)
     
             strncpy(c_bit_depth,linkplay_command+(11+sample_rate_chars), 2);
             Serial.print(atoi(c_bit_depth));
+
+            switch (atoi(c_bit_depth))
+            {
+                case e_linkplay_16:
+                    Serial.print(e_linkplay_16);
+                    LP_Set_linkplay_bit_depth(e_linkplay_16);
+                    break;
+                case e_linkplay_24:
+                    Serial.print(e_linkplay_24);
+                    LP_Set_linkplay_bit_depth(e_linkplay_24);
+                    break;
+                default: 
+                    break;
+            }
+
             Serial.println(" bit");
             return e_no_error;
     }
@@ -1143,7 +1195,7 @@ LinkPlay_Error_t process_mea_command(char* linkplay_command)                    
         strncpy(hex_artist, (linkplay_command + (title_char_counter+artist_offset)), (artist_char_counter - (title_char_counter+artist_offset)));
         hex2ascii(hex_artist, ascii_artist, strlen(hex_artist), strlen(ascii_artist));
         Serial.print("Artist: "); Serial.println(ascii_artist);
-        LP_Set_linkplay_title(ascii_artist);
+        LP_Set_linkplay_artist(ascii_artist);
 
 
         for(album_char_counter = (artist_char_counter+album_offset); album_char_counter < 1024; album_char_counter++)
@@ -1156,7 +1208,7 @@ LinkPlay_Error_t process_mea_command(char* linkplay_command)                    
         strncpy(hex_album, (linkplay_command + (artist_char_counter+album_offset)), (album_char_counter - (artist_char_counter+album_offset))); 
         hex2ascii(hex_album, ascii_album, strlen(hex_album), strlen(ascii_album));
         Serial.print("Album: "); Serial.println(ascii_album);
-        LP_Set_linkplay_title(ascii_album);
+        LP_Set_linkplay_album(ascii_album);
 
         return e_no_error; 
     }
@@ -1174,6 +1226,7 @@ LinkPlay_Error_t process_mic_command(char* linkplay_command)
     {
         case 0: 
             Serial.println("Microphones turned off");
+            LP_Set_linkplay_microphones(0);
             break;
         default: 
             error_handler =  e_unknown_mic_command; 

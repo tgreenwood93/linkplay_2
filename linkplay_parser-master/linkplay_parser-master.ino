@@ -32,7 +32,15 @@ void loop() {
     if (true == doneRecievingUSB)
     {
         Serial.println(newMsgUSB);
-        Serial1.println(newMsgUSB);
+        if (strcmp(newMsgUSB, "lp dump") == 0)
+        {
+            dump_stored_linkplay_data();
+            digitalWrite(led, HIGH);
+        }
+        else
+        {
+            Serial1.println(newMsgUSB);
+        }
         doneRecievingUSB = false; 
         memset(newMsgUSB, 0, 1026);
     }
