@@ -31,6 +31,7 @@ void loop() {
     checkSerialUSB();
     if (true == doneRecievingUSB)
     {
+        Serial.println(mcu_commands[0]);
         Serial.println(newMsgUSB);
         if (strcmp(newMsgUSB, "lp dump") == 0)
         {

@@ -17,6 +17,50 @@ typedef enum
     e_linkplay_lang_spanish,
 } Linkplay_Language_t; 
 
+const char mcu_commands[50][12] = 
+{
+    "MCU+FACTORY",
+    "MCU+FCRYPOW",
+    "MCU+WIF+WPS",
+    "MCU+WIF+EPS",
+    "MCU+WIF+WSS",
+    "MCU+STA++ON",
+    "MCU+STA+OFF",
+    "MCU+STA+DEL",
+    "MCU+RA0++ON",
+    "MCU+RA0+OFF",
+    "MCU+STA+GET",
+    "MCU+ETH+GET",
+    "MCU+WWW+GET",
+    "MCU+RA0+GET",
+    "MCU+RTC+GET",
+    "MCU+WEK+GET",
+    "MCU+SND+RTC",
+    "MCU+AP+SCAN", 
+    "MCU+STA+INF",
+    "MCU+PLM+GET",
+    "MCU+USB+GET",
+    "MCU+MMC+GET",
+    "MCU+PLY+PUS",
+    "MCU+PLY-PUS",
+    "MCU+PLY-PLA",
+    "MCU+PLY-STP",
+    "MCU+PLY+PUQ",
+    "MCU+PLY+NXT",
+    "MCU+PLY+PRV",
+    "MCU+PLY+GET",
+    "MCU+PLP+GET",
+    "MCU+INF+GET",
+    "MCU+PINFGET",
+    "MCU+STA+INF", 
+    "MCU+WEA+GET",
+    "MCU+DEV+GET",
+    "MCU+MEA+GET",
+    "MCU+MEA+GBK",
+    "MCU+AIR++ON",
+    "MCU+AIR+OFF",
+    "MCU+AIR+GET",
+};
 // ----------------------------------------------------------------------------
 // Linkplay State Setters and Getters
 // ----------------------------------------------------------------------------
@@ -326,5 +370,5 @@ void get_access_points();
 void lp_retrieve_rtc();
 void lp_retrieve_metadata();
 void lp_retrieve_system_info();
-void lp_
+
 #endif
