@@ -1326,3 +1326,124 @@ void dump_stored_linkplay_data()
     Serial.print("silent firmware upgrade: ");
     Serial.println(LP_Get_linkplay_silent_firmware_update());
 }
+
+
+void get_IP()
+{
+    Serial.print("wifi ip: ");
+    Serial.println(LP_Get_linkplay_wifi_ip());
+    Serial.print("ethernet ip: ");
+    Serial.println(LP_Get_linkplay_ethernet_ip());
+}
+
+void get_network_status()
+{
+    Serial.print("wireless access status: ");
+    Serial.println(LP_Get_linkplay_wireless_access_status());
+    Serial.print("ethernet access status: ");
+    Serial.println(LP_Get_linkplay_ethernet_status());
+    Serial.print("hotspot status: ");
+    Serial.println(LP_Get_linkplay_hotspot_status());
+    Serial.print("hotspot connection status: ");
+    Serial.println(LP_Get_linkplay_hotspot_connections_status());
+    Serial.print("ssid: ");
+    Serial.println(LP_Get_linkplay_ssid());
+    Serial.print("ssid hidden?: ");
+    Serial.println(LP_Get_linkplay_ssid_hidden());
+    Serial.print("ssid strategy: ");
+    Serial.println(LP_Get_linkplay_ssid_strategy());
+    Serial.print("mac: ");
+    Serial.println(LP_Get_linkplay_mac_address());
+    Serial.print("sta mac: ");
+    Serial.println(LP_Get_linkplay_sta_mac_address());
+    Serial.print("network status: ");
+    Serial.println(LP_Get_linkplay_network_status());
+    Serial.print("essid: ");
+    Serial.println(LP_Get_linkplay_essid());
+    Serial.print("wifi ip: ");
+    Serial.println(LP_Get_linkplay_wifi_ip());
+    Serial.print("ethernet ip: ");
+    Serial.println(LP_Get_linkplay_ethernet_ip());
+    Serial.print("wifi chann: ");
+    Serial.println(LP_Get_linkplay_wifi_channel());
+    Serial.print("rssi: ");
+    Serial.println(LP_Get_linkplay_rssi());
+}
+
+void get_meta_data()
+{
+    Serial.print("title: ");
+    Serial.println(LP_Get_linkplay_title());
+    Serial.print("artist: ");
+    Serial.println(LP_Get_linkplay_artist());
+    Serial.print("album: ");
+    Serial.println(LP_Get_linkplay_album());
+    Serial.print("song time: ");
+    Serial.println(LP_Get_linkplay_song_time());
+}
+
+void get_last_rtc()
+{
+    Serial.print("year: ");
+    Serial.println(LP_Get_linkplay_year());
+    Serial.print("month: ");
+    Serial.println(LP_Get_linkplay_month());
+    Serial.print("day: ");
+    Serial.println(LP_Get_linkplay_day());
+    Serial.print("hour: ");
+    Serial.println(LP_Get_linkplay_hour());
+    Serial.print("minute: ");
+    Serial.println(LP_Get_linkplay_minute());
+    Serial.print("second: ");
+    Serial.println(LP_Get_linkplay_second());
+    Serial.print("weekday: ");
+    Serial.println(LP_Get_linkplay_rtc_weekday());
+}
+
+void get_rtc()
+{
+    Serial1.println("MCU+RTC+GET");
+}
+
+void get_lp_version()
+{
+    Serial.print("firmware version: ");
+    Serial.println(LP_Get_linkplay_firmware_version());
+    Serial.print("firmware type: ");
+    Serial.println(LP_Get_linkplay_firmare_release());
+    Serial.print("branch: ");
+    Serial.println(LP_Get_linkplay_firmare_branch());
+}
+
+void get_lp_pic_version()
+{
+    Serial.print("pic firmware version: ");
+    Serial.println(LP_Get_linkplay_pic_firmware_verison());
+    Serial.print("pic new firmware version: ");
+    Serial.println(LP_Get_linkplay_pic_new_firmware_verison());
+}
+
+void get_ap_ssid()
+{   
+    Serial.print("essid: ");
+    Serial.println(LP_Get_linkplay_essid());
+}
+
+void get_lp_ssid() 
+{
+    Serial.print("ssid: ");
+    Serial.println(LP_Get_linkplay_ssid());
+}
+
+void get_mac_address()
+{
+    Serial.print("mac: ");
+    Serial.println(LP_Get_linkplay_mac_address());
+    Serial.print("sta mac: ");
+    Serial.println(LP_Get_linkplay_sta_mac_address());
+}
+
+void get_access_points()
+{
+
+}

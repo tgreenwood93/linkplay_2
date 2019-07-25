@@ -35,7 +35,38 @@ void loop() {
         if (strcmp(newMsgUSB, "lp dump") == 0)
         {
             dump_stored_linkplay_data();
-            digitalWrite(led, HIGH);
+        }
+        else if (strcmp(newMsgUSB, "lp ip") == 0)
+        {
+            get_IP();
+        }
+        else if (strcmp(newMsgUSB, "lp netstat") == 0)
+        {
+            get_network_status();
+        }
+        else if (strcmp(newMsgUSB, "lp metadat") == 0)
+        {
+            get_meta_data();
+        }
+        else if (strcmp(newMsgUSB, "lp lastrtc") == 0)
+        {
+            get_last_rtc();
+        }
+        else if (strcmp(newMsgUSB, "lp vers") == 0)
+        {
+            get_lp_version();
+        }
+        else if (strcmp(newMsgUSB, "lp picv") == 0)
+        {
+            get_lp_pic_version();
+        }
+        else if (strcmp(newMsgUSB, "lp ssid") == 0)
+        {
+            get_ap_ssid();
+        }
+        else if (strcmp(newMsgUSB, "lp macadd") == 0)
+        {
+            get_mac_address();
         }
         else
         {

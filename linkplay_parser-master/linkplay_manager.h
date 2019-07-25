@@ -309,5 +309,22 @@ void LP_Set_linkplay_ready_for_communication(bool ready);
 bool LP_Set_linkplay_ready_for_communication();
 
 void dump_stored_linkplay_data(void);
+void get_IP();
+void get_network_status();
+void get_meta_data();
+void get_last_rtc();
+void get_rtc();
+void get_lp_version();
+void get_lp_pic_version();
+void get_ap_ssid();
+void get_lp_ssid();
+void get_mac_address();
+void get_access_points();
 
+
+
+void lp_retrieve_rtc();
+void lp_retrieve_metadata();
+void lp_retrieve_system_info();
+void lp_
 #endif
