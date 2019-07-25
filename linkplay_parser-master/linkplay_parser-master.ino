@@ -78,6 +78,20 @@ void loop() {
             lp_set_name();
 
         }
+        else if (strcmp(newMsgUSB, "lp help") == 0)
+        {
+            Serial.println("help menu");
+            Serial.println("    lp dump         - dump all stored data");
+            Serial.println("    lp netstat      - get network status");
+            Serial.println("    lp metadat      - get track metadata");
+            Serial.println("    lp lastrtc      - get the last stored clock value");
+            Serial.println("    lp vers         - get linkplay firmware version");
+            Serial.println("    lp picv         - get the pic version");
+            Serial.println("    lp ssid         - get the ssid of the connected ap");
+            Serial.println("    lp macadd       - get the mac address of the linkplay");
+            Serial.println("    lp sysinf       - get linkplay system info");
+            Serial.println("    lp setssid      - set the ssid and name of linkplay");
+        }
         else
         {
             Serial1.println(newMsgUSB);
