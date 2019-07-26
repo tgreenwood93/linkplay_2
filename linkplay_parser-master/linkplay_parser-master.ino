@@ -2,6 +2,9 @@
 #include "linkplay_manager.h"
 #include "linkplay_error_handler.h"
 #include "standin_functions.h"
+#include "queue.h"
+#include "cli.h"
+#include "debug.h"
 
 void checkSerial1(void); 
 void checkSerialUSB(void);
@@ -10,7 +13,7 @@ char newMsgUSB[1050];
 char newMsg[1600];
 
 static bool doneRecieving = false; 
-static bool doneRecievingUSB = false; 
+//static bool doneRecievingUSB = false; 
 static uint8_t led = 13; 
 static uint16_t i = 0;
 static char tempCharLP = '\0';
@@ -20,16 +23,20 @@ void setup()
 {
   Serial.begin(9600);
   Serial1.begin(57600);
-  memset(newMsg, 0, 1600);
-  memset(newMsgUSB, 0, 1026);
+  memset(newMsg, ASCII_NUL, 1600);
+  memset(newMsgUSB, ASCII_NUL, 1026);
   pinMode(led, OUTPUT);
   Serial.println("Booting up...");
+  Debug_Init();
+  CLI_Init();
 }
 
 void loop() {
-  
+
     checkSerialUSB();
-    if (true == doneRecievingUSB)
+    CLI_Tasks();
+
+    /*if (true == doneRecievingUSB)
     {
         Serial.println(newMsgUSB);
         if (strcmp(newMsgUSB, "lp dump") == 0)
@@ -98,8 +105,8 @@ void loop() {
         }
         doneRecievingUSB = false; 
         memset(newMsgUSB, 0, 1026);
-    }
-
+    }*/
+/*
     checkSerial1();
     if (true == doneRecieving)
     {
@@ -108,38 +115,42 @@ void loop() {
         memset(newMsg, 0, 1600);
         doneRecieving = false; 
         i = 0; 
-    }
+    }*/
 }
 
 
 void checkSerialUSB()
 {
-    static uint16_t i = 0;
-    static char tempChar = '\0';
 
-    i = 0;
-    while (Serial.available()) 
-    {
-        doneRecievingUSB = true; 
-        tempChar = Serial.read();
-        if (tempChar != '\n')
-        {
-            newMsgUSB[i] = tempChar;
-            i++;
-            if (i > 1023)
-            {
-                newMsgUSB[i+1] = '\0';
-                i = 0;
-                break;
-            } 
-        }
-        else
-        {
-            Serial.flush();
-            i = 0;
-            break;
-        }
-    }
+        _DEBUG_RecieveReadBuffer();
+       
+   
+//    static uint16_t i = 0;
+//    static char tempChar = ASCII_NUL;
+//
+//    i = 0;
+//    while (Serial.available()) 
+//    {
+//        doneRecievingUSB = true; 
+//        tempChar = Serial.read();
+//        if (tempChar != ASCII_CR)
+//        {
+//            newMsgUSB[i] = tempChar;
+//            i++;
+//            if (i > 1023)
+//            {
+//                newMsgUSB[i+1] = ASCII_NUL;
+//                i = 0;
+//                break;
+//            } 
+//        }
+//        else
+//        {
+//            Serial.flush();
+//            i = 0;
+//            break;
+//        }
+//    }
 }
 
 
@@ -149,7 +160,7 @@ void checkSerial1()
     while (Serial1.available()) 
     {
         tempCharLP = Serial1.read();
-        if ((tempCharLP != '\n'))
+        if ((tempCharLP != ASCII_CR))
         {
             newMsg[i++] = tempCharLP;            
             if (i > 1598)
@@ -166,7 +177,7 @@ void checkSerial1()
         else
         {
             doneRecieving = true; 
-            newMsg[i+1] = '\0';
+            newMsg[i+1] = ASCII_NUL;
             break;
         }
     }

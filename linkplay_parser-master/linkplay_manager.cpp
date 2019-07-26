@@ -2,6 +2,9 @@
 #include "linkplay_manager.h"
 #include "linkplay_error_handler.h"
 #include "standin_functions.h"
+#include "queue.h"
+#include "cli.h"
+#include "debug.h"
 
 static LinkPlay_Firmware_Update_t linkplay_update_status; 
 static LinkPlay_Audio_Channel_Options_t linkplay_channel_config; 
@@ -237,7 +240,7 @@ bool LP_Get_linkplay_factory_status()
 
 void LP_Set_linkplay_ssid(char* ssid)
 {
-    memset(linkplay_ssid, 0, 70);
+    memset(linkplay_ssid, ASCII_NUL, 70);
     strncpy(linkplay_ssid, ssid, strlen(ssid));
 }
 
@@ -283,7 +286,7 @@ uint8_t LP_Get_linkplay_ssid_strategy()
 
 void LP_Set_linkplay_firmware_version(char* firmware_version)
 {
-    memset(linkplay_firmware_version, 0, 20);
+    memset(linkplay_firmware_version, ASCII_NUL, 20);
     strncpy(linkplay_firmware_version, firmware_version, strlen(firmware_version));
 }
 
@@ -295,7 +298,7 @@ char* LP_Get_linkplay_firmware_version()
 
 void LP_Set_linkplay_build(char* firmware_build_type)
 {
-    memset(linkplay_firmware_build_type, 0, 20);
+    memset(linkplay_firmware_build_type, ASCII_NUL, 20);
     strncpy(linkplay_firmware_build_type, firmware_build_type, strlen(firmware_build_type));
 }
 
@@ -307,7 +310,7 @@ char* LP_Get_linkplay_build()
 
 void LP_Set_linkplay_project(char* project)
 {
-    memset(linkplay_project_title, 0, 30);
+    memset(linkplay_project_title, ASCII_NUL, 30);
     strncpy(linkplay_project_title, project, strlen(project)); 
 }
 
@@ -319,7 +322,7 @@ char* LP_Get_linkplay_project()
 
 void LP_Set_linkplay_private_project(char* private_project)
 {
-    memset(linkplay_private_project_title, 0, 30);
+    memset(linkplay_private_project_title, ASCII_NUL, 30);
     strncpy(linkplay_private_project_title, private_project, strlen(private_project)); 
 }
 
@@ -342,7 +345,7 @@ uint32_t LP_Get_linkplay_firmare_release()
 
 void LP_Set_linkplay_firmware_branch(char* firmware_branch)
 {
-    memset(linkplay_firmware_branch, 0, 30);
+    memset(linkplay_firmware_branch, ASCII_NUL, 30);
     strncpy(linkplay_firmware_branch, firmware_branch, strlen(firmware_branch));
 }
 
@@ -375,7 +378,7 @@ bool LP_Get_linkplay_version_expierd()
 
 void LP_Set_linkplay_uuid(char* uuid)
 {
-    memset(linkplay_uuid, 0, 30);
+    memset(linkplay_uuid, ASCII_NUL, 30);
     strncpy(linkplay_uuid, uuid, strlen(uuid));
 }
 
@@ -386,7 +389,7 @@ char* LP_Get_linkplay_uuid()
 
 void LP_Set_linkplay_mac_address(char* mac_address)
 {
-    memset(linkplay_mac_address, 0, 20);
+    memset(linkplay_mac_address, ASCII_NUL, 20);
     strncpy(linkplay_mac_address, mac_address, strlen(mac_address));
 }
 
@@ -397,7 +400,7 @@ char* LP_Get_linkplay_mac_address()
 
 void LP_Set_linkplay_sta_mac_address(char* sta_mac_address)
 {
-    memset(linkplay_sta_mac_address, 0, 20);
+    memset(linkplay_sta_mac_address, ASCII_NUL, 20);
     strncpy(linkplay_sta_mac_address, sta_mac_address, strlen(sta_mac_address));
 }
 
@@ -431,7 +434,7 @@ uint8_t LP_Get_linkplay_network_status()
 
 void LP_Set_linkplay_essid(char* essid)
 {
-    memset(connected_ap_ssid, 0, 65);
+    memset(connected_ap_ssid, ASCII_NUL, 65);
     strncpy(connected_ap_ssid, essid, strlen(essid));
 }
 
@@ -443,7 +446,7 @@ char* LP_Get_linkplay_essid()
 
 void LP_Set_linkplay_wifi_ip(char* wifi_ip)
 {
-    memset(linkplay_wifi_ip, 0, 20);
+    memset(linkplay_wifi_ip, ASCII_NUL, 20);
     strncpy(linkplay_wifi_ip, wifi_ip, strlen(wifi_ip));
 }
 
@@ -455,7 +458,7 @@ char* LP_Get_linkplay_wifi_ip()
 
 void LP_Set_linkplay_ethernet_ip(char* ethernet_ip)
 {
-    memset(linkplay_ethernet_ip, 0, 20);
+    memset(linkplay_ethernet_ip, ASCII_NUL, 20);
     strncpy(linkplay_ethernet_ip, ethernet_ip, strlen(ethernet_ip));
 }
 
@@ -466,7 +469,7 @@ char* LP_Get_linkplay_ethernet_ip()
 
 void LP_Set_linkplay_hardware(char* hardware_module)
 {
-    memset(linkplay_hardware_module, 0, 5);
+    memset(linkplay_hardware_module, ASCII_NUL, 5);
     strncpy(linkplay_hardware_module, hardware_module, strlen(hardware_module));
 }
 
@@ -542,7 +545,7 @@ uint8_t LP_Get_linkplay_dsp_new_firmware_verison()
 
 void LP_Set_linkplay_internal_server_port(char* internal_server_port)
 {
-    memset(linkplay_internal_server_port, 0, 20);
+    memset(linkplay_internal_server_port, ASCII_NUL, 20);
     strncpy(linkplay_internal_server_port, internal_server_port, strlen(internal_server_port));
 }
 
@@ -554,7 +557,7 @@ char* LP_Get_linkplay_internal_server_port()
 
 void LP_Set_linkplay_temp_uuid(char* temp_uuid)
 {
-    memset(linkplay_temp_uuid, 0, 20);
+    memset(linkplay_temp_uuid, ASCII_NUL, 20);
     strncpy(linkplay_temp_uuid, temp_uuid, strlen(temp_uuid));
 }
 
@@ -742,7 +745,7 @@ uint16_t LP_Get_linkplay_upnp_version()
 
 void LP_Set_linkplay_upnp_uuid(char* unpn_uuid)
 {
-    memset(linkplay_unpn_uuid, 0, 40);
+    memset(linkplay_unpn_uuid, ASCII_NUL, 40);
     strncpy(linkplay_unpn_uuid, unpn_uuid+5, (strlen(unpn_uuid)-5));
 }
 
@@ -754,7 +757,7 @@ char* LP_Get_linkplay_upnp_uuid()
 
 void LP_Set_linkplay_pass_port(char* pass_port)
 {
-    memset(linkplay_pass_port, 0, 8);
+    memset(linkplay_pass_port, ASCII_NUL, 8);
     strncpy(linkplay_pass_port, pass_port, strlen(pass_port));
 }
 
@@ -766,7 +769,7 @@ char* LP_Get_linkplay_pass_port()
 
 void LP_Set_linkplay_communication_port(char* comm_port)
 {
-    memset(linkplay_comm_port, 0, 8);
+    memset(linkplay_comm_port, ASCII_NUL, 8);
     strncpy(linkplay_comm_port, comm_port, strlen(comm_port));
 }
 
@@ -843,7 +846,7 @@ bool LP_Get_linkplay_privacy_mode()
 
 void LP_Set_linkplay_user1(char* user_1)
 {
-    memset(linkplay_user_1, 0, 20);
+    memset(linkplay_user_1, ASCII_NUL, 20);
     strncpy(linkplay_user_1, user_1, strlen(user_1));
 }
 
@@ -855,7 +858,7 @@ char* LP_Get_linkplay_user1()
 
 void LP_Set_linkplay_user2(char* user_2)
 {
-    memset(linkplay_user_2, 0, 20);
+    memset(linkplay_user_2, ASCII_NUL, 20);
     strncpy(linkplay_user_2, user_2, strlen(user_2));
 }
 
@@ -867,7 +870,7 @@ char* LP_Get_linkplay_user2()
 
 void LP_Set_linkplay_device_name(char* device_name)
 {
-    memset(linkplay_device_name, 0, 65);
+    memset(linkplay_device_name, ASCII_NUL, 65);
     strncpy(linkplay_device_name, device_name, strlen(device_name));
 }
 
@@ -908,7 +911,7 @@ uint8_t LP_Get_linkplay_communication_status()
 
 void LP_Set_linkplay_title(char* title)
 {
-    memset(linkplay_title, 0, 70);
+    memset(linkplay_title, ASCII_NUL, 70);
     strncpy(linkplay_title, title, strlen(title));
 }
 char* LP_Get_linkplay_title()
@@ -918,7 +921,7 @@ char* LP_Get_linkplay_title()
 
 void LP_Set_linkplay_artist(char* artist)
 {
-    memset(linkplay_artist, 0, 70);
+    memset(linkplay_artist, ASCII_NUL, 70);
     strncpy(linkplay_artist, artist, strlen(artist));
 }
 char* LP_Get_linkplay_artist()
@@ -928,7 +931,7 @@ char* LP_Get_linkplay_artist()
 
 void LP_Set_linkplay_album(char* album)
 {
-    memset(linkplay_album, 0, 70);
+    memset(linkplay_album, ASCII_NUL, 70);
     strncpy(linkplay_album, album, strlen(album));
 }
 char* LP_Get_linkplay_album()

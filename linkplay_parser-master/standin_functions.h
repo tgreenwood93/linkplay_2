@@ -2,6 +2,11 @@
 
 #ifndef standin_functions_h
 #define standin_functions_h
+
+const char ASCII_NUL = 0;
+const char ASCII_CR = '\n';
+const char ASCII_BS = 0x08;
+
 typedef enum 
 {
     e_OUTPUT_TYPE_Headphones = 0,

@@ -2,6 +2,9 @@
 #include "linkplay_manager.h"
 #include "linkplay_error_handler.h"
 #include "standin_functions.h"
+#include "queue.h"
+#include "cli.h"
+#include "debug.h"
 
 void processCommand(char* linkplay_command)
 {   
@@ -626,7 +629,7 @@ LinkPlay_Error_t process_inf_command(char* linkplay_command)                    
                     {
                         strncpy(char_buf, (linkplay_command+(data_start_point+data_offset)), (data_end_point-(data_start_point+data_offset)));
                         error_handler = inf_command_parser((num_args-1), char_buf);
-                        memset(char_buf, 0, 100);
+                        memset(char_buf, ASCII_NUL, 100);
                         break;
                     }  
                 }
@@ -969,9 +972,9 @@ void process_date(char* date)
     char c_current_month[4];
     char c_current_day[4];
 
-    memset(c_current_year, 0, 6); 
-    memset(c_current_month, 0, 4); 
-    memset(c_current_day, 0, 4); 
+    memset(c_current_year, ASCII_NUL, 6); 
+    memset(c_current_month, ASCII_NUL, 4); 
+    memset(c_current_day, ASCII_NUL, 4); 
 
     strncpy(c_current_year, date, 4);
     strncpy(c_current_month, date+5, 2);
@@ -988,9 +991,9 @@ void process_time(char* time)
     char c_current_minute[4];
     char c_current_second[4];
 
-    memset(c_current_hour, 0, 4); 
-    memset(c_current_minute, 0, 4); 
-    memset(c_current_second, 0, 4); 
+    memset(c_current_hour, ASCII_NUL, 4); 
+    memset(c_current_minute, ASCII_NUL, 4); 
+    memset(c_current_second, ASCII_NUL, 4); 
 
     strncpy(c_current_hour, time, 2);
     strncpy(c_current_minute, time+3, 2);
@@ -1005,7 +1008,7 @@ void process_essid(char* hex_ap)
 {           
     char ascii_ap[65];
 
-    memset(ascii_ap, 0, 65); 
+    memset(ascii_ap, ASCII_NUL, 65); 
     hex2ascii(hex_ap, ascii_ap, strlen(hex_ap), strlen(ascii_ap));
     LP_Set_linkplay_essid(ascii_ap);
 }
@@ -1157,13 +1160,13 @@ LinkPlay_Error_t process_mea_command(char* linkplay_command)                    
     uint16_t artist_char_counter = 0;     
     uint16_t album_char_counter = 0; 
 
-    memset(hex_title, 0, 70);
-    memset(hex_artist, 0, 70);    
-    memset(hex_album, 0, 70);
+    memset(hex_title, ASCII_NUL, 70);
+    memset(hex_artist, ASCII_NUL, 70);    
+    memset(hex_album, ASCII_NUL, 70);
 
-    memset(ascii_title, 0, 70);
-    memset(ascii_artist, 0, 70);    
-    memset(ascii_album, 0, 70);
+    memset(ascii_title, ASCII_NUL, 70);
+    memset(ascii_artist, ASCII_NUL, 70);    
+    memset(ascii_album, ASCII_NUL, 70);
     
     if (strncmp((linkplay_command + 8), "RDY", 3) == 0)
     {
@@ -1427,7 +1430,7 @@ LinkPlay_Error_t process_ply_command(char* linkplay_command)                    
                     break;
                 }
             }
-            memset(playback_time, 0, 50);
+            memset(playback_time, ASCII_NUL, 50);
             strncpy(playback_time, linkplay_command+11, (i-11));
             Serial.println(atoi(playback_time));
             LP_Set_linkplay_song_time(atoi(playback_time));
@@ -1861,8 +1864,8 @@ LinkPlay_Error_t process_wan_command(char *linkplay_command)
         }
         
         status_type < max_wan_status ? status_type++ : status_type = 0;
-        memset(hex_ap, 0, 100);
-        memset(ascii_ap, 0, 100);
+        memset(hex_ap, ASCII_NUL, 100);
+        memset(ascii_ap, ASCII_NUL, 100);
         string_begin += string_size;
         string_size = 0;
     }
@@ -1937,7 +1940,7 @@ int16_t hex2ascii(const char *hexArray, char *asciiArray, uint8_t hexArrayLength
 {
     int16_t i = 0;
     int16_t j = 0;
-    memset(asciiArray, 0, asciiArrayLength);
+    memset(asciiArray, ASCII_NUL, asciiArrayLength);
     
     for (i = 0; i<hexArrayLength; i+=2 )
     {
