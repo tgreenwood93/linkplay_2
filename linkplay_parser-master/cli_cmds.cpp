@@ -61,7 +61,7 @@ CLI_Func_t cli_functions[] = {  { "help",   cli_cmd_help,   "print help message"
                                 { "muteVol", cli_cmd_muteVol, "mute the current output"},
                                 { "printEEPROM", cli_cmd_printEEPROM, "allow for printing contents of the EEPROM"},
                                 { "eraseEEPROM", cli_cmd_eraseEEPROM, "Erase the contents of the EEPROM"},
-                                { "linkplay", cli_cmd_linkplay, "retrieve linkplay information"},
+                                { "linkplay", cli_cmd_linkplay, "retrieve and set linkplay information"},
                                 { NULL,     NULL,       NULL }};
 
 
@@ -368,6 +368,18 @@ enum
     CMD_LINKPLAY_SET_NAME,
     CMD_LINKPLAY_SET_SSID,
     CMD_LINKPLAY_GET_APS,
+    CMC_LINKPLAY_CONN_AP,
+    CMC_LINKPLAY_WIRELESS_STAT,
+    CMC_LINKPLAY_TURN_ON_WPS,
+    CMC_LINKPLAY_TURN_OFF_WPS,
+    CMD_LINKPLAY_NXT_TRACK,
+    CMC_LINKPLAY_PREV_TRACK,
+    CMC_LINKPLAY_PAUSE,
+    CMC_LINKPLAY_PLAY,
+    CMC_LINKPLAY_STOP,
+    CMC_LINKPLAY_PLA_PUS,
+    CMC_LINKPLAY_PLAYBACK_STAT,
+    CMC_LINKPLAY_FACTORY,
     CMD_LINKPLAY_PASS_THROUGH,
     CMD_LINKPLAY_HELP
 } e_cmd_linkplay_list;
@@ -375,8 +387,10 @@ static void cli_cmd_linkplay (char *arg_buf)
 {
     char*   sCmdList[] = {  "ip", "netstat", "mac",
                             "version", "picver", "getap", "sysinf",
-                            "setname", "setssid", "getaps",
-                            "passthru", "help", NULL};
+                            "setname", "setssid", "getaps", "connap",
+                            "wifstat", "wpson", "wpsoff", "nxttrk", 
+                            "prvtrk", "pause", "play", "stop", "ptog",
+                            "plbkstat", "fact", "passthru", "help", NULL};
     char    sCmd[10];
     int     arg_cnt;
     int     nReg;
@@ -425,6 +439,42 @@ static void cli_cmd_linkplay (char *arg_buf)
             
             break;
         case CMD_LINKPLAY_GET_APS:
+
+            break;
+        case CMC_LINKPLAY_CONN_AP:
+
+            break;    
+        case CMC_LINKPLAY_WIRELESS_STAT:
+
+            break;    
+        case CMC_LINKPLAY_TURN_ON_WPS:
+
+            break;    
+        case CMC_LINKPLAY_TURN_OFF_WPS:
+
+            break;    
+        case CMD_LINKPLAY_NXT_TRACK:
+
+            break;    
+        case CMC_LINKPLAY_PREV_TRACK:
+
+            break;    
+        case CMC_LINKPLAY_PAUSE:
+
+            break;    
+        case CMC_LINKPLAY_PLAY:
+
+            break;    
+        case CMC_LINKPLAY_STOP:
+
+            break;    
+        case CMC_LINKPLAY_PLA_PUS:
+
+            break;    
+        case CMC_LINKPLAY_PLAYBACK_STAT:
+
+            break;    
+        case CMC_LINKPLAY_FACTORY:
             
             break;
         case CMD_LINKPLAY_PASS_THROUGH:
@@ -443,9 +493,20 @@ static void cli_cmd_linkplay (char *arg_buf)
             Debug_Printf("    setname   - set the name of the device ex: linkplay setname stellar\n");
             Debug_Printf("    setssid   - set the ssid of the internal ap ex: linkplay setssid integrated\n");
             Debug_Printf("    gettaps   - get list of aps linkplay can see\n");
+            Debug_Printf("    connap    - \n");
+            Debug_Printf("    wifstat   - \n");
+            Debug_Printf("    wpson     - \n");
+            Debug_Printf("    wpsoff    - \n");
+            Debug_Printf("    nxttrk    - \n");
+            Debug_Printf("    prvtrk    - \n");
+            Debug_Printf("    pause     - \n");
+            Debug_Printf("    play      - \n");
+            Debug_Printf("    stop      - \n");
+            Debug_Printf("    ptog      - \n");
+            Debug_Printf("    plbkstat  - \n");
+            Debug_Printf("    fact      - \n");
             Debug_Printf("    passthru  - send commands directly to linkplay \n");
             Debug_Printf("    help      - list of linkplay commands\n");
-
             break;
         default:
             Debug_Printf("Invalid linkplay command - %s\n\n", sCmd);
