@@ -13,6 +13,7 @@
 // **************************************************************************************
 // Section: Included Files
 // **************************************************************************************
+#include "Arduino.h"
 #include <stdio.h>
 #include "cli.h"
 #include "linkplay_command_processor.h"
@@ -24,16 +25,18 @@
 
 
 // Local (static) function prototypes for individual cli functions
+static void cli_cmd_eraseEEPROM(char *arg_buf);
 static void cli_cmd_help(char *arg_buf);
 static void cli_cmd_i2c(char *arg_buf);
 static void cli_cmd_ir(char *arg_buf);
-static void cli_cmd_qtest(char *arg_buf);
-static void cli_cmd_test(char *arg_buf);
-static void cli_cmd_setVol(char *arg_buf);
-static void cli_cmd_printVol(char *arg_buf);
+static void cli_cmd_linkplay(char *arg_buf);
 static void cli_cmd_muteVol(char *arg_buf);
 static void cli_cmd_printEEPROM(char *arg_buf);
-static void cli_cmd_eraseEEPROM(char *arg_buf);
+static void cli_cmd_printVol(char *arg_buf);
+static void cli_cmd_qtest(char *arg_buf);
+static void cli_cmd_setVol(char *arg_buf);
+static void cli_cmd_test(char *arg_buf);
+
 
 
 // **************************************************************************************
@@ -58,6 +61,7 @@ CLI_Func_t cli_functions[] = {  { "help",   cli_cmd_help,   "print help message"
                                 { "muteVol", cli_cmd_muteVol, "mute the current output"},
                                 { "printEEPROM", cli_cmd_printEEPROM, "allow for printing contents of the EEPROM"},
                                 { "eraseEEPROM", cli_cmd_eraseEEPROM, "Erase the contents of the EEPROM"},
+                                { "linkplay", cli_cmd_linkplay, "retrieve linkplay information"},
                                 { NULL,     NULL,       NULL }};
 
 
@@ -201,7 +205,9 @@ static void cli_cmd_ir(char *arg_buf)
     //IR_CliDebug(current_state);
 }
 
-
+// **************************************************************************************
+//  cli_cmd_test
+// **************************************************************************************
 static void cli_cmd_test(char *arg_buf)
 {
     int test_case;
@@ -227,6 +233,9 @@ static void cli_cmd_test(char *arg_buf)
         
 }
 
+// **************************************************************************************
+//  cli_cmd_setVol
+// **************************************************************************************
 static void cli_cmd_setVol(char *arg_buf)
 {
     if (arg_buf == NULL)
@@ -251,6 +260,9 @@ static void cli_cmd_setVol(char *arg_buf)
     }
 }
 
+// **************************************************************************************
+//  cli_cmd_printVol
+// **************************************************************************************
 static void cli_cmd_printVol(char *arg_buf)
 {
     Output_Type_t oType = CS_GetOutputType();
@@ -266,6 +278,9 @@ static void cli_cmd_printVol(char *arg_buf)
     }
 }
 
+// **************************************************************************************
+//  cli_cmd_muteVol
+// **************************************************************************************
 static void cli_cmd_muteVol(char *arg_buf)
 {
 /*
@@ -322,12 +337,118 @@ static void cli_cmd_muteVol(char *arg_buf)
     //VOLMGR_Mute(fMute);*/
 }
 
+// **************************************************************************************
+//  cli_cmd_printEEPROM
+// **************************************************************************************
 static void cli_cmd_printEEPROM(char *arg_buf)
 {
     //PrintEEPROM();
 }
 
+// **************************************************************************************
+//  cli_cmd_eraseEEPROM
+// **************************************************************************************
 static void cli_cmd_eraseEEPROM(char *arg_buf)
 {
     //EraseEEPROM();
+}
+
+// **************************************************************************************
+//  cli_cmd_linkplay
+// **************************************************************************************
+enum
+{
+    CMD_LINKPLAY_IP    = 0,
+    CMD_LINKPLAY_NET_STAT,
+    CMD_LINKPLAY_MAC,
+    CMD_LINKPLAY_VERS,
+    CMD_LINKPLAY_PIC_VERS,
+    CMD_LINKPLAY_GET_AP_SSID,
+    CMD_LINKPLAY_SYS_INF,
+    CMD_LINKPLAY_SET_NAME,
+    CMD_LINKPLAY_SET_SSID,
+    CMD_LINKPLAY_GET_APS,
+    CMD_LINKPLAY_PASS_THROUGH,
+    CMD_LINKPLAY_HELP
+} e_cmd_linkplay_list;
+static void cli_cmd_linkplay (char *arg_buf)
+{
+    char*   sCmdList[] = {  "ip", "netstat", "mac",
+                            "version", "picver", "getap", "sysinf",
+                            "setname", "setssid", "getaps",
+                            "passthru", "help", NULL};
+    char    sCmd[10];
+    int     arg_cnt;
+    int     nReg;
+    int     nCmd;
+    
+    // Parse arg_buf into sCmd and nReg
+    arg_cnt = sscanf(arg_buf, "%s %x", sCmd, &nReg);
+    
+    // If no args display i2c help
+    if (arg_cnt <= 0)
+        nCmd = CMD_LINKPLAY_HELP;
+    
+    // Get sCmd command index
+    else
+        nCmd = cli_arg_parsecmd(sCmd, sCmdList);
+            
+    // Act on nCmd
+    switch (nCmd)
+    {
+        case CMD_LINKPLAY_IP:
+            get_IP();
+            break;
+        case CMD_LINKPLAY_NET_STAT:
+            get_network_status();
+            break;
+        case CMD_LINKPLAY_MAC:
+            get_mac_address();
+            break;
+        case CMD_LINKPLAY_VERS:
+            get_lp_version();
+            //Debug_Printf("Main Temp Sensor = %d C\n", I2C_GetMainTemp());
+            break;
+        case CMD_LINKPLAY_PIC_VERS:
+            get_lp_pic_version();
+            break;
+        case CMD_LINKPLAY_GET_AP_SSID:
+            get_ap_ssid();
+            break;
+        case CMD_LINKPLAY_SYS_INF:
+            dump_stored_linkplay_data();
+            break;
+        case CMD_LINKPLAY_SET_NAME:
+            
+            break;
+        case CMD_LINKPLAY_SET_SSID:
+            
+            break;
+        case CMD_LINKPLAY_GET_APS:
+            
+            break;
+        case CMD_LINKPLAY_PASS_THROUGH:
+            Debug_Printf("Linkplay bypass engaged\n");
+            engage_linkplay_bypass();   
+            break;
+        case CMD_LINKPLAY_HELP:
+            Debug_Printf("linkplay commands\n");
+            Debug_Printf("    ip        - get the ip address of the wifi and ethernet\n");
+            Debug_Printf("    netstat   - get the network status of linkplay\n");
+            Debug_Printf("    mac       - get the mac address of the linkplay\n");
+            Debug_Printf("    version   - get the fimrware version of the linkplay\n");
+            Debug_Printf("    picver    - get the linkply's stored value of pic version\n");
+            Debug_Printf("    getap     - get the name of the connected ap\n");
+            Debug_Printf("    sysinf    - get system info\n");
+            Debug_Printf("    setname   - set the name of the device ex: linkplay setname stellar\n");
+            Debug_Printf("    setssid   - set the ssid of the internal ap ex: linkplay setssid integrated\n");
+            Debug_Printf("    gettaps   - get list of aps linkplay can see\n");
+            Debug_Printf("    passthru  - send commands directly to linkplay \n");
+            Debug_Printf("    help      - list of linkplay commands\n");
+
+            break;
+        default:
+            Debug_Printf("Invalid linkplay command - %s\n\n", sCmd);
+            break;
+    };
 }

@@ -27,6 +27,8 @@
 static void cli_interpreter(void);
 static void cli_parseline(char *cmd, char *arg_list);
 static void cli_read();
+static void process_linkplay_comm();
+static void linkplay_bypass();
 
 // Defines
 #define CLI_READBUF_MAX         120 
@@ -35,13 +37,14 @@ static void cli_read();
 #define CLI_MAX_READLINE        100
 #define CLI_IO_UART             1
 #define CLI_IO_USBCDC           2
-
-
+#define LP_EXIT_CMD "q" 
+#define LP_EXIT_CMD_LEN 1
 // Local (static) global vars
 static char     cli_readbuf[CLI_READBUF_MAX];
 static uint8_t  cli_readbuf_len = 0;
 static uint8_t  cli_IO_source;
-
+static bool     linkplay_cli_bypass = false; 
+//EXIT_CMD, EXIT_CMD_LEN
 // Externs
 extern CLI_Func_t cli_functions[];
 
@@ -242,7 +245,15 @@ static void cli_read()
         {
             // Convert the CR into a NUL and execute the interpreter
             cli_readbuf[cli_readbuf_len] = ASCII_NUL;
-            cli_interpreter();
+            if (linkplay_cli_bypass == false)
+            {
+                cli_interpreter();
+            }
+            else
+            {
+                linkplay_bypass(); 
+            }
+            
             memset(cli_readbuf, ASCII_NUL, CLI_READBUF_MAX);
             cli_readbuf_len = 0;
         }
@@ -265,4 +276,41 @@ static void cli_read()
             }
         }
     }
+}
+
+static void linkplay_bypass()
+{
+    int line_idx = 0;
+    int len = 0;
+    int i;
+    int j;
+
+    // Return immediately on an empty string
+    if (*cli_readbuf == ASCII_NUL)
+        return;
+
+    // Everything else are the arguments
+    len = strlen(cli_readbuf);
+    if (len >= CLI_ARGLIST_MAXLEN)
+        len = CLI_ARGLIST_MAXLEN - 1;
+        
+    // Copy from cli_readbuf with an offset of line_idx (where the args start) into arg_list
+    //strncpy(arg_list, cli_readbuf, CLI_ARGLIST_MAXLEN-2);
+    if ((strlen(cli_readbuf) == LP_EXIT_CMD_LEN) &&
+        (strncmp(cli_readbuf, LP_EXIT_CMD, LP_EXIT_CMD_LEN) == 0))
+    {
+        Debug_Printf("Linkplkay bypass disengaged\n");  
+        linkplay_cli_bypass = false;
+    }
+    else
+    {
+        Debug_Printf("in linkplay_bypass!\n");  
+        Serial1.println(cli_readbuf);
+    }
+
+}
+
+void engage_linkplay_bypass()
+{
+    linkplay_cli_bypass = true;
 }
