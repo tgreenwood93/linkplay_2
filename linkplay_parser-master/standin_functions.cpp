@@ -2,6 +2,9 @@
 #include "linkplay_command_processor.h"
 #include "linkplay_manager.h"
 #include "linkplay_error_handler.h"
+#include "linkplay_cli.h"
+
+
 static uint8_t test_vol = 20;
 static uint8_t test_vol_hp = 20;
 

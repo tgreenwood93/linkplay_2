@@ -1,0 +1,7 @@
+{
+    "board": "arduino:avr:teensy35",
+    "configuration": "usb=serial,speed=120,opt=o2std,keys=en-us",
+    "port": "COM12",
+    "programmer": "AVR ISP",
+    "sketch": "linkplay_parser-master.ino"
+}

@@ -5,6 +5,7 @@
 #include "queue.h"
 #include "cli.h"
 #include "debug.h"
+#include "linkplay_cli.h"
 
 void processCommand(char* linkplay_command)
 {   
@@ -399,12 +400,12 @@ LinkPlay_Error_t process_bot_command(char* linkplay_command)                   /
 {
     if (strncmp((linkplay_command + 8), "DON", 3) == 0)
     {   
-        Serial.println("Linkplay is done booting. This is also the heartbeat command");
+        Linkplay_Debug_Printf("Linkplay is done booting. This is also the heartbeat command\n");
         return e_no_error;
     }
     else if (strncmp((linkplay_command + 8), "UP0", 3) == 0)
     {
-        Serial.println("Linkplay is done booting. This one time command acknowledges that");
+        Linkplay_Debug_Printf("Linkplay is done booting. This one time command acknowledges that\n");
         return e_no_error;  
     }
     return e_unknown_bot_command;
@@ -421,15 +422,15 @@ LinkPlay_Error_t process_bur_command(char* linkplay_command)                   /
     switch(linkplay_command[10])
     {
         case 'G':
-            Serial.println("Linkplay is updating its firmware!");
+            Linkplay_Debug_Printf("Linkplay is updating its firmware!\n");
             LP_Set_linkplay_firmware_update_status(e_firmware_updateing);
             break;
         case '2':
-            Serial.println("Linkplay firmware update successful");
+            Linkplay_Debug_Printf("Linkplay firmware update successful\n");
             LP_Set_linkplay_firmware_update_status(e_update_successful);
             break;
         case '3':
-            Serial.println("Linkplay firmware update failed!");
+            Linkplay_Debug_Printf("Linkplay firmware update failed!\n");
             LP_Set_linkplay_firmware_update_status(e_update_failed); 
             break;  
         default:
@@ -445,19 +446,19 @@ LinkPlay_Error_t process_cap_command(char* linkplay_command)                   /
     */
     if (strncmp((linkplay_command + 8), "GET", 3) == 0)
     {
-        Serial.println("Linkplay booted after factory reset, needs pertinent information");
-        Serial1.println("MCU+CAP+PRJPSAUDIO_Stellar&");
-        Serial1.println("MCU+PTV+000");
-        Serial1.println("MCU+SPY+BRNPSAUDIO&");
-        Serial1.println("MCU+SPY+NAMStellarIntegrated&");
-        Serial1.println("MCU+SPY+TYP0&");
-        Serial1.println("MCU+CAP+00100001100&");
-        Serial1.println("MCU+CAP+00200000800&");
-        Serial1.println("MCU+CAP+LAUen_us&");
+        Linkplay_Debug_Printf("Linkplay booted after factory reset, needs pertinent information\n");
+        Serial1.println("MCU+CAP+PRJPSAUDIO_Stellar&\n");
+        Serial1.println("MCU+PTV+000\n");
+        Serial1.println("MCU+SPY+BRNPSAUDIO&\n");
+        Serial1.println("MCU+SPY+NAMStellarIntegrated&\n");
+        Serial1.println("MCU+SPY+TYP0&\n");
+        Serial1.println("MCU+CAP+00100001100&\n");
+        Serial1.println("MCU+CAP+00200000800&\n");
+        Serial1.println("MCU+CAP+LAUen_us&\n");
         
-        Serial1.println("MCU+CAP+STMfffffffc&");
-        Serial1.println("MCU+CAP+PLM00000000&");
-        Serial1.println("MCU+PRESET+3&");
+        Serial1.println("MCU+CAP+STMfffffffc&\n");
+        Serial1.println("MCU+CAP+PLM00000000&\n");
+        Serial1.println("MCU+PRESET+3&\n");
         return e_no_error;
     }
     return e_unknown_cap_command;
@@ -475,7 +476,7 @@ LinkPlay_Error_t process_chn_command(char* linkplay_command)                    
     
     if (strncmp((linkplay_command + 8), "GET", 3) == 0)
     {
-        Serial.println("Get the output channel congifuration for linkplay: Stereo, Left, or Right");
+        Linkplay_Debug_Printf("Get the output channel congifuration for linkplay: Stereo, Left, or Right\n");
         LP_get_pic_channel_config();
     }
     else if (linkplay_command[8] == '0')
@@ -483,15 +484,15 @@ LinkPlay_Error_t process_chn_command(char* linkplay_command)                    
         switch(linkplay_command_data_extraction(linkplay_command))
         {
           case e_stereo:
-              Serial.println("audio is in stereo");
+              Linkplay_Debug_Printf("audio is in stereo\n");
               LP_Set_linkplay_audio_channel_status(e_stereo);
               break;
           case e_left_chan:
-              Serial.println("audio is only left chan");
+              Linkplay_Debug_Printf("audio is only left chan\n");
               LP_Set_linkplay_audio_channel_status(e_left_chan);
               break;
           case e_right_chan:
-              Serial.println("audio is only righ chan");
+              Linkplay_Debug_Printf("audio is only righ chan\n");
               LP_Set_linkplay_audio_channel_status(e_right_chan);
               break;
           default:
@@ -514,7 +515,7 @@ LinkPlay_Error_t process_dev_command(char* linkplay_command)                    
                                                                         // It should wait for WiFi module to send AXX+DEV+RST or AXX+DEV+RST in case AXX+DEV+RST gets lost.
     if (strncmp((linkplay_command + 8), "RST", 3) == 0)
     {
-        Serial.println("linkplay is resetting - don't poll it until it gives the ok");
+        Linkplay_Debug_Printf("linkplay is resetting - don't poll it until it gives the ok\n");
         LP_Set_linkplay_in_reset(true);
         return e_no_error;
     }
@@ -536,7 +537,7 @@ LinkPlay_Error_t process_eth_command(char* linkplay_command)                    
 
     if (strncmp((linkplay_command + 8), "FFF", 3) == 0)
     {
-        Serial.println("Ethernet is disabled");
+        Linkplay_Debug_Printf("Ethernet is disabled\n");
         return error_handler; 
     }
     else
@@ -544,10 +545,10 @@ LinkPlay_Error_t process_eth_command(char* linkplay_command)                    
         switch(linkplay_command_data_extraction(linkplay_command))
         {
             case e_ethernet_disconnected:
-                Serial.println("Ethernet is disconnected");
+                Linkplay_Debug_Printf("Ethernet is disconnected\n");
                 break;
             case e_ethernet_connected:
-                Serial.println("Ethernet is connected!");
+                Linkplay_Debug_Printf("Ethernet is connected!\n");
                 break;
             default:
                 error_handler = e_unknown_eth_command;
@@ -565,11 +566,11 @@ LinkPlay_Error_t process_fac_command(char* linkplay_command)                    
 
     if (strncmp((linkplay_command + 8), "ORY", 3) == 0)
     {
-        Serial.println("Linkplay is factory resetting.\nWe'll need to supply it information upon it rebooting.");
+        Linkplay_Debug_Printf("Linkplay is factory resetting.\nWe'll need to supply it information upon it rebooting.\n");
     }
     else if (strncmp((linkplay_command + 8), "POW", 3) == 0)
     {
-        Serial.println("Linkplay is factory resetting.\nUnit is not power cycling.");
+        Linkplay_Debug_Printf("Linkplay is factory resetting.\nUnit is not power cycling.\n");
     }
     else
     {
@@ -584,8 +585,8 @@ LinkPlay_Error_t process_get_command(char* linkplay_command)
 
     if (strncmp((linkplay_command + 8), "SID", 3) == 0)
     {    
-        Serial.println("Set SSID of linkplay");
-        Serial1.println("MCU+SID+StellarIntegrated");
+        Linkplay_Debug_Printf("Set SSID of linkplay\n");
+        Serial1.println("MCU+SID+StellarIntegrated\n");
         return e_no_error;
     }
 
@@ -646,8 +647,7 @@ LinkPlay_Error_t inf_command_parser(uint16_t current_inf, char* char_buf)
     switch (current_inf)
     {
         case e_inf_language:
-            Serial.print("language: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("language: %s", char_buf);
             if (strncmp(char_buf, "en_us", 5) == 0)
             {
                 LP_Set_linkplay_language(e_linkplay_lang_en_us);
@@ -655,310 +655,250 @@ LinkPlay_Error_t inf_command_parser(uint16_t current_inf, char* char_buf)
             else
             {
                 /* error wrong language! */
-                Serial.println("Wrong language set!!");
+                Linkplay_Debug_Printf("Wrong language set!!\n");
             }
             break;
         case e_inf_ssid:
-            Serial.print("ssid: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("ssid: %s", char_buf);
             LP_Set_linkplay_ssid(char_buf);
             break;
         case e_inf_hide_ssid:
-            Serial.print("hide ssid: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("hide ssid: %s", char_buf);
             LP_Set_linkplay_ssid_hidden(atoi(char_buf));
             break;
         case e_inf_ssid_strategy:
-            Serial.print("ssid strategy: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("ssid strategy: %s", char_buf);
             LP_Set_linkplay_ssid_strategy(atoi(char_buf));
             break;
         case e_inf_link_play_fimrware:
-            Serial.print("linkplay firmware: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("linkplay firmware: %s", char_buf);
             LP_Set_linkplay_firmware_version(char_buf);
             break;
         case e_inf_build:
-            Serial.print("linkplay build: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("linkplay build: %s", char_buf);
             LP_Set_linkplay_build(char_buf);
             break;
         case e_inf_project:
-            Serial.print("linkplay project: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("linkplay project: %s", char_buf);
             LP_Set_linkplay_project(char_buf);
             break;
         case e_inf_firmware_private_project:
-            Serial.print("linkplay private project: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("linkplay private project: %s", char_buf);
             LP_Set_linkplay_private_project(char_buf);
             break;
         case e_inf_firmware_release:
-            Serial.print("linkplay firmware release: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("linkplay firmware release: %s", char_buf);
             LP_Set_linkplay_firmware_release(atoi(char_buf));
             break;
         case e_inf_firmware_branch:
-            Serial.print("linkplay firmware branch: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("linkplay firmware branch: %s", char_buf);
             LP_Set_linkplay_firmware_branch(char_buf);
             break;
         case e_inf_group:
-            Serial.print("group: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("group: %s", char_buf);
             LP_Set_linkplay_group(atoi(char_buf));
             break;
         case e_inf_expired:
-            Serial.print("expired: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("expired: %s", char_buf);
             LP_Set_linkplay_verion_expierd(atoi(char_buf));
             break;
         case e_inf_internet:
-            Serial.print("internet status: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("internet status: %s", char_buf);
             LP_Set_linkplay_internet_status(atoi(char_buf));
             break;
         case e_inf_uuid:
-            Serial.print("uuid: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("uuid: %s", char_buf);
             LP_Set_linkplay_uuid(char_buf);
             break;
         case e_inf_mac:
-            Serial.print("mac address: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("mac address: %s", char_buf);
             LP_Set_linkplay_mac_address(char_buf);
             break;
         case e_inf_sta_mac:
-            Serial.print("sta mac address: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("sta mac address: %s", char_buf);
             LP_Set_linkplay_sta_mac_address(char_buf);
             break;
         case e_inf_date:
-            Serial.print("date: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("date: %s", char_buf);
             process_date(char_buf);
             break;
         case e_inf_time:
-            Serial.print("time: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("time: %s", char_buf);
             process_time(char_buf);
             break;
         case e_inf_tz:
-            Serial.print("time zone: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("time zone: %s", char_buf);
             LP_Set_linkplay_time_zone(atoi(char_buf));
             break;
         case e_inf_netstat:
-            Serial.print("network status: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("network status: %s", char_buf);
             LP_Set_linkplay_network_status(atoi(char_buf));
             break;
         case e_inf_essid:
-            Serial.print("essid: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("essid: %s", char_buf);
             process_essid(char_buf);
             break;
         case e_inf_apcli0:
-            Serial.print("wifi IP: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("wifi IP: %s", char_buf);
             LP_Set_linkplay_wifi_ip(char_buf);
             break;
         case e_inf_eth2:
-            Serial.print("ethernet IP: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("ethernet IP: %s", char_buf);
             LP_Set_linkplay_ethernet_ip(char_buf);
             break;
         case e_inf_hardware:
-            Serial.print("hardware: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("hardware: %s", char_buf);
             LP_Set_linkplay_hardware(char_buf);
             break;
         case e_inf_version_update:
-            Serial.print("version update: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("version update: %s", char_buf);
             LP_Set_linkplay_version_update(atoi(char_buf));
             break;
         case e_inf_new_version:
-            Serial.print("new linkplay firmware version: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("new linkplay firmware version: %s", char_buf);
+            Linkplay_Debug_Printf(char_buf);
             break;
         case e_inf_mcu_version:
-            Serial.print("pic firmware version: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("pic firmware version: %s", char_buf);
             LP_Set_linkplay_new_version(atoi(char_buf));
             break;
         case e_inf_mcu_new_version:
-            Serial.print("pic new firmware version: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("pic new firmware version: %s", char_buf);
             LP_Set_linkplay_pic_new_firmware_verison(atoi(char_buf));
             break;
         case e_inf_dsp_ver_new:
-            Serial.print("dsp new firmware version: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("dsp new firmware version: %s", char_buf);
             LP_Set_linkplay_dsp_new_firmware_verison(atoi(char_buf));
             break;
         case e_inf_ra0:
-            Serial.print("internal server IP: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("internal server IP: %s", char_buf);
             LP_Set_linkplay_internal_server_port(char_buf);
             break;
         case e_inf_temp_uuid:
-            Serial.print("temp uuid: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("temp uuid: %s", char_buf);
             LP_Set_linkplay_temp_uuid(char_buf);
             break;
         case e_inf_cap1:
-            Serial.print("capl: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("capl: %s", char_buf);
             LP_Set_linkplay_capl(atoi(char_buf));
             break;
         case e_inf_capability:
-            Serial.print("capability: ");
-            Serial.println(char_buf);
-            
+            Linkplay_Debug_Printf("capability: %s", char_buf);
             break;
         case e_inf_languages:
-            Serial.print("language: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("language: %s", char_buf);
             LP_Set_linkplay_languages(atoi(char_buf));
             break;
         case e_inf_dsp_ver:
-            Serial.print("dsp version: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("dsp version: %s", char_buf);
             LP_Set_linkplay_dsp_version(atoi(char_buf));
             break;
         case e_inf_streams_all:
-            Serial.print("steaming settings: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("steaming settings: %s", char_buf);
             LP_Set_linkplay_steaming_settings(atoi(char_buf));
             break;
         case e_inf_streams:
-            Serial.print("streams: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("streams: %s", char_buf);
             LP_Set_linkplay_streams(atoi(char_buf));
             break;
         case e_inf_region:
-            Serial.print("region: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("region: %s", char_buf);
             LP_Set_linkplay_region(atoi(char_buf));
             break;
         case e_inf_external:
-            Serial.print("external: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("external: %s", char_buf);
             LP_Set_linkplay_external(atoi(char_buf));
             break;
         case e_inf_preset_key:
-            Serial.print("preset key: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("preset key: %s", char_buf);
             LP_Set_linkplay_preset_keys(atoi(char_buf));
             break;
         case e_inf_plm_support:
-            Serial.print("plm support: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("plm support: %s", char_buf);
             LP_Set_linkplay_plm_support(atoi(char_buf));
             break;
         case e_inf_spotify_active:
-            Serial.print("spotify active: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("spotify active: %s", char_buf);
             LP_Set_linkplay_spotify_active(atoi(char_buf));
             break;
         case e_inf_WifiChannel:
-            Serial.print("wifi channel: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("wifi channel: %s", char_buf);
             LP_Set_linkplay_wifi_channel(atoi(char_buf));
             break;
         case e_inf_RSSI:
-            Serial.print("rssi: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("rssi: %s", char_buf);
             LP_Set_linkplay_rssi(atoi(char_buf));
             break;
         case e_inf_battery:
-            Serial.print("battery: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("battery: %s", char_buf);
             LP_Set_linkplay_battery(atoi(char_buf));
             break;
         case e_inf_battery_percent:
-            Serial.print("battery percent: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("battery percent: %s", char_buf);
             LP_Set_linkplay_battery_percent(atoi(char_buf));
             break;
         case e_inf_securemode:
-            Serial.print("secure mode: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("secure mode: %s", char_buf);
             LP_Set_linkplay_secure_mode(atoi(char_buf));
             break;
         case e_inf_upnp_version:
-            Serial.print("upnp version: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("upnp version: %s", char_buf);
             LP_Set_linkplay_upnp_version(atoi(char_buf));
             break;
         case e_inf_upnp_uuid:
-            Serial.print("upnp uuid: ");
-            Serial.println(char_buf + 5);
+            Linkplay_Debug_Printf("upnp uuid: %s", (char_buf +5));
             LP_Set_linkplay_upnp_uuid(char_buf);
             break;
         case e_inf_uart_pass_port:
-            Serial.print("pass port: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("pass port: %s", char_buf);
             LP_Set_linkplay_pass_port(char_buf);
             break;
         case e_inf_communication_port:
-            Serial.print("communication port: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("communication port: %s", char_buf);
             LP_Set_linkplay_communication_port(char_buf);
             break;
         case e_inf_web_firmware_update_hide:
-            Serial.print("firmware update hidden: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("firmware update hidden: %s", char_buf);
             LP_Set_linkplay_firmware_update_hidden(atoi(char_buf));
             break;
         case e_inf_web_login_result:
-            Serial.print("web login result: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("web login result: %s", char_buf);
             LP_Set_linkplay_web_login_result(atoi(char_buf));
             break;
         case e_inf_ignore_talkstart:
-            Serial.print("ignore talk start: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("ignore talk start: %s", char_buf);
             LP_Set_linkplay_ignore_talk_start(atoi(char_buf));
             break;
         case e_inf_silenceOTATime:
-            Serial.print("silence OTA time: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("silence OTA time: %s", char_buf);
+            Linkplay_Debug_Printf(char_buf);
             break;
         case e_inf_ignore_silenceOTATime:
-            Serial.print("ignore silence OTA time: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("ignore silence OTA time: %s", char_buf);
             LP_Set_linkplay_silence_OTA_time(atoi(char_buf));
             break;
         case e_inf_iheartradio_new:
-            Serial.print("iHeartRadio new: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("iHeartRadio new: %s", char_buf);
             LP_Set_linkplay_iHeartRadio_new(atoi(char_buf));
             break;
         case e_inf_privacy_mode:
-            Serial.print("privacy mode: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("privacy mode: %s", char_buf);
             LP_Set_linkplay_privacy_mode(atoi(char_buf));
             break;
         case e_inf_user1:
-            Serial.print("user1: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("user1: %s", char_buf);
             LP_Set_linkplay_user1(char_buf);
             break;
         case e_inf_user2:
-            Serial.print("user2: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("user2: %s", char_buf);
             LP_Set_linkplay_user2(char_buf);
             break;
         case e_inf_DeviceName:
-            Serial.print("device name: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("device name: %s", char_buf);
             LP_Set_linkplay_device_name(char_buf);
             break;
         case e_inf_GroupName:
-            Serial.print("group name: ");
-            Serial.println(char_buf);
+            Linkplay_Debug_Printf("group name: %s", char_buf);
             break;
         default:
             break; 
@@ -1043,49 +983,46 @@ LinkPlay_Error_t process_i2s_command(char* linkplay_command)
             switch(atoi(c_sample_rate))
             {
                 case e_linkplay_44100:
-                    Serial.println("44.1 k");
+                    Linkplay_Debug_Printf("44.1k\n");
                     LP_Set_linkplay_sample_rate(e_linkplay_44100);
                     break;
                 case e_linkplay_48000:
-                    Serial.println("48 k");
+                    Linkplay_Debug_Printf("48k\n");
                     LP_Set_linkplay_sample_rate(e_linkplay_48000);
                     break;
                 case e_linkplay_88200:
-                    Serial.println("88.2 k");
+                    Linkplay_Debug_Printf("88.2k\n");
                     LP_Set_linkplay_sample_rate(e_linkplay_88200);
                     break;
                 case e_linkplay_96000:
-                    Serial.println("96 k");
+                    Linkplay_Debug_Printf("96k\n");
                     LP_Set_linkplay_sample_rate(e_linkplay_96000);
                     break;
                 case e_linkplay_176400:
-                    Serial.println("176.4 k");
+                    Linkplay_Debug_Printf("176.4k\n");
                     LP_Set_linkplay_sample_rate(e_linkplay_176400);
                     break;
                 case e_linkplay_192000:
-                    Serial.println("192.2 k");
+                    Linkplay_Debug_Printf("192.2k\n");
                     LP_Set_linkplay_sample_rate(e_linkplay_192000);
                     break;
             }
     
             strncpy(c_bit_depth,linkplay_command+(11+sample_rate_chars), 2);
-            Serial.print(atoi(c_bit_depth));
 
             switch (atoi(c_bit_depth))
             {
                 case e_linkplay_16:
-                    Serial.print(e_linkplay_16);
+                    Linkplay_Debug_Printf("%d bit\n", e_linkplay_16);
                     LP_Set_linkplay_bit_depth(e_linkplay_16);
                     break;
                 case e_linkplay_24:
-                    Serial.print(e_linkplay_24);
+                    Linkplay_Debug_Printf("%d bit\n", e_linkplay_24);
                     LP_Set_linkplay_bit_depth(e_linkplay_24);
                     break;
                 default: 
                     break;
             }
-
-            Serial.println(" bit");
             return e_no_error;
     }
     return e_unknown_i2s_command; 
@@ -1100,7 +1037,7 @@ LinkPlay_Error_t process_key_command(char* linkplay_command)
 LinkPlay_Error_t process_led_command(char* linkplay_command)                     // Linkplay factory teset commands
 {
     //  "AXX+LED+TES"                                                   // Notify MCU that the module is in factory test mode
-    Serial.println("Linkplay is in test mode. flashing LEDs (not hooked up)");
+    Linkplay_Debug_Printf("Linkplay is in test mode. flashing LEDs (not hooked up)\n");
     return e_no_error;
 }
  
@@ -1123,14 +1060,14 @@ LinkPlay_Error_t process_mcu_command(char* linkplay_command)                    
         
     if (strncmp((linkplay_command + 8), "RDY", 3) == 0)
     {
-        Serial.println("Linkplay is ready for communication!");
+        Linkplay_Debug_Printf("Linkplay is ready for communication!\n");
         LP_Set_linkplay_ready_for_communication(true);
         return e_no_error;
     }
     else if (strncmp((linkplay_command + 8), "VER", 3) == 0)
     {
-        Serial.println("Send PIC firmware version ex: 0119");;
-        Serial1.println("MCU+VER+0119&");
+        Linkplay_Debug_Printf("Send PIC firmware version ex: 0119\n");
+        Serial1.println("MCU+VER+0119&\n");
         return e_no_error;
     }
     
@@ -1170,8 +1107,8 @@ LinkPlay_Error_t process_mea_command(char* linkplay_command)                    
     
     if (strncmp((linkplay_command + 8), "RDY", 3) == 0)
     {
-        Serial.println("media is ready!");
-        Serial1.write("MCU+MEA+GET");
+        Linkplay_Debug_Printf("media is ready!\n");
+        Serial1.write("MCU+MEA+GET\n");
         return e_no_error; 
     }
     else if (strncmp((linkplay_command + 8), "DAT", 3) == 0)
@@ -1185,7 +1122,7 @@ LinkPlay_Error_t process_mea_command(char* linkplay_command)                    
         }
         strncpy(hex_title, (linkplay_command + title_offset), title_char_counter-title_offset);
         hex2ascii(hex_title, ascii_title, strlen(hex_title), strlen(ascii_title));
-        Serial.print("Title: "); Serial.println(ascii_title);
+        Serial.print("Title: \n"); Linkplay_Debug_Printf(ascii_title);
         LP_Set_linkplay_title(ascii_title);
 
         for(artist_char_counter = (title_char_counter+artist_offset); artist_char_counter < 1024; artist_char_counter++)
@@ -1197,7 +1134,7 @@ LinkPlay_Error_t process_mea_command(char* linkplay_command)                    
         }   
         strncpy(hex_artist, (linkplay_command + (title_char_counter+artist_offset)), (artist_char_counter - (title_char_counter+artist_offset)));
         hex2ascii(hex_artist, ascii_artist, strlen(hex_artist), strlen(ascii_artist));
-        Serial.print("Artist: "); Serial.println(ascii_artist);
+        Serial.print("Artist: \n"); Linkplay_Debug_Printf(ascii_artist);
         LP_Set_linkplay_artist(ascii_artist);
 
 
@@ -1210,7 +1147,7 @@ LinkPlay_Error_t process_mea_command(char* linkplay_command)                    
         }   
         strncpy(hex_album, (linkplay_command + (artist_char_counter+album_offset)), (album_char_counter - (artist_char_counter+album_offset))); 
         hex2ascii(hex_album, ascii_album, strlen(hex_album), strlen(ascii_album));
-        Serial.print("Album: "); Serial.println(ascii_album);
+        Serial.print("Album: \n"); Linkplay_Debug_Printf(ascii_album);
         LP_Set_linkplay_album(ascii_album);
 
         return e_no_error; 
@@ -1228,7 +1165,7 @@ LinkPlay_Error_t process_mic_command(char* linkplay_command)
     switch(linkplay_command_data_extraction(linkplay_command))
     {
         case 0: 
-            Serial.println("Microphones turned off");
+            Linkplay_Debug_Printf("Microphones turned off\n");
             LP_Set_linkplay_microphones(0);
             break;
         default: 
@@ -1249,11 +1186,11 @@ LinkPlay_Error_t process_mut_command(char* linkplay_command)                    
     switch(linkplay_command_data_extraction(linkplay_command))
     {
         case e_linkplay_unmute:
-            Serial.println("unmute output");
+            Linkplay_Debug_Printf("unmute output\n");
             LP_Set_linkplay_mute(e_linkplay_unmute);
             break; 
         case e_linkplay_mute:
-            Serial.println("mute output");
+            Linkplay_Debug_Printf("mute output\n");
             LP_Set_linkplay_mute(e_linkplay_mute);
             break; 
         default:
@@ -1275,7 +1212,7 @@ LinkPlay_Error_t process_nxt_command(char* linkplay_command)                    
         
     if (linkplay_command[11] == '-')
     {
-        Serial.println("Linkplay alarm feature is disabled");
+        Linkplay_Debug_Printf("Linkplay alarm feature is disabled\n");
         LP_Set_linkplay_alarm(-1);
         return e_no_error; 
     }
@@ -1309,54 +1246,54 @@ LinkPlay_Error_t process_plm_command(char* linkplay_command)                    
     
     if (strncmp((linkplay_command + 8), "GET", 3) == 0)
     {
-        Serial.println("Get PICs linkplay input selection");
+        Linkplay_Debug_Printf("Get PICs linkplay input selection\n");
     }
     else
     {
         switch(linkplay_command_data_extraction(linkplay_command))   
         {
             case e_none:
-                Serial.println("no Linkplay input selected");
+                Linkplay_Debug_Printf("no Linkplay input selected\n");
                 LP_Set_linkplay_playback_mode(e_none);
                 break;
             case e_airplay:
-                Serial.println("Airplay input selected");
+                Linkplay_Debug_Printf("Airplay input selected\n");
                 LP_Set_linkplay_playback_mode(e_airplay);
                 break;
             case e_DLNA:
-                Serial.println("DLNA input selected");
+                Linkplay_Debug_Printf("DLNA input selected\n");
                 LP_Set_linkplay_playback_mode(e_DLNA);
                 break;
             case e_thumb_drive:
-                Serial.println("thumb drive input selected");
+                Linkplay_Debug_Printf("thumb drive input selected\n");
                 LP_Set_linkplay_playback_mode(e_thumb_drive);
                 break;
             case e_line_in:
-                Serial.println("line-in input selected");
+                Linkplay_Debug_Printf("line-in input selected\n");
                 LP_Set_linkplay_playback_mode(e_line_in);
                 break;
             case e_bluetooth:
-                Serial.println("bluetooth input selected");
+                Linkplay_Debug_Printf("bluetooth input selected\n");
                 LP_Set_linkplay_playback_mode(e_bluetooth);
                 break;
             case e_optical:
-                Serial.println("optical input selected");
+                Linkplay_Debug_Printf("optical input selected\n");
                 LP_Set_linkplay_playback_mode(e_optical);
                 break;
             case e_rca:
-                Serial.println("rca input selected");
+                Linkplay_Debug_Printf("rca input selected\n");
                 LP_Set_linkplay_playback_mode(e_rca);
                 break;
             case e_coaxial:
-                Serial.println("coaxial Linkplay input selected");
+                Linkplay_Debug_Printf("coaxial Linkplay input selected\n");
                 LP_Set_linkplay_playback_mode(e_coaxial);
                 break;
             case e_mirror:
-                Serial.println("mirror input selected");
+                Linkplay_Debug_Printf("mirror input selected\n");
                 LP_Set_linkplay_playback_mode(e_mirror);
                 break;
             case e_slave:
-                Serial.println("slave input selected");
+                Linkplay_Debug_Printf("slave input selected\n");
                 LP_Set_linkplay_playback_mode(e_slave);
                 break;
             default:
@@ -1384,19 +1321,19 @@ LinkPlay_Error_t process_plp_command(char* linkplay_command)                    
     switch (linkplay_command_data_extraction(linkplay_command))
     {
         case e_repeat_all:
-            Serial.print("repeat all songs");
+            Serial.print("repeat all songs\n");
             LP_Set_linkplay_repeat_shuffle(e_repeat_all);
             break;
         case e_repeat_current:
-            Serial.print("repeat all currnet song");
+            Serial.print("repeat all currnet song\n");
             LP_Set_linkplay_repeat_shuffle(e_repeat_current);
             break;
         case e_shuffle_repeat:
-            Serial.print("shuffle and repeat playlist");
+            Serial.print("shuffle and repeat playlist\n");
             LP_Set_linkplay_repeat_shuffle(e_shuffle_repeat);
             break;
         case e_shuffle_no_repeat:
-            Serial.print("shuffle, no repeat");
+            Serial.print("shuffle, no repeat\n");
             LP_Set_linkplay_repeat_shuffle(e_shuffle_no_repeat);
             break;  
         default:
@@ -1415,8 +1352,10 @@ LinkPlay_Error_t process_ply_command(char* linkplay_command)                    
         AXX+PLY+POStime&                                                // current time in ms                                                                
     */
   
-    char playback_time[50];
+    char c_playback_time[50];
     uint16_t i = 0; 
+    uint32_t playback_time_ms = 0;
+    
     LinkPlay_Error_t error_handler = e_no_error; 
     
     if (strncmp((linkplay_command + 8), "POS", 3) == 0)
@@ -1430,10 +1369,11 @@ LinkPlay_Error_t process_ply_command(char* linkplay_command)                    
                     break;
                 }
             }
-            memset(playback_time, ASCII_NUL, 50);
-            strncpy(playback_time, linkplay_command+11, (i-11));
-            Serial.println(atoi(playback_time));
-            LP_Set_linkplay_song_time(atoi(playback_time));
+            memset(c_playback_time, ASCII_NUL, 50);
+            strncpy(c_playback_time, linkplay_command+11, (i-11));
+            playback_time_ms = atoi(c_playback_time);
+            Linkplay_Debug_Printf("%d", playback_time_ms);
+            LP_Set_linkplay_song_time(playback_time_ms);
         }
     }
     else if (linkplay_command[8] == '0')
@@ -1441,11 +1381,11 @@ LinkPlay_Error_t process_ply_command(char* linkplay_command)                    
         switch (linkplay_command_data_extraction(linkplay_command))
         {
             case e_stopped_playback:
-                Serial.println("playback stopped");
+                Linkplay_Debug_Printf("playback stopped\n");
                 LP_Set_linkplay_playback_status(e_stopped_playback);
                 break;  
             case e_playback_started:
-                Serial.println("playback started");
+                Linkplay_Debug_Printf("playback started\n");
                 LP_Set_linkplay_playback_status(e_playback_started);
                 break;
             default: 
@@ -1464,19 +1404,19 @@ LinkPlay_Error_t process_pmt_command(char* linkplay_command)                    
     switch(linkplay_command_data_extraction(linkplay_command))
     {
         case e_voice_prompt_start: 
-            Serial.println("voice prompt start");
+            Linkplay_Debug_Printf("voice prompt start\n");
             LP_Set_linkplay_voice_promt(e_voice_prompt_start);
             break;
         case e_voice_prompt_stopped:
-            Serial.println("voice prompt stopped");
+            Linkplay_Debug_Printf("voice prompt stopped\n");
             LP_Set_linkplay_voice_promt(e_voice_prompt_stopped);
             break; 
         case e_voice_prompt_disabled:
-            Serial.println("voice prompt disabled");
+            Linkplay_Debug_Printf("voice prompt disabled\n");
             LP_Set_linkplay_voice_promt(e_voice_prompt_disabled);
             break; 
         case e_voice_prompt_can_be_triggered: 
-            Serial.println("voice prompt can be triggered by PIC");
+            Linkplay_Debug_Printf("voice prompt can be triggered by PIC\n");
             LP_Set_linkplay_voice_promt(e_voice_prompt_can_be_triggered);
             break;        
     }
@@ -1497,19 +1437,19 @@ LinkPlay_Error_t process_pow_command(char* linkplay_command)                    
         switch(linkplay_command_data_extraction(linkplay_command))
         {
             case e_linkplay_power_normal: 
-                Serial.println("voice prompt start");
+                Linkplay_Debug_Printf("voice prompt start\n");
                 LP_Set_linkplay_power_status(e_linkplay_power_normal);
                 break;
             case e_linkplay_saving_mode:
-                Serial.println("voice prompt stopped");
+                Linkplay_Debug_Printf("voice prompt stopped\n");
                 LP_Set_linkplay_power_status(e_linkplay_saving_mode);
                 break; 
             case e_linkplay_firmware_upgrade:
-                Serial.println("voice prompt disabled");
+                Linkplay_Debug_Printf("voice prompt disabled\n");
                 LP_Set_linkplay_power_status(e_linkplay_firmware_upgrade);
                 break; 
             case e_linkplay_device_restarting: 
-                Serial.println("voice prompt can be triggered by PIC");
+                Linkplay_Debug_Printf("voice prompt can be triggered by PIC\n");
                 LP_Set_linkplay_power_status(e_linkplay_device_restarting);
                 break;
             default:
@@ -1538,22 +1478,22 @@ LinkPlay_Error_t process_ra0_command(char* linkplay_command)                    
     
     if (strncmp((linkplay_command + 8), "+ON", 3) == 0)
     {
-        Serial.println("Linkplay hotspot is on");
+        Linkplay_Debug_Printf("Linkplay hotspot is on\n");
         LP_Set_linkplay_hotspot_status(e_hotspot_on);         
     }
     else if (strncmp((linkplay_command + 8), "OFF", 3) == 0)
     {
-        Serial.println("Linkplay hotspot is off");
+        Linkplay_Debug_Printf("Linkplay hotspot is off\n");
         LP_Set_linkplay_hotspot_status(e_hotspot_off);         
     }
     else if (strncmp((linkplay_command + 8), "FFF", 3) == 0)
     {
-        Serial.println("Linkplay hotspot is hidden");
+        Linkplay_Debug_Printf("Linkplay hotspot is hidden\n");
         LP_Set_linkplay_hotspot_status(e_hotspot_hidden);
     }
     else if (strncmp((linkplay_command + 8), "FFE", 3) == 0)
     {
-        Serial.println("Linkplay hotspot is not hidden");
+        Linkplay_Debug_Printf("Linkplay hotspot is not hidden\n");
         LP_Set_linkplay_hotspot_status(e_hotspot_not_hidden);
     }
     else if (linkplay_command[8] == '0')
@@ -1561,15 +1501,15 @@ LinkPlay_Error_t process_ra0_command(char* linkplay_command)                    
         switch (linkplay_command_data_extraction(linkplay_command))
         {
             case 0:
-                Serial.println("no devices connected");
+                Linkplay_Debug_Printf("no devices connected\n");
                 LP_Set_linkplay_hotspot_connections_status(e_no_devices_connected);
                 break; 
             case 1:
-                Serial.println("a new device has connected to the hotspot");
+                Linkplay_Debug_Printf("a new device has connected to the hotspot\n");
                 LP_Set_linkplay_hotspot_connections_status(e_new_devices_has_connected);
                 break;
             case 2:
-                Serial.println("Some devices are disconnected,\nbut there are other devices connected");
+                Linkplay_Debug_Printf("Some devices are disconnected,\nbut there are other devices connected\n");
                 LP_Set_linkplay_hotspot_connections_status(e_some_devices_are_connected);
                 break;   
             default:
@@ -1609,28 +1549,28 @@ LinkPlay_Error_t process_set_command(char* linkplay_command)                    
         strncpy(c_current_minute, linkplay_command+21, 2);
         strncpy(c_current_second, linkplay_command+23, 2);
 
-        Serial.print("current YYYY: ");
-        Serial.println(atoi(c_current_year)); 
+        Serial.print("current YYYY: \n");
+        Linkplay_Debug_Printf("%s", c_current_year); 
         LP_Set_linkplay_year(atoi(c_current_year));
 
-        Serial.print("MM: ");
-        Serial.println(atoi(c_current_month)); 
+        Serial.print("MM: \n");
+        Linkplay_Debug_Printf("%s", c_current_month); 
         LP_Set_linkplay_month(atoi(c_current_month));
 
-        Serial.print("DD: ");
-        Serial.println(atoi(c_current_day)); 
+        Serial.print("DD: \n");
+        Linkplay_Debug_Printf("%s", c_current_day); 
         LP_Set_linkplay_day(atoi(c_current_day));
 
-        Serial.print("HH: ");
-        Serial.println(atoi(c_current_hour)); 
+        Serial.print("HH: \n");
+        Linkplay_Debug_Printf("%s", c_current_hour); 
         LP_Set_linkplay_hour(atoi(c_current_hour));
 
-        Serial.print("MM: ");
-        Serial.println(atoi(c_current_minute)); 
+        Serial.print("MM: \n");
+        Linkplay_Debug_Printf("%s", c_current_minute); 
         LP_Set_linkplay_minute(atoi(c_current_minute));
 
-        Serial.print("SS: ");
-        Serial.println(atoi(c_current_second)); 
+        Serial.print("SS: \n");
+        Linkplay_Debug_Printf("%s", c_current_second); 
         LP_Set_linkplay_second(atoi(c_current_second));
     }
     else if (strncmp((linkplay_command + 8), "WEK", 3) == 0)
@@ -1641,31 +1581,31 @@ LinkPlay_Error_t process_set_command(char* linkplay_command)                    
         switch(day_of_the_week)
         {
             case e_sunday:
-                Serial.println("Sunday");
+                Linkplay_Debug_Printf("Sunday\n");
                 LP_Set_linkplay_weekday(e_sunday);
                 break;
             case e_monday:
-                Serial.println("Monday");
+                Linkplay_Debug_Printf("Monday\n");
                 LP_Set_linkplay_weekday(e_monday);
                 break;
             case e_tuesday:
-                Serial.println("Tuesday");
+                Linkplay_Debug_Printf("Tuesday\n");
                 LP_Set_linkplay_weekday(e_tuesday);
                 break;
             case e_wednesday:
-                Serial.println("Wednesday");
+                Linkplay_Debug_Printf("Wednesday\n");
                 LP_Set_linkplay_weekday(e_wednesday);
                 break;
             case e_thursday:
-                Serial.println("Thursday");
+                Linkplay_Debug_Printf("Thursday\n");
                 LP_Set_linkplay_weekday(e_thursday);
                 break;
             case e_friday:
-                Serial.println("Friday");
+                Linkplay_Debug_Printf("Friday\n");
                 LP_Set_linkplay_weekday(e_friday);
                 break;
             case e_saturday:
-                Serial.println("Saturday");
+                Linkplay_Debug_Printf("Saturday\n");
                 LP_Set_linkplay_weekday(e_saturday);
                 break;
             default:
@@ -1701,35 +1641,35 @@ LinkPlay_Error_t process_sta_command(char* linkplay_command)                    
     switch(wireless_status)
     {
       case e_failed_to_connect:
-          Serial.println("failed to connect to access point"); 
+          Linkplay_Debug_Printf("failed to connect to access point\n"); 
           LP_Set_linkplay_wireless_access_status(e_failed_to_connect);
           break;
       case e_succesfully_connected:
-          Serial.println("successfully connected to access point!");  
+          Linkplay_Debug_Printf("successfully connected to access point!\n");  
           LP_Set_linkplay_wireless_access_status(e_succesfully_connected);
           break;
       case e_connecting_to_ap:
-          Serial.println("connecting to access point...");
+          Linkplay_Debug_Printf("connecting to access point...\n");
           LP_Set_linkplay_wireless_access_status(e_connecting_to_ap);
           break;
       case e_bad_rssi:
-          Serial.println("failed to connect, bad rssi");
+          Linkplay_Debug_Printf("failed to connect, bad rssi\n");
           LP_Set_linkplay_wireless_access_status(e_bad_rssi);
           break;
       case e_wrong_password:
-          Serial.println("failed to connect, wrong password"); 
+          Linkplay_Debug_Printf("failed to connect, wrong password\n"); 
           LP_Set_linkplay_wireless_access_status(e_wrong_password);
           break;
       case e_wrong_security_type:
-          Serial.println("failed to connect, wrong security type"); 
+          Linkplay_Debug_Printf("failed to connect, wrong security type\n"); 
           LP_Set_linkplay_wireless_access_status(e_wrong_security_type);
           break;
       case e_cant_find_ap:
-          Serial.println("failed to connect, can't find access point"); 
+          Linkplay_Debug_Printf("failed to connect, can't find access point\n"); 
           LP_Set_linkplay_wireless_access_status(e_cant_find_ap);
           break;
       case e_failed_to_get_ip_address: 
-          Serial.println("failed to connect, can't get ip address"); 
+          Linkplay_Debug_Printf("failed to connect, can't get ip address\n"); 
           LP_Set_linkplay_wireless_access_status(e_failed_to_get_ip_address);
           break;
        default:
@@ -1741,7 +1681,7 @@ LinkPlay_Error_t process_sta_command(char* linkplay_command)                    
 LinkPlay_Error_t process_s2m_command(char* linkplay_command)                    // Linkplay slave to master command pass through
 {
        // "AXX+S2M+nnn"                                                   // When a pass-through session starts, master speaker MCU will receive AXX+S2M+nnn
-      Serial.println("PIC initiated master pass thorugh to slave linkplays");
+      Linkplay_Debug_Printf("PIC initiated master pass thorugh to slave linkplays\n");
       return e_no_error;
 }
  
@@ -1757,7 +1697,7 @@ LinkPlay_Error_t process_vol_command(char* linkplay_command)                    
 
     if (strncmp((linkplay_command + 8), "GET", 3) == 0)
     {
-        Serial.println("Get the PIC current volume");
+        Linkplay_Debug_Printf("Get the PIC current volume\n");
         LP_send_linkplay_pic_volume();
     }
     else if (linkplay_command[8] == '0' || linkplay_command[8] == '1')
@@ -1765,9 +1705,8 @@ LinkPlay_Error_t process_vol_command(char* linkplay_command)                    
         volume_int = linkplay_command_data_extraction(linkplay_command);
         if (volume_int < 101)
         {
-            Serial.print("set volume to: ");
-            Serial.println(volume_int);
-            LP_set_pic_volume(volume_int);
+            Serial.print("set volume to: \n");
+            Linkplay_Debug_Printf("set volume to: %d", volume_int);
         }
         else
         {
@@ -1810,7 +1749,7 @@ LinkPlay_Error_t process_wan_command(char *linkplay_command)
     }
     else
     {
-        Serial.println("Can't find any networks");
+        Linkplay_Debug_Printf("Can't find any networks\n");
         set_num_access_points(0);
         return e_no_networks_found; 
     }
@@ -1827,9 +1766,7 @@ LinkPlay_Error_t process_wan_command(char *linkplay_command)
         }
     }
     
-    Serial.print("Found ");
-    Serial.print(num_aps);
-    Serial.println(" network(s):");   
+    Linkplay_Debug_Printf("Found %d network(s)", num_aps);
     set_num_access_points(num_aps);
     
     for ( current_wan_status = 0; current_wan_status < (num_aps * num_status_per_wan); current_wan_status++)
@@ -1850,16 +1787,13 @@ LinkPlay_Error_t process_wan_command(char *linkplay_command)
         {
             case e_ap_ssid:
                 hex2ascii(hex_ap, ascii_ap, strlen(hex_ap), strlen(ascii_ap));
-                Serial.print("Network: ");
-                Serial.println(ascii_ap);
+                Linkplay_Debug_Printf("Network: %s", ascii_ap);
                 break;
             case e_ap_rssi: 
-                Serial.print("RSSI: ");
-                Serial.println(atoi(hex_ap));
+                Linkplay_Debug_Printf("RSSI: %d", atoi(hex_ap));
                 break;
             case e_ap_channel:
-                Serial.print("Channel: ");
-                Serial.println(atoi(hex_ap));
+                Linkplay_Debug_Printf("Channel: %d", atoi(hex_ap));
                 break;
         }
         
@@ -1880,15 +1814,15 @@ LinkPlay_Error_t process_wps_command(char* linkplay_command)                    
      switch(linkplay_command[10])
      {
         case 'F':
-            Serial.println("WPS has been turned off");
+            Linkplay_Debug_Printf("WPS has been turned off\n");
             Linkplay_Set_wps_status(e_wps_off);
             break;
         case 'N':
-            Serial.println("WPS has been turned on");
+            Linkplay_Debug_Printf("WPS has been turned on\n");
             Linkplay_Set_wps_status(e_wps_on);
             break;
         case 'D':
-            Serial.println("WPS connection setup has ended");
+            Linkplay_Debug_Printf("WPS connection setup has ended\n");
             Linkplay_Set_wps_status(e_wps_ended);
             break;
         default:
@@ -1913,12 +1847,12 @@ LinkPlay_Error_t process_www_command(char* linkplay_command)                    
     switch(cunnection_status)
     {
       case e_no_internet_connection:
-          Serial.println("no internet connection!");
+          Linkplay_Debug_Printf("no internet connection!\n");
           LP_Set_linkplay_internet_status(false);
           break;
       case e_connected_to_internet:
-          Serial.println("connected to the internet!");
-          Serial1.println("MCU+INF+GET");
+          Linkplay_Debug_Printf("connected to the internet!\n");
+          Serial1.println("MCU+INF+GET\n");
           LP_Set_linkplay_internet_status(true);
           break;   
       default: 

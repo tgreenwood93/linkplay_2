@@ -5,6 +5,7 @@
 #include "queue.h"
 #include "cli.h"
 #include "debug.h"
+#include "linkplay_cli.h"
 
 static LinkPlay_Firmware_Update_t linkplay_update_status; 
 static LinkPlay_Audio_Channel_Options_t linkplay_channel_config; 
