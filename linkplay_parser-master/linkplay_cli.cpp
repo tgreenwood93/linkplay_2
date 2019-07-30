@@ -31,9 +31,6 @@ void Linkplay_Printf(char* message, ...)
     char    writebuf[100];
     int     writebuf_len = 0;
     
-    if (false == Get_linkplay_bypass_status())
-        return;
-    
     va_start(args, message);
     
     writebuf_len = vsprintf(writebuf, message, args);
@@ -172,21 +169,21 @@ void get_IP()
 void get_network_status()
 {
     Debug_Printf("Linkplay network status\n");
-    Debug_Printf("wireless access status: %s\n", LP_Get_linkplay_wireless_access_status());
-    Debug_Printf("ethernet access status: %s\n", LP_Get_linkplay_ethernet_status());
-    Debug_Printf("hotspot status: %s\n", LP_Get_linkplay_hotspot_status());
-    Debug_Printf("hotspot connection status: %s\n", LP_Get_linkplay_hotspot_connections_status());
+    Debug_Printf("wireless access status: %d\n", (uint8_t)LP_Get_linkplay_wireless_access_status());
+    Debug_Printf("ethernet access status: %d\n", (uint8_t)LP_Get_linkplay_ethernet_status());
+    Debug_Printf("hotspot status: %d\n", (uint8_t)LP_Get_linkplay_hotspot_status());
+    Debug_Printf("hotspot connection status: %d\n", (uint8_t)LP_Get_linkplay_hotspot_connections_status());
     Debug_Printf("ssid: %s\n", LP_Get_linkplay_ssid());
-    Debug_Printf("ssid hidden?: %s\n", LP_Get_linkplay_ssid_hidden());
-    Debug_Printf("ssid strategy: %s\n", LP_Get_linkplay_ssid_strategy());
+    Debug_Printf("ssid hidden: %d\n", (uint8_t)LP_Get_linkplay_ssid_hidden());
+    Debug_Printf("ssid strategy: %d\n", (uint8_t)LP_Get_linkplay_ssid_strategy());
     Debug_Printf("mac: %s\n", LP_Get_linkplay_mac_address());
     Debug_Printf("sta mac: %s\n", LP_Get_linkplay_sta_mac_address());
-    Debug_Printf("network status: %s\n", LP_Get_linkplay_network_status());
+    Debug_Printf("network status: %d\n", (uint8_t)LP_Get_linkplay_network_status());
     Debug_Printf("essid: %s\n", LP_Get_linkplay_essid());
     Debug_Printf("wifi ip: %s\n", LP_Get_linkplay_wifi_ip());
     Debug_Printf("ethernet ip: %s\n", LP_Get_linkplay_ethernet_ip());
-    Debug_Printf("wifi chann: %s\n", LP_Get_linkplay_wifi_channel());
-    Debug_Printf("rssi: %s\n", LP_Get_linkplay_rssi());
+    Debug_Printf("wifi chann: %d\n", LP_Get_linkplay_wifi_channel());
+    Debug_Printf("rssi: %d\n", LP_Get_linkplay_rssi());
 }
 
 void get_meta_data()
@@ -226,8 +223,8 @@ void get_lp_version()
 void get_lp_pic_version()
 {
     Debug_Printf("Linkplay pic version\n");
-    Debug_Printf("pic firmware version: %s\n", LP_Get_linkplay_pic_firmware_verison());
-    Debug_Printf("pic new firmware version: %s\n", LP_Get_linkplay_pic_new_firmware_verison());
+    Debug_Printf("pic firmware version: %d\n", LP_Get_linkplay_pic_firmware_verison());
+    Debug_Printf("pic new firmware version: %d\n", LP_Get_linkplay_pic_new_firmware_verison());
 }
 
 void get_ap_ssid()
@@ -251,18 +248,17 @@ void get_mac_address()
 
 void get_access_points()
 {
-
+    Linkplay_Printf("%s", mcu_commands[34]);
 }
-
 
 void lp_retrieve_rtc()
 {
-
+    Linkplay_Printf("%s", mcu_commands[14]);
 }
 
 void lp_retrieve_metadata()
 {
-
+    Linkplay_Printf("%s", mcu_commands[36]);
 }
 
 void lp_retrieve_system_info()
@@ -272,10 +268,16 @@ void lp_retrieve_system_info()
 
 void lp_set_ssid()
 {
-    Linkplay_Printf("MCU+SID+Stellar Integrated");
+    //if (strlen(lp_name) > 31)
+   //     return;
+
+  //  Linkplay_Printf("MCU+SID+%s&");
 }
 
-void lp_set_name()
+void lp_set_name(char* lp_name)
 {
-    Linkplay_Printf("MCU+NAM+SETStellar Integrated&");
+    if (strlen(lp_name) > 31)
+        return;
+
+    Linkplay_Printf("MCU+NAM+SET%s&", lp_name);
 }

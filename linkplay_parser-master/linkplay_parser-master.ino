@@ -38,7 +38,7 @@ void loop() {
     checkSerial1();
     if (true == doneRecieving)
     {
-        Serial.println(newMsg);
+        //Serial.println(newMsg);
         processCommand(newMsg); 
         memset(newMsg, 0, 1600);
         doneRecieving = false; 

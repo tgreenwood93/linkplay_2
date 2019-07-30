@@ -66,28 +66,88 @@ const char mcu_commands[MCU_COMMANDS_LEN][13] =
     "MCU+AIR+OFF\n",
     "MCU+AIR+GET\n", // 40
 };
-/*
-    "MCU+CAP+PRJPSAUDIO_Stellar&"
-    "MCU+PTV+000"
-    "MCU+SPY+BRNPSAUDIO&"
-    "MCU+SPY+NAMStellarIntegrated&"
-    "MCU+SPY+TYP0&"
-    "MCU+CAP+00100001100&"
-    "MCU+CAP+00200000800&"
-    "MCU+CAP+LAUen_us&"
-    "MCU+CAP+STMfffffffc&"
-    "MCU+CAP+PLM00000000&"
-    "MCU+PRESET+3&"
-    "MCU+SID+StellarIntegrated"
 
+const char weekdays[7][11] = 
+{
+    "Sunday\n",
+    "Monday\n",
+    "Tuesday\n",
+    "Wednesday\n",
+    "Thursday\n",
+    "Friday\n",
+    "Saturday"
+};
+
+const char porject_name[]  =  {"MCU+CAP+PRJPSAUDIO_Stellar&"};
+const char capabilities_ptv[]  =  {"MCU+PTV+000"};
+const char capabilities_spot_brand[]  =  {"MCU+SPY+BRNPSAUDIO&"};
+const char capabilities_spot_name[]  =  {"MCU+SPY+NAMStellar Integrated&"};
+const char capabilities_spot_type[]  =  {"MCU+SPY+TYP0&"};
+const char capabilities_one[]  =  {"MCU+CAP+00100001100&"};
+const char capabilities_two[]  =  {"MCU+CAP+00200000800&"};
+const char capabilities_lang[] =  {"MCU+CAP+LAUen_us&"};
+const char capabilities_streaming[] = {"MCU+CAP+STMfffffffc&"};
+const char capabilities_playback[] = {"MCU+CAP+PLM00000000&"};
+const char num_hardware_buttons[] = {"MCU+PRESET+3&"};
+const char stock_ssid[] = {"MCU+SID+Stellar Integrated&"};
+
+const char connection_status[][13] = 
+{
+    "disconnected",
+    "connected"
+};
+
+const char connection_tf[][4] = 
+{
+    "no",
+    "yes"
+};
+
+const char mute_status[][7] = 
+{
+    "mute",
+    "unmute"
+};
+
+const char connetion_bool[][7] = 
+{
+    "true",
+    "false"
+};
+
+const char connection_status_2[][9] = 
+{
+    "started",
+    "stopped",
+    "disabled"
+};
+
+const char connection_status_3[][12] = 
+{
+    "off",
+    "on",
+    "hidden",
+    "not hidden"
+};
+
+const char wireless_status[][31] = {
+    "failed to connect to ap\n",
+    "successfully connected to ap!\n", 
+    "connecting to ap...\n",
+    "bad rssi\n",
+    "wrong password\n",
+    "wrong security type\n", 
+    "can't find access point\n",
+    "can't get ip address\n"
+};
+
+
+/* 
     "MCU+VER+version&"
-
     "MCU+UPGRADEstart&"
     "MCU+UPGRADErun:index&"      
     "MCU+UPGRADEerror:reason&"
-
     "MCU+AP+CONNapname:password&"
-
     "MCU+WCH+SETn&"
     "MCU+PWD+SETname&"
     "MCU+SID+SETssid&"

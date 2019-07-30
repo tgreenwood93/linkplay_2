@@ -586,7 +586,7 @@ LinkPlay_Error_t process_get_command(char* linkplay_command)
     if (strncmp((linkplay_command + 8), "SID", 3) == 0)
     {    
         Linkplay_Debug_Printf("Set SSID of linkplay\n");
-        Linkplay_Printf("MCU+SID+StellarIntegrated\n");
+        Linkplay_Printf("MCU+SID+Stellar Integrated&\n");
         return e_no_error;
     }
 
@@ -1013,11 +1013,11 @@ LinkPlay_Error_t process_i2s_command(char* linkplay_command)
             switch (atoi(c_bit_depth))
             {
                 case e_linkplay_16:
-                    Linkplay_Debug_Printf("%d bit\n", e_linkplay_16);
+                    Linkplay_Debug_Printf("%d-bit\n", e_linkplay_16);
                     LP_Set_linkplay_bit_depth(e_linkplay_16);
                     break;
                 case e_linkplay_24:
-                    Linkplay_Debug_Printf("%d bit\n", e_linkplay_24);
+                    Linkplay_Debug_Printf("%d-bit\n", e_linkplay_24);
                     LP_Set_linkplay_bit_depth(e_linkplay_24);
                     break;
                 default: 
@@ -1533,77 +1533,49 @@ LinkPlay_Error_t process_set_command(char* linkplay_command)                    
     uint8_t day_of_the_week = 0;
     char c_day_of_the_week[2];
     
-    char c_current_year[5];
-    char c_current_month[5];
-    char c_current_day[5];
-    char c_current_hour[5];
-    char c_current_minute[5];
-    char c_current_second[5];
+    char c_current_time[5];
+    memset(c_current_time, ASCII_NUL, 5);
     
     if (strncmp((linkplay_command + 8), "RTC", 3) == 0)
     {
-        strncpy(c_current_year, linkplay_command+11, 4);
-        strncpy(c_current_month, linkplay_command+15, 2);
-        strncpy(c_current_day, linkplay_command+17, 2);
-        strncpy(c_current_hour, linkplay_command+19, 2);
-        strncpy(c_current_minute, linkplay_command+21, 2);
-        strncpy(c_current_second, linkplay_command+23, 2);
+        strncpy(c_current_time, linkplay_command+11, 4);
+        Linkplay_Debug_Printf("current year: %s\n", c_current_time);
+        LP_Set_linkplay_year(atoi(c_current_time));
 
-        Linkplay_Debug_Printf("current YYYY: %s\n", c_current_year);
-        LP_Set_linkplay_year(atoi(c_current_year));
+        memset(c_current_time, ASCII_NUL, 5);
+        strncpy(c_current_time, linkplay_command+15, 2);
+        Linkplay_Debug_Printf("month: %s\n", c_current_time);
+        LP_Set_linkplay_month(atoi(c_current_time));
 
-        Linkplay_Debug_Printf("MM: %s\n", c_current_month);
-        LP_Set_linkplay_month(atoi(c_current_month));
+        memset(c_current_time, ASCII_NUL, 5);
+        strncpy(c_current_time, linkplay_command+17, 2);
+        Linkplay_Debug_Printf("day: %s\n", c_current_time);
+        LP_Set_linkplay_day(atoi(c_current_time));
 
-        Linkplay_Debug_Printf("DD: %s\n", c_current_day);
-        LP_Set_linkplay_day(atoi(c_current_day));
+        memset(c_current_time, ASCII_NUL, 5);
+        strncpy(c_current_time, linkplay_command+19, 2);
+        Linkplay_Debug_Printf("hour: %s\n", c_current_time);
+        LP_Set_linkplay_hour(atoi(c_current_time));
 
-        Linkplay_Debug_Printf("HH: %s\n", c_current_hour);
-        LP_Set_linkplay_hour(atoi(c_current_hour));
+        memset(c_current_time, ASCII_NUL, 5);
+        strncpy(c_current_time, linkplay_command+21, 2);
+        Linkplay_Debug_Printf("minute: %s\n", c_current_time);
+        LP_Set_linkplay_minute(atoi(c_current_time));
 
-        Linkplay_Debug_Printf("MM: %s\n", c_current_minute);
-        LP_Set_linkplay_minute(atoi(c_current_minute));
-
-        Linkplay_Debug_Printf("SS: %s\n", c_current_second);
-        LP_Set_linkplay_second(atoi(c_current_second));
+        memset(c_current_time, ASCII_NUL, 5);
+        strncpy(c_current_time, linkplay_command+23, 2);
+        Linkplay_Debug_Printf("second: %s\n", c_current_time);
+        LP_Set_linkplay_second(atoi(c_current_time));
     }
     else if (strncmp((linkplay_command + 8), "WEK", 3) == 0)
     {
         strncpy(c_day_of_the_week, linkplay_command+11, 1);
         day_of_the_week = atoi(c_day_of_the_week);
         
-        switch(day_of_the_week)
-        {
-            case e_sunday:
-                Linkplay_Debug_Printf("Sunday\n");
-                LP_Set_linkplay_weekday(e_sunday);
-                break;
-            case e_monday:
-                Linkplay_Debug_Printf("Monday\n");
-                LP_Set_linkplay_weekday(e_monday);
-                break;
-            case e_tuesday:
-                Linkplay_Debug_Printf("Tuesday\n");
-                LP_Set_linkplay_weekday(e_tuesday);
-                break;
-            case e_wednesday:
-                Linkplay_Debug_Printf("Wednesday\n");
-                LP_Set_linkplay_weekday(e_wednesday);
-                break;
-            case e_thursday:
-                Linkplay_Debug_Printf("Thursday\n");
-                LP_Set_linkplay_weekday(e_thursday);
-                break;
-            case e_friday:
-                Linkplay_Debug_Printf("Friday\n");
-                LP_Set_linkplay_weekday(e_friday);
-                break;
-            case e_saturday:
-                Linkplay_Debug_Printf("Saturday\n");
-                LP_Set_linkplay_weekday(e_saturday);
-                break;
-            default:
-                break;
+        if (day_of_the_week <= 7) 
+        {   
+            Linkplay_Debug_Printf("%s", weekdays[day_of_the_week]);
+            LP_Set_linkplay_weekday((LinkPlay_Weekday_t)day_of_the_week);
         }    
     }
     return e_no_error;
@@ -1780,13 +1752,13 @@ LinkPlay_Error_t process_wan_command(char *linkplay_command)
         {
             case e_ap_ssid:
                 hex2ascii(hex_ap, ascii_ap, strlen(hex_ap), strlen(ascii_ap));
-                Linkplay_Debug_Printf("Network: %s", ascii_ap);
+                Linkplay_Debug_Printf("Network: %s\n", ascii_ap);
                 break;
             case e_ap_rssi: 
-                Linkplay_Debug_Printf("RSSI: %d", atoi(hex_ap));
+                Linkplay_Debug_Printf("RSSI: %d\n", atoi(hex_ap));
                 break;
             case e_ap_channel:
-                Linkplay_Debug_Printf("Channel: %d", atoi(hex_ap));
+                Linkplay_Debug_Printf("Channel: %d\n", atoi(hex_ap));
                 break;
         }
         

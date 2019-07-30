@@ -422,7 +422,6 @@ static void cli_cmd_linkplay (char *arg_buf)
             break;
         case CMD_LINKPLAY_VERS:
             get_lp_version();
-            //Debug_Printf("Main Temp Sensor = %d C\n", I2C_GetMainTemp());
             break;
         case CMD_LINKPLAY_PIC_VERS:
             get_lp_pic_version();
@@ -440,7 +439,7 @@ static void cli_cmd_linkplay (char *arg_buf)
             
             break;
         case CMD_LINKPLAY_GET_APS:
-
+            get_access_points();
             break;
         case CMC_LINKPLAY_CONN_AP:
 
@@ -449,34 +448,34 @@ static void cli_cmd_linkplay (char *arg_buf)
 
             break;    
         case CMC_LINKPLAY_TURN_ON_WPS:
-
+            Linkplay_Printf("%s", mcu_commands[2]);
             break;    
         case CMC_LINKPLAY_TURN_OFF_WPS:
-
+            Linkplay_Printf("%s", mcu_commands[3]);
             break;    
         case CMD_LINKPLAY_NXT_TRACK:
-
+            Linkplay_Printf("%s", mcu_commands[27]);
             break;    
         case CMC_LINKPLAY_PREV_TRACK:
-
+            Linkplay_Printf("%s", mcu_commands[28]);
             break;    
         case CMC_LINKPLAY_PAUSE:
-
+            Linkplay_Printf("%s", mcu_commands[23]);
             break;    
         case CMC_LINKPLAY_PLAY:
-
+            Linkplay_Printf("%s", mcu_commands[24]);
             break;    
         case CMC_LINKPLAY_STOP:
-
+            Linkplay_Printf("%s", mcu_commands[25]);
             break;    
         case CMC_LINKPLAY_PLA_PUS:
-
+            Linkplay_Printf("%s", mcu_commands[22]);
             break;    
         case CMC_LINKPLAY_PLAYBACK_STAT:
 
             break;    
         case CMC_LINKPLAY_FACTORY:
-            
+            Linkplay_Printf("MCU+FACTORY\n");
             break;
         case CMD_LINKPLAY_PASS_THROUGH:
             Debug_Printf("Linkplay bypass engaged\n");
