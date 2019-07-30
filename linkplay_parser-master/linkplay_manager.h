@@ -202,7 +202,7 @@ void LP_Set_linkplay_dsp_firmware_verison(uint16_t dsp_firmware_verison);
 uint16_t LP_Get_linkplay_dsp_firmware_verison();
 
 void LP_Set_linkplay_dsp_new_firmware_verison(uint16_t dsp_new_firmware_verison);
-uint8_t LP_Get_linkplay_dsp_new_firmware_verison();
+uint16_t LP_Get_linkplay_dsp_new_firmware_verison();
 
 void LP_Set_linkplay_internal_server_port(char* internal_server_port);
 char* LP_Get_linkplay_internal_server_port();
@@ -346,7 +346,7 @@ void LP_Set_linkplay_hotspot_connections_status (Linkplay_Hotspot_Connections_St
 Linkplay_Hotspot_Connections_Status_t LP_Get_linkplay_hotspot_connections_status();
 
 void LP_Set_linkplay_year(uint16_t year);
-uint16_t LP_Get_linkplay_rtc_year();
+uint16_t LP_Get_linkplay_year();
 
 void LP_Set_linkplay_month(uint8_t month);
 uint8_t LP_Get_linkplay_month();
@@ -391,28 +391,5 @@ void Get_meta_data_ready();
 
 void LP_Set_linkplay_ready_for_communication(bool ready);
 bool LP_Set_linkplay_ready_for_communication();
-
-void dump_stored_linkplay_data(void);
-void get_IP();
-void get_network_status();
-void get_meta_data();
-void get_last_rtc();
-void get_rtc();
-void get_lp_version();
-void get_lp_pic_version();
-void get_ap_ssid();
-void get_lp_ssid();
-void get_mac_address();
-void get_access_points();
-
-
-
-void lp_retrieve_rtc();
-void lp_retrieve_metadata();
-void lp_retrieve_system_info();
-void lp_set_ssid();
-void lp_set_name();
-
-void Linkplay_Log(linkplay_log_level_t debug_level, char* fmt, ...);
 
 #endif

@@ -628,9 +628,9 @@ LinkPlay_Error_t process_inf_command(char* linkplay_command)                    
                 {     
                     if ((linkplay_command[data_end_point] == '"') && (linkplay_command[data_end_point+1] == ','))
                     {
+                        memset(char_buf, ASCII_NUL, 100);
                         strncpy(char_buf, (linkplay_command+(data_start_point+data_offset)), (data_end_point-(data_start_point+data_offset)));
                         error_handler = inf_command_parser((num_args-1), char_buf);
-                        memset(char_buf, ASCII_NUL, 100);
                         break;
                     }  
                 }
@@ -647,7 +647,7 @@ LinkPlay_Error_t inf_command_parser(uint16_t current_inf, char* char_buf)
     switch (current_inf)
     {
         case e_inf_language:
-            Linkplay_Debug_Printf("language: %s", char_buf);
+            Linkplay_Debug_Printf("language: %s\n", char_buf);
             if (strncmp(char_buf, "en_us", 5) == 0)
             {
                 LP_Set_linkplay_language(e_linkplay_lang_en_us);
@@ -659,246 +659,246 @@ LinkPlay_Error_t inf_command_parser(uint16_t current_inf, char* char_buf)
             }
             break;
         case e_inf_ssid:
-            Linkplay_Debug_Printf("ssid: %s", char_buf);
+            Linkplay_Debug_Printf("ssid: %s\n", char_buf);
             LP_Set_linkplay_ssid(char_buf);
             break;
         case e_inf_hide_ssid:
-            Linkplay_Debug_Printf("hide ssid: %s", char_buf);
+            Linkplay_Debug_Printf("hide ssid: %s\n", char_buf);
             LP_Set_linkplay_ssid_hidden(atoi(char_buf));
             break;
         case e_inf_ssid_strategy:
-            Linkplay_Debug_Printf("ssid strategy: %s", char_buf);
+            Linkplay_Debug_Printf("ssid strategy: %s\n", char_buf);
             LP_Set_linkplay_ssid_strategy(atoi(char_buf));
             break;
         case e_inf_link_play_fimrware:
-            Linkplay_Debug_Printf("linkplay firmware: %s", char_buf);
+            Linkplay_Debug_Printf("linkplay firmware: %s\n", char_buf);
             LP_Set_linkplay_firmware_version(char_buf);
             break;
         case e_inf_build:
-            Linkplay_Debug_Printf("linkplay build: %s", char_buf);
+            Linkplay_Debug_Printf("linkplay build: %s\n", char_buf);
             LP_Set_linkplay_build(char_buf);
             break;
         case e_inf_project:
-            Linkplay_Debug_Printf("linkplay project: %s", char_buf);
+            Linkplay_Debug_Printf("linkplay project: %s\n", char_buf);
             LP_Set_linkplay_project(char_buf);
             break;
         case e_inf_firmware_private_project:
-            Linkplay_Debug_Printf("linkplay private project: %s", char_buf);
+            Linkplay_Debug_Printf("linkplay private project: %s\n", char_buf);
             LP_Set_linkplay_private_project(char_buf);
             break;
         case e_inf_firmware_release:
-            Linkplay_Debug_Printf("linkplay firmware release: %s", char_buf);
+            Linkplay_Debug_Printf("linkplay firmware release: %s\n", char_buf);
             LP_Set_linkplay_firmware_release(atoi(char_buf));
             break;
         case e_inf_firmware_branch:
-            Linkplay_Debug_Printf("linkplay firmware branch: %s", char_buf);
+            Linkplay_Debug_Printf("linkplay firmware branch: %s\n", char_buf);
             LP_Set_linkplay_firmware_branch(char_buf);
             break;
         case e_inf_group:
-            Linkplay_Debug_Printf("group: %s", char_buf);
+            Linkplay_Debug_Printf("group: %s\n", char_buf);
             LP_Set_linkplay_group(atoi(char_buf));
             break;
         case e_inf_expired:
-            Linkplay_Debug_Printf("expired: %s", char_buf);
+            Linkplay_Debug_Printf("expired: %s\n", char_buf);
             LP_Set_linkplay_verion_expierd(atoi(char_buf));
             break;
         case e_inf_internet:
-            Linkplay_Debug_Printf("internet status: %s", char_buf);
+            Linkplay_Debug_Printf("internet status: %s\n", char_buf);
             LP_Set_linkplay_internet_status(atoi(char_buf));
             break;
         case e_inf_uuid:
-            Linkplay_Debug_Printf("uuid: %s", char_buf);
+            Linkplay_Debug_Printf("uuid: %s\n", char_buf);
             LP_Set_linkplay_uuid(char_buf);
             break;
         case e_inf_mac:
-            Linkplay_Debug_Printf("mac address: %s", char_buf);
+            Linkplay_Debug_Printf("mac address: %s\n", char_buf);
             LP_Set_linkplay_mac_address(char_buf);
             break;
         case e_inf_sta_mac:
-            Linkplay_Debug_Printf("sta mac address: %s", char_buf);
+            Linkplay_Debug_Printf("sta mac address: %s\n", char_buf);
             LP_Set_linkplay_sta_mac_address(char_buf);
             break;
         case e_inf_date:
-            Linkplay_Debug_Printf("date: %s", char_buf);
+            Linkplay_Debug_Printf("date: %s\n", char_buf);
             process_date(char_buf);
             break;
         case e_inf_time:
-            Linkplay_Debug_Printf("time: %s", char_buf);
+            Linkplay_Debug_Printf("time: %s\n", char_buf);
             process_time(char_buf);
             break;
         case e_inf_tz:
-            Linkplay_Debug_Printf("time zone: %s", char_buf);
+            Linkplay_Debug_Printf("time zone: %s\n", char_buf);
             LP_Set_linkplay_time_zone(atoi(char_buf));
             break;
         case e_inf_netstat:
-            Linkplay_Debug_Printf("network status: %s", char_buf);
+            Linkplay_Debug_Printf("network status: %s\n", char_buf);
             LP_Set_linkplay_network_status(atoi(char_buf));
             break;
         case e_inf_essid:
-            Linkplay_Debug_Printf("essid: %s", char_buf);
+            Linkplay_Debug_Printf("essid: %s\n", char_buf);
             process_essid(char_buf);
             break;
         case e_inf_apcli0:
-            Linkplay_Debug_Printf("wifi IP: %s", char_buf);
+            Linkplay_Debug_Printf("wifi IP: %s\n", char_buf);
             LP_Set_linkplay_wifi_ip(char_buf);
             break;
         case e_inf_eth2:
-            Linkplay_Debug_Printf("ethernet IP: %s", char_buf);
+            Linkplay_Debug_Printf("ethernet IP: %s\n", char_buf);
             LP_Set_linkplay_ethernet_ip(char_buf);
             break;
         case e_inf_hardware:
-            Linkplay_Debug_Printf("hardware: %s", char_buf);
+            Linkplay_Debug_Printf("hardware: %s\n", char_buf);
             LP_Set_linkplay_hardware(char_buf);
             break;
         case e_inf_version_update:
-            Linkplay_Debug_Printf("version update: %s", char_buf);
+            Linkplay_Debug_Printf("version update: %s\n", char_buf);
             LP_Set_linkplay_version_update(atoi(char_buf));
             break;
         case e_inf_new_version:
-            Linkplay_Debug_Printf("new linkplay firmware version: %s", char_buf);
+            Linkplay_Debug_Printf("new linkplay firmware version: %s\n", char_buf);
             Linkplay_Debug_Printf(char_buf);
             break;
         case e_inf_mcu_version:
-            Linkplay_Debug_Printf("pic firmware version: %s", char_buf);
+            Linkplay_Debug_Printf("pic firmware version: %s\n", char_buf);
             LP_Set_linkplay_new_version(atoi(char_buf));
             break;
         case e_inf_mcu_new_version:
-            Linkplay_Debug_Printf("pic new firmware version: %s", char_buf);
+            Linkplay_Debug_Printf("pic new firmware version: %s\n", char_buf);
             LP_Set_linkplay_pic_new_firmware_verison(atoi(char_buf));
             break;
         case e_inf_dsp_ver_new:
-            Linkplay_Debug_Printf("dsp new firmware version: %s", char_buf);
+            Linkplay_Debug_Printf("dsp new firmware version: %s\n", char_buf);
             LP_Set_linkplay_dsp_new_firmware_verison(atoi(char_buf));
             break;
         case e_inf_ra0:
-            Linkplay_Debug_Printf("internal server IP: %s", char_buf);
+            Linkplay_Debug_Printf("internal server IP: %s\n", char_buf);
             LP_Set_linkplay_internal_server_port(char_buf);
             break;
         case e_inf_temp_uuid:
-            Linkplay_Debug_Printf("temp uuid: %s", char_buf);
+            Linkplay_Debug_Printf("temp uuid: %s\n", char_buf);
             LP_Set_linkplay_temp_uuid(char_buf);
             break;
         case e_inf_cap1:
-            Linkplay_Debug_Printf("capl: %s", char_buf);
+            Linkplay_Debug_Printf("capl: %s\n", char_buf);
             LP_Set_linkplay_capl(atoi(char_buf));
             break;
         case e_inf_capability:
-            Linkplay_Debug_Printf("capability: %s", char_buf);
+            Linkplay_Debug_Printf("capability: %s\n", char_buf);
             break;
         case e_inf_languages:
-            Linkplay_Debug_Printf("language: %s", char_buf);
+            Linkplay_Debug_Printf("language: %s\n", char_buf);
             LP_Set_linkplay_languages(atoi(char_buf));
             break;
         case e_inf_dsp_ver:
-            Linkplay_Debug_Printf("dsp version: %s", char_buf);
+            Linkplay_Debug_Printf("dsp version: %s\n", char_buf);
             LP_Set_linkplay_dsp_version(atoi(char_buf));
             break;
         case e_inf_streams_all:
-            Linkplay_Debug_Printf("steaming settings: %s", char_buf);
+            Linkplay_Debug_Printf("steaming settings: %s\n", char_buf);
             LP_Set_linkplay_steaming_settings(hex2int(char_buf));
             break;
         case e_inf_streams:
-            Linkplay_Debug_Printf("streams: %s", char_buf);
+            Linkplay_Debug_Printf("streams: %s\n", char_buf);
             LP_Set_linkplay_streams(hex2int(char_buf));
             break;
         case e_inf_region:
-            Linkplay_Debug_Printf("region: %s", char_buf);
+            Linkplay_Debug_Printf("region: %s\n", char_buf);
             LP_Set_linkplay_region(atoi(char_buf));
             break;
         case e_inf_external:
-            Linkplay_Debug_Printf("external: %s", char_buf);
+            Linkplay_Debug_Printf("external: %s\n", char_buf);
             LP_Set_linkplay_external(atoi(char_buf));
             break;
         case e_inf_preset_key:
-            Linkplay_Debug_Printf("preset key: %s", char_buf);
+            Linkplay_Debug_Printf("preset key: %s\n", char_buf);
             LP_Set_linkplay_preset_keys(atoi(char_buf));
             break;
         case e_inf_plm_support:
-            Linkplay_Debug_Printf("plm support: %s", char_buf);
+            Linkplay_Debug_Printf("plm support: %s\n", char_buf);
             LP_Set_linkplay_plm_support(atoi(char_buf));
             break;
         case e_inf_spotify_active:
-            Linkplay_Debug_Printf("spotify active: %s", char_buf);
+            Linkplay_Debug_Printf("spotify active: %s\n", char_buf);
             LP_Set_linkplay_spotify_active(atoi(char_buf));
             break;
         case e_inf_WifiChannel:
-            Linkplay_Debug_Printf("wifi channel: %s", char_buf);
+            Linkplay_Debug_Printf("wifi channel: %s\n", char_buf);
             LP_Set_linkplay_wifi_channel(atoi(char_buf));
             break;
         case e_inf_RSSI:
-            Linkplay_Debug_Printf("rssi: %s", char_buf);
+            Linkplay_Debug_Printf("rssi: %s\n", char_buf);
             LP_Set_linkplay_rssi(atoi(char_buf));
             break;
         case e_inf_battery:
-            Linkplay_Debug_Printf("battery: %s", char_buf);
+            Linkplay_Debug_Printf("battery: %s\n", char_buf);
             LP_Set_linkplay_battery(atoi(char_buf));
             break;
         case e_inf_battery_percent:
-            Linkplay_Debug_Printf("battery percent: %s", char_buf);
+            Linkplay_Debug_Printf("battery percent: %s\n", char_buf);
             LP_Set_linkplay_battery_percent(atoi(char_buf));
             break;
         case e_inf_securemode:
-            Linkplay_Debug_Printf("secure mode: %s", char_buf);
+            Linkplay_Debug_Printf("secure mode: %s\n", char_buf);
             LP_Set_linkplay_secure_mode(atoi(char_buf));
             break;
         case e_inf_upnp_version:
-            Linkplay_Debug_Printf("upnp version: %s", char_buf);
+            Linkplay_Debug_Printf("upnp version: %s\n", char_buf);
             LP_Set_linkplay_upnp_version(atoi(char_buf));
             break;
         case e_inf_upnp_uuid:
-            Linkplay_Debug_Printf("upnp uuid: %s", (char_buf +5));
+            Linkplay_Debug_Printf("upnp uuid: %s\n", (char_buf +5));
             LP_Set_linkplay_upnp_uuid(char_buf);
             break;
         case e_inf_uart_pass_port:
-            Linkplay_Debug_Printf("pass port: %s", char_buf);
+            Linkplay_Debug_Printf("pass port: %s\n", char_buf);
             LP_Set_linkplay_pass_port(char_buf);
             break;
         case e_inf_communication_port:
-            Linkplay_Debug_Printf("communication port: %s", char_buf);
+            Linkplay_Debug_Printf("communication port: %s\n", char_buf);
             LP_Set_linkplay_communication_port(char_buf);
             break;
         case e_inf_web_firmware_update_hide:
-            Linkplay_Debug_Printf("firmware update hidden: %s", char_buf);
+            Linkplay_Debug_Printf("firmware update hidden: %s\n", char_buf);
             LP_Set_linkplay_firmware_update_hidden(atoi(char_buf));
             break;
         case e_inf_web_login_result:
-            Linkplay_Debug_Printf("web login result: %s", char_buf);
+            Linkplay_Debug_Printf("web login result: %s\n", char_buf);
             LP_Set_linkplay_web_login_result(atoi(char_buf));
             break;
         case e_inf_ignore_talkstart:
-            Linkplay_Debug_Printf("ignore talk start: %s", char_buf);
+            Linkplay_Debug_Printf("ignore talk start: %s\n", char_buf);
             LP_Set_linkplay_ignore_talk_start(atoi(char_buf));
             break;
         case e_inf_silenceOTATime:
-            Linkplay_Debug_Printf("silence OTA time: %s", char_buf);
+            Linkplay_Debug_Printf("silence OTA time: %s\n", char_buf);
             Linkplay_Debug_Printf(char_buf);
             break;
         case e_inf_ignore_silenceOTATime:
-            Linkplay_Debug_Printf("ignore silence OTA time: %s", char_buf);
+            Linkplay_Debug_Printf("ignore silence OTA time: %s\n", char_buf);
             LP_Set_linkplay_silence_OTA_time(atoi(char_buf));
             break;
         case e_inf_iheartradio_new:
-            Linkplay_Debug_Printf("iHeartRadio new: %s", char_buf);
+            Linkplay_Debug_Printf("iHeartRadio new: %s\n", char_buf);
             LP_Set_linkplay_iHeartRadio_new(atoi(char_buf));
             break;
         case e_inf_privacy_mode:
-            Linkplay_Debug_Printf("privacy mode: %s", char_buf);
+            Linkplay_Debug_Printf("privacy mode: %s\n", char_buf);
             LP_Set_linkplay_privacy_mode(atoi(char_buf));
             break;
         case e_inf_user1:
-            Linkplay_Debug_Printf("user1: %s", char_buf);
+            Linkplay_Debug_Printf("user1: %s\n", char_buf);
             LP_Set_linkplay_user1(char_buf);
             break;
         case e_inf_user2:
-            Linkplay_Debug_Printf("user2: %s", char_buf);
+            Linkplay_Debug_Printf("user2: %s\n", char_buf);
             LP_Set_linkplay_user2(char_buf);
             break;
         case e_inf_DeviceName:
-            Linkplay_Debug_Printf("device name: %s", char_buf);
+            Linkplay_Debug_Printf("device name: %s\n", char_buf);
             LP_Set_linkplay_device_name(char_buf);
             break;
         case e_inf_GroupName:
-            Linkplay_Debug_Printf("group name: %s", char_buf);
+            Linkplay_Debug_Printf("group name: %s\n", char_buf);
             break;
         default:
             break; 

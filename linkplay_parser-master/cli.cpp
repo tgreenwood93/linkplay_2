@@ -296,19 +296,19 @@ static void linkplay_bypass()
         len = CLI_ARGLIST_MAXLEN - 1;
         
 
-    if ((strlen(cli_readbuf) == 5) && (strncmp(cli_readbuf,"help", 4)==0))
+    if ((strlen(cli_readbuf) == 4) && (strncmp(cli_readbuf,"help", 4)==0))
     {
         Debug_Printf("In linkplay_bypass!\n  send a command, ex. MCU+BOT+DON\n");
         Debug_Printf("  for a list of commands type 'list'\n");
         Debug_Printf("  press 'q' to exit bypass\n");
     }
-    else if ((strlen(cli_readbuf) == 5) && (strncmp(cli_readbuf,"list", 4)==0))
+    else if ((strlen(cli_readbuf) == 4) && (strncmp(cli_readbuf,"list", 4)==0))
     {
         Debug_Printf("Linkplay commands:\n");
         for (i = 0; i < MCU_COMMANDS_LEN; i++)
             Debug_Printf("  %s", mcu_commands[i]);
     }
-    else if ((strlen(cli_readbuf) == 2) && (strncmp(cli_readbuf,"q", 1)==0))
+    else if ((strlen(cli_readbuf) == 1) && (strncmp(cli_readbuf,"q", 1)==0))
     {
         Debug_Printf("Linkplkay bypass disengaged\n"); 
         Set_linkplay_bypass_status(false); 
