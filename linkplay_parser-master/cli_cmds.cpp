@@ -494,35 +494,20 @@ static void cli_cmd_linkplay (char *arg_buf)
             Debug_Printf("    setname   - set the name of the device ex: linkplay setname stellar\n");
             Debug_Printf("    setssid   - set the ssid of the internal ap ex: linkplay setssid integrated\n");
             Debug_Printf("    gettaps   - get list of aps linkplay can see\n");
-<<<<<<< HEAD
-            Debug_Printf("    connap    - provide ssid and passwor and connect to ap\n");
-            Debug_Printf("    wifstat   - current wifi status\n");
-=======
             Debug_Printf("    connap    - connect to an ap by suppling ssid and password ex. connap router password\n");
             Debug_Printf("    wifstat   - get the status of the wifi connection\n");
->>>>>>> 17065abea13cce02ee98c26819458a3a5b7b7155
             Debug_Printf("    wpson     - turn wps on\n");
             Debug_Printf("    wpsoff    - turn wps off\n");
             Debug_Printf("    nxttrk    - play the next track\n");
             Debug_Printf("    prvtrk    - play the previous track\n");
-<<<<<<< HEAD
             Debug_Printf("    pause     - pause the currnet track\n");
             Debug_Printf("    play      - play the current track\n");
             Debug_Printf("    stop      - stop the current track\n");
             Debug_Printf("    ptog      - toggle play/pause the current track\n");
             Debug_Printf("    plbkstat  - get the playback status\n");
             Debug_Printf("    fact      - factory reset the linkplay module\n");
-=======
-            Debug_Printf("    pause     - pause the track\n");
-            Debug_Printf("    play      - play the track\n");
-            Debug_Printf("    stop      - stop the track\n");
-            Debug_Printf("    ptog      - toggle pausing/playing the track\n");
-            Debug_Printf("    plbkstat  - get the status of playback\n");
-            Debug_Printf("    fact      - factory reset linkplay\n");
->>>>>>> 17065abea13cce02ee98c26819458a3a5b7b7155
             Debug_Printf("    passthru  - send commands directly to linkplay \n");
             Debug_Printf("    help      - list of linkplay commands\n");
-            Debug_Printf("    test_null -  %s track\n", NULL);
             break;
         default:
             Debug_Printf("Invalid linkplay command - %s\n\n", sCmd);

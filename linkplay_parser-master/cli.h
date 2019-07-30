@@ -30,9 +30,9 @@ typedef void (*cli_handler_ptr)(char *arg_buf);
 
 //  CLI support data structure for storing command handler, command name and description
 typedef struct {
-  char              *func_name;                 // command name. ex. "help"
-  cli_handler_ptr   cli_handler;                // command handler
-  char              *func_description;          // command description
+    char              *func_name;                 // command name. ex. "help"
+    cli_handler_ptr   cli_handler;                // command handler
+    char              *func_description;          // command description
 } CLI_Func_t;
 
 // *****************************************************************************
@@ -43,10 +43,6 @@ int CLI_Tasks(void);
 
 int cli_arg_parsecmd(char* sCmd, char* sCmdList[]);
 void engage_linkplay_bypass();
-<<<<<<< HEAD
-bool linkplay_bypass_status()
-=======
-bool linkplay_bypass_status();
->>>>>>> 17065abea13cce02ee98c26819458a3a5b7b7155
+
 
 #endif /* _APPLI_H */

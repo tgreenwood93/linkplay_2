@@ -58,10 +58,7 @@ void checkSerial1()
   
     while (Serial1.available()) 
     {
-<<<<<<< HEAD
-=======
         digitalWrite(13, HIGH);
->>>>>>> 17065abea13cce02ee98c26819458a3a5b7b7155
         tempCharLP = Serial1.read();
         if ((tempCharLP != '\n'))
         {
