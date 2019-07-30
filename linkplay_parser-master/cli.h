@@ -43,5 +43,10 @@ int CLI_Tasks(void);
 
 int cli_arg_parsecmd(char* sCmd, char* sCmdList[]);
 void engage_linkplay_bypass();
+<<<<<<< HEAD
+bool linkplay_bypass_status()
+=======
+bool linkplay_bypass_status();
+>>>>>>> 17065abea13cce02ee98c26819458a3a5b7b7155
 
 #endif /* _APPLI_H */

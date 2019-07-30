@@ -21,14 +21,14 @@ static char tempCharLP = '\0';
     
 void setup() 
 {
-  Serial.begin(9600);
-  Serial1.begin(57600);
-  memset(newMsg, ASCII_NUL, 1600);
-  memset(newMsgUSB, ASCII_NUL, 1026);
-  pinMode(led, OUTPUT);
-  Serial.println("Booting up...");
-  Debug_Init();
-  CLI_Init();
+    Serial.begin(9600);
+    Serial1.begin(57600);
+    memset(newMsg, ASCII_NUL, 1600);
+    memset(newMsgUSB, ASCII_NUL, 1026);
+    pinMode(led, OUTPUT);
+    Serial.println("Booting up...");
+    Debug_Init();
+    CLI_Init();
 }
 
 void loop() {
@@ -58,7 +58,10 @@ void checkSerial1()
   
     while (Serial1.available()) 
     {
-      digitalWrite(13, HIGH);
+<<<<<<< HEAD
+=======
+        digitalWrite(13, HIGH);
+>>>>>>> 17065abea13cce02ee98c26819458a3a5b7b7155
         tempCharLP = Serial1.read();
         if ((tempCharLP != '\n'))
         {

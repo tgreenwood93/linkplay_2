@@ -4,6 +4,7 @@
 #include "queue.h"
 #include "cli.h"
 #include "debug.h"
+#include "linkplay_cli.h"
 
 void linkplay_error_handler(LinkPlay_Error_t error_handler, char* linkplay_command)
 {

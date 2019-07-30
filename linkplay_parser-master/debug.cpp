@@ -21,6 +21,7 @@
 #include "linkplay_error_handler.h"
 #include "standin_functions.h"
 #include "queue.h"
+#include "linkplay_cli.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////

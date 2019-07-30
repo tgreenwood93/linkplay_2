@@ -268,6 +268,7 @@ LinkPlay_Error_t process_www_command(char* linkplay_command);                   
 uint16_t linkplay_command_data_extraction(char* linkplay_command);
 
 int16_t hex2ascii(const char *hexArray, char *asciiArray, uint8_t hexArrayLength, uint8_t charArrayLength);
+uint32_t hex2int(char *hex);
 
 LinkPlay_Error_t inf_command_parser(uint16_t current_inf, char* char_buf);
 void process_date(char* date);

@@ -304,8 +304,10 @@ static void linkplay_bypass()
     }
     else
     {
-        Debug_Printf("in linkplay_bypass!\n");  
+        Debug_Printf("in linkplay_bypass!\npress 'q' to exit bypass\n");  
         Serial1.println(cli_readbuf);
+        Serial.println(cli_readbuf);
+
     }
 
 }
@@ -313,4 +315,9 @@ static void linkplay_bypass()
 void engage_linkplay_bypass()
 {
     linkplay_cli_bypass = true;
+}
+
+bool linkplay_bypass_status()
+{
+    return linkplay_cli_bypass;
 }

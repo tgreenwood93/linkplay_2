@@ -17,6 +17,11 @@ typedef enum
     e_linkplay_lang_spanish,
 } Linkplay_Language_t; 
 
+typedef enum {
+    e_linkplay_stored,
+    e_linkplay_raw,
+}linkplay_log_level_t;
+
 const char mcu_commands[50][12] = 
 {
     "MCU+FACTORY", // 0
@@ -407,5 +412,7 @@ void lp_retrieve_metadata();
 void lp_retrieve_system_info();
 void lp_set_ssid();
 void lp_set_name();
+
+void Linkplay_Log(linkplay_log_level_t debug_level, char* fmt, ...);
 
 #endif
