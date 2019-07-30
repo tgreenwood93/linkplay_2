@@ -5,7 +5,7 @@
 #ifndef linkplay_manager_h
 #define linkplay_manager_h
 
-
+const uint8_t MCU_COMMANDS_LEN = 41;
 typedef enum 
 {
     e_linkplay_lang_en_us = 0, 
@@ -22,49 +22,49 @@ typedef enum {
     e_linkplay_raw,
 }linkplay_log_level_t;
 
-const char mcu_commands[50][12] = 
+const char mcu_commands[MCU_COMMANDS_LEN][13] = 
 {
-    "MCU+FACTORY", // 0
-    "MCU+FCRYPOW",
-    "MCU+WIF+WPS",
-    "MCU+WIF+EPS",
-    "MCU+WIF+WSS",
-    "MCU+STA++ON", // 5
-    "MCU+STA+OFF",
-    "MCU+STA+DEL",
-    "MCU+RA0++ON",
-    "MCU+RA0+OFF",
-    "MCU+STA+GET", // 10
-    "MCU+ETH+GET",
-    "MCU+WWW+GET",
-    "MCU+RA0+GET",
-    "MCU+RTC+GET",
-    "MCU+WEK+GET", // 15
-    "MCU+SND+RTC",
-    "MCU+AP+SCAN", 
-    "MCU+STA+INF",
-    "MCU+PLM+GET",
-    "MCU+USB+GET", // 20
-    "MCU+MMC+GET",
-    "MCU+PLY+PUS",
-    "MCU+PLY-PUS",
-    "MCU+PLY-PLA",
-    "MCU+PLY-STP", // 25
-    "MCU+PLY+PUQ",
-    "MCU+PLY+NXT",
-    "MCU+PLY+PRV",
-    "MCU+PLY+GET",
-    "MCU+PLP+GET", // 30
-    "MCU+INF+GET",
-    "MCU+PINFGET",
-    "MCU+STA+INF", 
-    "MCU+WEA+GET",
-    "MCU+DEV+GET", // 35
-    "MCU+MEA+GET",
-    "MCU+MEA+GBK",
-    "MCU+AIR++ON",
-    "MCU+AIR+OFF",
-    "MCU+AIR+GET", // 40
+    "MCU+FACTORY\n", // 0
+    "MCU+FCRYPOW\n",
+    "MCU+WIF+WPS\n",
+    "MCU+WIF+EPS\n",
+    "MCU+WIF+WSS\n",
+    "MCU+STA++ON\n", // 5
+    "MCU+STA+OFF\n",
+    "MCU+STA+DEL\n",
+    "MCU+RA0++ON\n",
+    "MCU+RA0+OFF\n",
+    "MCU+STA+GET\n", // 10
+    "MCU+ETH+GET\n",
+    "MCU+WWW+GET\n",
+    "MCU+RA0+GET\n",
+    "MCU+RTC+GET\n",
+    "MCU+WEK+GET\n", // 15
+    "MCU+SND+RTC\n",
+    "MCU+AP+SCAN\n", 
+    "MCU+STA+INF\n",
+    "MCU+PLM+GET\n",
+    "MCU+USB+GET\n", // 20
+    "MCU+MMC+GET\n",
+    "MCU+PLY+PUS\n",
+    "MCU+PLY-PUS\n",
+    "MCU+PLY-PLA\n",
+    "MCU+PLY-STP\n", // 25
+    "MCU+PLY+PUQ\n",
+    "MCU+PLY+NXT\n",
+    "MCU+PLY+PRV\n",
+    "MCU+PLY+GET\n",
+    "MCU+PLP+GET\n", // 30
+    "MCU+INF+GET\n",
+    "MCU+PINFGET\n",
+    "MCU+STA+INF\n", 
+    "MCU+WEA+GET\n",
+    "MCU+DEV+GET\n", // 35
+    "MCU+MEA+GET\n",
+    "MCU+MEA+GBK\n",
+    "MCU+AIR++ON\n",
+    "MCU+AIR+OFF\n",
+    "MCU+AIR+GET\n", // 40
 };
 /*
     "MCU+CAP+PRJPSAUDIO_Stellar&"

@@ -42,7 +42,6 @@ void CLI_Init(void);
 int CLI_Tasks(void);
 
 int cli_arg_parsecmd(char* sCmd, char* sCmdList[]);
-void engage_linkplay_bypass();
 
 
 #endif /* _APPLI_H */

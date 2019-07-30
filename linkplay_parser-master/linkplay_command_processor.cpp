@@ -447,18 +447,18 @@ LinkPlay_Error_t process_cap_command(char* linkplay_command)                   /
     if (strncmp((linkplay_command + 8), "GET", 3) == 0)
     {
         Linkplay_Debug_Printf("Linkplay booted after factory reset, needs pertinent information\n");
-        Serial1.println("MCU+CAP+PRJPSAUDIO_Stellar&\n");
-        Serial1.println("MCU+PTV+000\n");
-        Serial1.println("MCU+SPY+BRNPSAUDIO&\n");
-        Serial1.println("MCU+SPY+NAMStellarIntegrated&\n");
-        Serial1.println("MCU+SPY+TYP0&\n");
-        Serial1.println("MCU+CAP+00100001100&\n");
-        Serial1.println("MCU+CAP+00200000800&\n");
-        Serial1.println("MCU+CAP+LAUen_us&\n");
+        Linkplay_Printf("MCU+CAP+PRJPSAUDIO_Stellar&\n");
+        Linkplay_Printf("MCU+PTV+000\n");
+        Linkplay_Printf("MCU+SPY+BRNPSAUDIO&\n");
+        Linkplay_Printf("MCU+SPY+NAMStellarIntegrated&\n");
+        Linkplay_Printf("MCU+SPY+TYP0&\n");
+        Linkplay_Printf("MCU+CAP+00100001100&\n");
+        Linkplay_Printf("MCU+CAP+00200000800&\n");
+        Linkplay_Printf("MCU+CAP+LAUen_us&\n");
         
-        Serial1.println("MCU+CAP+STMfffffffc&\n");
-        Serial1.println("MCU+CAP+PLM00000000&\n");
-        Serial1.println("MCU+PRESET+3&\n");
+        Linkplay_Printf("MCU+CAP+STMfffffffc&\n");
+        Linkplay_Printf("MCU+CAP+PLM00000000&\n");
+        Linkplay_Printf("MCU+PRESET+3&\n");
         return e_no_error;
     }
     return e_unknown_cap_command;
@@ -586,7 +586,7 @@ LinkPlay_Error_t process_get_command(char* linkplay_command)
     if (strncmp((linkplay_command + 8), "SID", 3) == 0)
     {    
         Linkplay_Debug_Printf("Set SSID of linkplay\n");
-        Serial1.println("MCU+SID+StellarIntegrated\n");
+        Linkplay_Printf("MCU+SID+StellarIntegrated\n");
         return e_no_error;
     }
 
@@ -795,11 +795,11 @@ LinkPlay_Error_t inf_command_parser(uint16_t current_inf, char* char_buf)
             break;
         case e_inf_streams_all:
             Linkplay_Debug_Printf("steaming settings: %s", char_buf);
-            LP_Set_linkplay_steaming_settings(atoi(char_buf));
+            LP_Set_linkplay_steaming_settings(hex2int(char_buf));
             break;
         case e_inf_streams:
             Linkplay_Debug_Printf("streams: %s", char_buf);
-            LP_Set_linkplay_streams(atoi(char_buf));
+            LP_Set_linkplay_streams(hex2int(char_buf));
             break;
         case e_inf_region:
             Linkplay_Debug_Printf("region: %s", char_buf);
@@ -1067,7 +1067,7 @@ LinkPlay_Error_t process_mcu_command(char* linkplay_command)                    
     else if (strncmp((linkplay_command + 8), "VER", 3) == 0)
     {
         Linkplay_Debug_Printf("Send PIC firmware version ex: 0119\n");
-        Serial1.println("MCU+VER+0119&\n");
+        Linkplay_Printf("MCU+VER+0119&\n");
         return e_no_error;
     }
     
@@ -1122,7 +1122,7 @@ LinkPlay_Error_t process_mea_command(char* linkplay_command)                    
         }
         strncpy(hex_title, (linkplay_command + title_offset), title_char_counter-title_offset);
         hex2ascii(hex_title, ascii_title, strlen(hex_title), strlen(ascii_title));
-        Serial.print("Title: \n"); Linkplay_Debug_Printf(ascii_title);
+        Linkplay_Debug_Printf("Title: %s\n", ascii_title);
         LP_Set_linkplay_title(ascii_title);
 
         for(artist_char_counter = (title_char_counter+artist_offset); artist_char_counter < 1024; artist_char_counter++)
@@ -1134,7 +1134,7 @@ LinkPlay_Error_t process_mea_command(char* linkplay_command)                    
         }   
         strncpy(hex_artist, (linkplay_command + (title_char_counter+artist_offset)), (artist_char_counter - (title_char_counter+artist_offset)));
         hex2ascii(hex_artist, ascii_artist, strlen(hex_artist), strlen(ascii_artist));
-        Serial.print("Artist: \n"); Linkplay_Debug_Printf(ascii_artist);
+        Linkplay_Debug_Printf("Artist: %s\n", ascii_artist);
         LP_Set_linkplay_artist(ascii_artist);
 
 
@@ -1147,7 +1147,7 @@ LinkPlay_Error_t process_mea_command(char* linkplay_command)                    
         }   
         strncpy(hex_album, (linkplay_command + (artist_char_counter+album_offset)), (album_char_counter - (artist_char_counter+album_offset))); 
         hex2ascii(hex_album, ascii_album, strlen(hex_album), strlen(ascii_album));
-        Serial.print("Album: \n"); Linkplay_Debug_Printf(ascii_album);
+        Linkplay_Debug_Printf("Artist: %s\n", ascii_album);
         LP_Set_linkplay_album(ascii_album);
 
         return e_no_error; 
@@ -1321,19 +1321,19 @@ LinkPlay_Error_t process_plp_command(char* linkplay_command)                    
     switch (linkplay_command_data_extraction(linkplay_command))
     {
         case e_repeat_all:
-            Serial.print("repeat all songs\n");
+            Linkplay_Debug_Printf("repeat all songs\n");
             LP_Set_linkplay_repeat_shuffle(e_repeat_all);
             break;
         case e_repeat_current:
-            Serial.print("repeat all currnet song\n");
+            Linkplay_Debug_Printf("repeat all currnet song\n");
             LP_Set_linkplay_repeat_shuffle(e_repeat_current);
             break;
         case e_shuffle_repeat:
-            Serial.print("shuffle and repeat playlist\n");
+            Linkplay_Debug_Printf("shuffle and repeat playlist\n");
             LP_Set_linkplay_repeat_shuffle(e_shuffle_repeat);
             break;
         case e_shuffle_no_repeat:
-            Serial.print("shuffle, no repeat\n");
+            Linkplay_Debug_Printf("shuffle, no repeat\n");
             LP_Set_linkplay_repeat_shuffle(e_shuffle_no_repeat);
             break;  
         default:
@@ -1549,28 +1549,22 @@ LinkPlay_Error_t process_set_command(char* linkplay_command)                    
         strncpy(c_current_minute, linkplay_command+21, 2);
         strncpy(c_current_second, linkplay_command+23, 2);
 
-        Serial.print("current YYYY: \n");
-        Linkplay_Debug_Printf("%s", c_current_year); 
+        Linkplay_Debug_Printf("current YYYY: %s\n", c_current_year);
         LP_Set_linkplay_year(atoi(c_current_year));
 
-        Serial.print("MM: \n");
-        Linkplay_Debug_Printf("%s", c_current_month); 
+        Linkplay_Debug_Printf("MM: %s\n", c_current_month);
         LP_Set_linkplay_month(atoi(c_current_month));
 
-        Serial.print("DD: \n");
-        Linkplay_Debug_Printf("%s", c_current_day); 
+        Linkplay_Debug_Printf("DD: %s\n", c_current_day);
         LP_Set_linkplay_day(atoi(c_current_day));
 
-        Serial.print("HH: \n");
-        Linkplay_Debug_Printf("%s", c_current_hour); 
+        Linkplay_Debug_Printf("HH: %s\n", c_current_hour);
         LP_Set_linkplay_hour(atoi(c_current_hour));
 
-        Serial.print("MM: \n");
-        Linkplay_Debug_Printf("%s", c_current_minute); 
+        Linkplay_Debug_Printf("MM: %s\n", c_current_minute);
         LP_Set_linkplay_minute(atoi(c_current_minute));
 
-        Serial.print("SS: \n");
-        Linkplay_Debug_Printf("%s", c_current_second); 
+        Linkplay_Debug_Printf("SS: %s\n", c_current_second);
         LP_Set_linkplay_second(atoi(c_current_second));
     }
     else if (strncmp((linkplay_command + 8), "WEK", 3) == 0)
@@ -1705,7 +1699,6 @@ LinkPlay_Error_t process_vol_command(char* linkplay_command)                    
         volume_int = linkplay_command_data_extraction(linkplay_command);
         if (volume_int < 101)
         {
-            Serial.print("set volume to: \n");
             Linkplay_Debug_Printf("set volume to: %d", volume_int);
         }
         else
@@ -1852,7 +1845,7 @@ LinkPlay_Error_t process_www_command(char* linkplay_command)                    
           break;
       case e_connected_to_internet:
           Linkplay_Debug_Printf("connected to the internet!\n");
-          Serial1.println("MCU+INF+GET\n");
+          Linkplay_Printf("MCU+INF+GET\n");
           LP_Set_linkplay_internet_status(true);
           break;   
       default: 

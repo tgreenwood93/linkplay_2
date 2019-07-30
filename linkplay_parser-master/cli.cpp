@@ -23,6 +23,7 @@
 #include "queue.h"
 #include "cli.h"
 #include "debug.h"
+#include "linkplay_cli.h"
 
 static void cli_interpreter(void);
 static void cli_parseline(char *cmd, char *arg_list);
@@ -245,7 +246,7 @@ static void cli_read()
         {
             // Convert the CR into a NUL and execute the interpreter
             cli_readbuf[cli_readbuf_len] = ASCII_NUL;
-            if (linkplay_cli_bypass == false)
+            if (Get_linkplay_bypass_status() == false)
             {
                 cli_interpreter();
             }
@@ -294,30 +295,26 @@ static void linkplay_bypass()
     if (len >= CLI_ARGLIST_MAXLEN)
         len = CLI_ARGLIST_MAXLEN - 1;
         
-    // Copy from cli_readbuf with an offset of line_idx (where the args start) into arg_list
-    //strncpy(arg_list, cli_readbuf, CLI_ARGLIST_MAXLEN-2);
-    if ((strlen(cli_readbuf) == LP_EXIT_CMD_LEN) &&
-        (strncmp(cli_readbuf, LP_EXIT_CMD, LP_EXIT_CMD_LEN) == 0))
+
+    if ((strlen(cli_readbuf) == 5) && (strncmp(cli_readbuf,"help", 4)==0))
     {
-        Debug_Printf("Linkplkay bypass disengaged\n");  
-        linkplay_cli_bypass = false;
+        Debug_Printf("In linkplay_bypass!\n  send a command, ex. MCU+BOT+DON\n");
+        Debug_Printf("  for a list of commands type 'list'\n");
+        Debug_Printf("  press 'q' to exit bypass\n");
+    }
+    else if ((strlen(cli_readbuf) == 5) && (strncmp(cli_readbuf,"list", 4)==0))
+    {
+        Debug_Printf("Linkplay commands:\n");
+        for (i = 0; i < MCU_COMMANDS_LEN; i++)
+            Debug_Printf("  %s", mcu_commands[i]);
+    }
+    else if ((strlen(cli_readbuf) == 2) && (strncmp(cli_readbuf,"q", 1)==0))
+    {
+        Debug_Printf("Linkplkay bypass disengaged\n"); 
+        Set_linkplay_bypass_status(false); 
     }
     else
-    {
-        Debug_Printf("in linkplay_bypass!\npress 'q' to exit bypass\n");  
         Serial1.println(cli_readbuf);
-        Serial.println(cli_readbuf);
 
-    }
-
-}
-
-void engage_linkplay_bypass()
-{
-    linkplay_cli_bypass = true;
-}
-
-bool linkplay_bypass_status()
-{
-    return linkplay_cli_bypass;
+    Debug_Printf("> ");
 }

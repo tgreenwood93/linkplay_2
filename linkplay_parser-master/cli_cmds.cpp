@@ -480,7 +480,7 @@ static void cli_cmd_linkplay (char *arg_buf)
             break;
         case CMD_LINKPLAY_PASS_THROUGH:
             Debug_Printf("Linkplay bypass engaged\n");
-            engage_linkplay_bypass();   
+            Set_linkplay_bypass_status(true); 
             break;
         case CMD_LINKPLAY_HELP:
             Debug_Printf("linkplay commands\n");
