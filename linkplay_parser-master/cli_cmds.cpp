@@ -373,6 +373,8 @@ enum
     CMC_LINKPLAY_WIRELESS_STAT,
     CMC_LINKPLAY_TURN_ON_WPS,
     CMC_LINKPLAY_TURN_OFF_WPS,
+    CMC_LINKPLAY_TURN_ON_WIFI,
+    CMC_LINKPLAY_TURN_OFF_WIFI,
     CMD_LINKPLAY_NXT_TRACK,
     CMC_LINKPLAY_PREV_TRACK,
     CMC_LINKPLAY_PAUSE,
@@ -381,7 +383,7 @@ enum
     CMC_LINKPLAY_PLA_PUS,
     CMC_LINKPLAY_PLAYBACK_STAT,
     CMC_LINKPLAY_FACTORY,
-    CMD_LINKPLAY_PASS_THROUGH,
+    CMD_LINKPLAY_BYPASS,
     CMD_LINKPLAY_HELP
 } e_cmd_linkplay_list;
 static void cli_cmd_linkplay (char *arg_buf)
@@ -389,9 +391,10 @@ static void cli_cmd_linkplay (char *arg_buf)
     char*   sCmdList[] = {  "ip", "netstat", "mac",
                             "version", "picver", "getap", "sysinf",
                             "setname", "setssid", "getaps", "connap",
-                            "wifstat", "wpson", "wpsoff", "nxttrk", 
-                            "prvtrk", "pause", "play", "stop", "ptog",
-                            "plbkstat", "fact", "passthru", "help", NULL};
+                            "wifstat", "wpson", "wpsoff", "wifon", 
+                            "wifoff", "nxt","prv", "pause", "play", 
+                            "stop", "ptog", "plbkstat", "fact", 
+                            "bypass", "help", NULL};
     char    sCmd[10];
     int     arg_cnt;
     int     nReg;
@@ -453,6 +456,12 @@ static void cli_cmd_linkplay (char *arg_buf)
         case CMC_LINKPLAY_TURN_OFF_WPS:
             Linkplay_Printf("%s", mcu_commands[3]);
             break;    
+        case CMC_LINKPLAY_TURN_ON_WIFI:
+            Linkplay_Printf("%s", mcu_commands[5]);
+            break;
+        case CMC_LINKPLAY_TURN_OFF_WIFI: 
+            Linkplay_Printf("%s", mcu_commands[6]);
+            break;   
         case CMD_LINKPLAY_NXT_TRACK:
             Linkplay_Printf("%s", mcu_commands[27]);
             break;    
@@ -477,7 +486,7 @@ static void cli_cmd_linkplay (char *arg_buf)
         case CMC_LINKPLAY_FACTORY:
             Linkplay_Printf("MCU+FACTORY\n");
             break;
-        case CMD_LINKPLAY_PASS_THROUGH:
+        case CMD_LINKPLAY_BYPASS:
             Debug_Printf("Linkplay bypass engaged\n");
             Set_linkplay_bypass_status(true); 
             break;
@@ -497,6 +506,8 @@ static void cli_cmd_linkplay (char *arg_buf)
             Debug_Printf("    wifstat   - get the status of the wifi connection\n");
             Debug_Printf("    wpson     - turn wps on\n");
             Debug_Printf("    wpsoff    - turn wps off\n");
+            Debug_Printf("    wifon     - turn wifi on\n");
+            Debug_Printf("    wifoff    - turn wifi off\n");            
             Debug_Printf("    nxttrk    - play the next track\n");
             Debug_Printf("    prvtrk    - play the previous track\n");
             Debug_Printf("    pause     - pause the currnet track\n");
@@ -505,7 +516,7 @@ static void cli_cmd_linkplay (char *arg_buf)
             Debug_Printf("    ptog      - toggle play/pause the current track\n");
             Debug_Printf("    plbkstat  - get the playback status\n");
             Debug_Printf("    fact      - factory reset the linkplay module\n");
-            Debug_Printf("    passthru  - send commands directly to linkplay \n");
+            Debug_Printf("    bypass  - send commands directly to linkplay \n");
             Debug_Printf("    help      - list of linkplay commands\n");
             break;
         default:

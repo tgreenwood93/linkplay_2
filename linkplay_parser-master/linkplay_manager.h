@@ -91,13 +91,13 @@ const char capabilities_playback[] = {"MCU+CAP+PLM00000000&"};
 const char num_hardware_buttons[] = {"MCU+PRESET+3&"};
 const char stock_ssid[] = {"MCU+SID+Stellar Integrated&"};
 
-const char connection_status[][13] = 
+const char connection_status[2][13] = 
 {
     "disconnected",
     "connected"
 };
 
-const char connection_tf[][4] = 
+const char connection_yes_no[2][4] = 
 {
     "no",
     "yes"
