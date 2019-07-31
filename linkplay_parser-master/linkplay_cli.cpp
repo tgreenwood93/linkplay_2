@@ -91,7 +91,7 @@ void dump_stored_linkplay_data()
     Debug_Printf("firmware type: %d\n", LP_Get_linkplay_firmare_release());
     Debug_Printf("branch: %s\n", LP_Get_linkplay_firmare_branch());
     Debug_Printf("group: %d\n", LP_Get_linkplay_group());
-    Debug_Printf("version is expiered: %d\n", LP_Set_linkplay_verion_expierd[(uint8_t)LP_Get_linkplay_version_expierd()]);
+    Debug_Printf("version is expiered: %s\n", connection_yes_no[(uint8_t)LP_Get_linkplay_version_expierd()]);
     Debug_Printf("uuid: %s\n", LP_Get_linkplay_uuid());
     Debug_Printf("mac: %s\n", LP_Get_linkplay_mac_address());
     Debug_Printf("sta mac: %s\n", LP_Get_linkplay_sta_mac_address());

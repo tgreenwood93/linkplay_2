@@ -279,6 +279,8 @@ LinkPlay_Error_t process_n_commands(char* linkplay_command)
     
     switch (linkplay_command[5])
     {
+        case 'A':
+            error_handler = process_nam_command(linkplay_command);
         case 'X':
             error_handler = process_nxt_command(linkplay_command);                      // Linkplay factory reset commands
             break;
@@ -446,11 +448,11 @@ LinkPlay_Error_t process_cap_command(char* linkplay_command)                   /
     */
     if (strncmp((linkplay_command + 8), "GET", 3) == 0)
     {
-        Linkplay_Debug_Printf("Linkplay booted after factory reset, needs pertinent information\n");
+        Linkplay_Debug_Printf("Linkplay booted after factory reset, retrieveing default PS Audio information\n");
         Linkplay_Printf("MCU+CAP+PRJPSAUDIO_Stellar&\n");
         Linkplay_Printf("MCU+PTV+000\n");
         Linkplay_Printf("MCU+SPY+BRNPSAUDIO&\n");
-        Linkplay_Printf("MCU+SPY+NAMStellarIntegrated&\n");
+        Linkplay_Printf("MCU+SPY+NAMStellar Integrated&\n");
         Linkplay_Printf("MCU+SPY+TYP0&\n");
         Linkplay_Printf("MCU+CAP+00100001100&\n");
         Linkplay_Printf("MCU+CAP+00200000800&\n");
@@ -459,6 +461,8 @@ LinkPlay_Error_t process_cap_command(char* linkplay_command)                   /
         Linkplay_Printf("MCU+CAP+STMfffffffc&\n");
         Linkplay_Printf("MCU+CAP+PLM00000000&\n");
         Linkplay_Printf("MCU+PRESET+3&\n");
+        Linkplay_Printf("MCU+SID+Stellar Integrated&\n");
+        Linkplay_Printf("MCU+NAM++SETStellar Integrated&\n");
         return e_no_error;
     }
     return e_unknown_cap_command;
@@ -1204,6 +1208,17 @@ LinkPlay_Error_t process_m2s_command(char* linkplay_command)                    
 {
        // "AXX+M2S+nnn"                                                // When a pass-through session starts, slave speakers will receive AXX+M2S+nnn
        return e_unknown_m2s_command;
+}
+
+LinkPlay_Error_t process_nam_command(char* linkplay_command)
+{
+    char device_name[65];
+
+    memset(device_name,ASCII_NUL, 65);
+    strncpy(device_name, (linkplay_command+11), strlen(linkplay_command-13)); 
+    Linkplay_Debug_Printf("device name: %s\n", device_name);
+    LP_Set_linkplay_device_name(device_name);
+    return e_no_error;
 }
 
 LinkPlay_Error_t process_nxt_command(char* linkplay_command)                    // Linkplay alarm commands

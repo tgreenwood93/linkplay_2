@@ -5,7 +5,7 @@
 #ifndef linkplay_manager_h
 #define linkplay_manager_h
 
-const uint8_t MCU_COMMANDS_LEN = 41;
+const uint8_t MCU_COMMANDS_LEN = 45;
 typedef enum 
 {
     e_linkplay_lang_en_us = 0, 
@@ -65,6 +65,9 @@ const char mcu_commands[MCU_COMMANDS_LEN][13] =
     "MCU+AIR++ON\n",
     "MCU+AIR+OFF\n",
     "MCU+AIR+GET\n", // 40
+    "MCU+NET+RGN\n",
+    "MCU+GET+UID\n",
+    "MCU+DEV+RST\n",
 };
 
 const char weekdays[7][11] = 
@@ -75,7 +78,7 @@ const char weekdays[7][11] =
     "Wednesday\n",
     "Thursday\n",
     "Friday\n",
-    "Saturday"
+    "Saturday\n",
 };
 
 const char porject_name[]  =  {"MCU+CAP+PRJPSAUDIO_Stellar&"};
@@ -456,6 +459,6 @@ void Set_meta_data_ready();
 void Get_meta_data_ready();
 
 void LP_Set_linkplay_ready_for_communication(bool ready);
-bool LP_Set_linkplay_ready_for_communication();
+bool LP_Get_linkplay_ready_for_communication();
 
 #endif

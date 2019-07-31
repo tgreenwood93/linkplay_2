@@ -248,6 +248,7 @@ LinkPlay_Error_t process_mea_command(char* linkplay_command);                   
 LinkPlay_Error_t process_mic_command(char* linkplay_command);                    // Linkplay process microphone commands
 LinkPlay_Error_t process_mut_command(char* linkplay_command);                    // Linkplay command to mute audio
 LinkPlay_Error_t process_m2s_command(char* linkplay_command);                    // Linkplay master to slave command pass through
+LinkPlay_Error_t process_nam_command(char* linkplay_command); 
 LinkPlay_Error_t process_nxt_command(char* linkplay_command);                    // Linkplay alarm commands
 LinkPlay_Error_t process_plm_command(char* linkplay_command);                    // Linkplay playback mode commands
 LinkPlay_Error_t process_plp_command(char* linkplay_command);                    // Linkplay repeat mode commands
