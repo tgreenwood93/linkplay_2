@@ -97,6 +97,12 @@ const char connection_status[2][13] =
     "connected"
 };
 
+const char playing_status[2][10] = 
+{
+    "paused\n",
+    "playing\n",
+};
+
 const char connection_yes_no[2][4] = 
 {
     "no",

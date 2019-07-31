@@ -30,4 +30,19 @@ void lp_retrieve_system_info();
 void lp_set_ssid();
 void lp_set_name();
 
+void lp_activate_wps();
+void lp_deactivate_wps();
+void lp_activate_wifi();
+void lp_deactivate_wifi();
+void lp_forget_wifi();
+void lp_activate_hotspot();
+void lp_deactivate_hotspot();
+void lp_play_next_track();
+void lp_play_previous_track();
+void lp_pause_track();
+void lp_play_track();
+void lp_stop_track();
+void lp_toggle_play_pause();
+void lp_factory_reset();
+
 #endif

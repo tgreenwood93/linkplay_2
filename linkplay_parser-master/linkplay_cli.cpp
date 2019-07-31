@@ -188,7 +188,7 @@ void get_network_status()
 
 void get_meta_data()
 {
-    Debug_Printf("Linkplay metat data\n");
+    Debug_Printf("Linkplay meta data\n");
     Debug_Printf("title: %s\n", LP_Get_linkplay_title());
     Debug_Printf("artist: %s\n", LP_Get_linkplay_artist());
     Debug_Printf("album: %s\n", LP_Get_linkplay_album());
@@ -281,3 +281,74 @@ void lp_set_name(char* lp_name)
 
     Linkplay_Printf("MCU+NAM+SET%s&", lp_name);
 }
+
+void lp_activate_wps()
+{ 
+    Linkplay_Printf("%s", mcu_commands[2]);
+}
+
+void lp_deactivate_wps()
+{
+    Linkplay_Printf("%s", mcu_commands[3]);
+}
+
+void lp_activate_wifi()
+{
+    Linkplay_Printf("%s", mcu_commands[5]);
+}
+
+void lp_deactivate_wifi()
+{
+    Linkplay_Printf("%s", mcu_commands[6]);
+}
+
+void lp_forget_wifi()
+{    
+    Linkplay_Printf("%s", mcu_commands[7]);
+}
+
+void lp_activate_hotspot()
+{    
+    Linkplay_Printf("%s", mcu_commands[8]);
+}
+
+void lp_deactivate_hotspot()
+{  
+    Linkplay_Printf("%s", mcu_commands[9]);
+}
+
+void lp_play_next_track()
+{ 
+    Linkplay_Printf("%s", mcu_commands[27]);
+}
+
+void lp_play_previous_track()
+{
+    Linkplay_Printf("%s", mcu_commands[28]);
+}
+
+void lp_pause_track()
+{
+    Linkplay_Printf("%s", mcu_commands[23]);
+}
+
+void lp_play_track()
+{
+    Linkplay_Printf("%s", mcu_commands[24]);
+}
+
+void lp_stop_track()
+{
+    Linkplay_Printf("%s", mcu_commands[25]);
+}
+
+void lp_toggle_play_pause()
+{
+    Linkplay_Printf("%s", mcu_commands[22]);
+}
+
+void lp_factory_reset()
+{
+    Linkplay_Printf("%s", mcu_commands[0]);
+}
+

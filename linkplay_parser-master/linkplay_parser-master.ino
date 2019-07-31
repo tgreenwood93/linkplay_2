@@ -5,6 +5,7 @@
 #include "queue.h"
 #include "cli.h"
 #include "debug.h"
+#include "linkplay_cli.h"
 
 void checkSerial1(void); 
 void checkSerialUSB(void);
@@ -29,6 +30,7 @@ void setup()
     Serial.println("Booting up...");
     Debug_Init();
     CLI_Init();
+    Linkplay_Printf("%s", mcu_commands[31]);
 }
 
 void loop() {
