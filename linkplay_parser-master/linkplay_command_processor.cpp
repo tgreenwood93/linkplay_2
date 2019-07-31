@@ -1152,7 +1152,7 @@ LinkPlay_Error_t process_mea_command(char* linkplay_command)                    
         }   
         strncpy(hex_album, (linkplay_command + (artist_char_counter+album_offset)), (album_char_counter - (artist_char_counter+album_offset))); 
         hex2ascii(hex_album, ascii_album, strlen(hex_album), strlen(ascii_album));
-        Linkplay_Debug_Printf("Artist: %s\n", ascii_album);
+        Linkplay_Debug_Printf("Album: %s\n", ascii_album);
         LP_Set_linkplay_album(ascii_album);
 
         return e_no_error; 
@@ -1240,22 +1240,22 @@ LinkPlay_Error_t process_plm_command(char* linkplay_command)                    
 {
     /*
         "AAX+PLM+GET"
-        "AXX+PLM+nnn"                                                   // WiFi sends this command to notify MCU mode switch, where nnn is defined below
-                                                                        // 000 None
-                                                                        // 001 Airplay
-                                                                        // 002 DLNA
-                                                                        // 010 to 019 A play list played by Wiimu protocol, where 011 means a play list for music stroed in USB disk,
-                                                                        // 016 means a play list for music stored in T-Flash card
-                                                                        // 020 to 029 A play list played by third party HTTP APIs, where 021 means a play list for music stroed in USB disk,
-                                                                        // 026 means a play list for music stored in T-Flash card
-                                                                        // 040 - Line in (aka Aux-In)
-                                                                        // 041 - BT
-                                                                        // 042 - External USB Disk or T-Flash
-                                                                        // 043 - Optical
-                                                                        // 044 - RCA
-                                                                        // 045 - Coaxial
-                                                                        // 050 - Mirror
-                                                                        // 099 - Slave
+        "AXX+PLM+nnn"   // WiFi sends this command to notify MCU mode switch, where nnn is defined below
+                        // 000 None
+                        // 001 Airplay
+                        // 002 DLNA
+                        // 010 to 019 A play list played by Wiimu protocol, where 011 means a play list for music stroed in USB disk,
+                        // 016 means a play list for music stored in T-Flash card
+                        // 020 to 029 A play list played by third party HTTP APIs, where 021 means a play list for music stroed in USB disk,
+                        // 026 means a play list for music stored in T-Flash card
+                        // 040 - Line in (aka Aux-In)
+                        // 041 - BT
+                        // 042 - External USB Disk or T-Flash
+                        // 043 - Optical
+                        // 044 - RCA
+                        // 045 - Coaxial
+                        // 050 - Mirror
+                        // 099 - Slave
     */
  
     LinkPlay_Error_t error_handler = e_no_error;
