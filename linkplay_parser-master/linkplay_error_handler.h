@@ -42,6 +42,7 @@ typedef enum
   e_unknown_mic_command,
   e_unknown_mut_command,
   e_unknown_m2s_command,
+  e_unknown_nam_command,
   e_unknown_nxt_command,
   e_unknown_plm_command,
   e_unknown_plp_command,

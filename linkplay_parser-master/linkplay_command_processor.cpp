@@ -281,6 +281,7 @@ LinkPlay_Error_t process_n_commands(char* linkplay_command)
     {
         case 'A':
             error_handler = process_nam_command(linkplay_command);
+            break;
         case 'X':
             error_handler = process_nxt_command(linkplay_command);                      // Linkplay factory reset commands
             break;
@@ -1212,12 +1213,12 @@ LinkPlay_Error_t process_m2s_command(char* linkplay_command)                    
 
 LinkPlay_Error_t process_nam_command(char* linkplay_command)
 {
-    char device_name[65];
-
-    memset(device_name,ASCII_NUL, 65);
-    strncpy(device_name, (linkplay_command+11), strlen(linkplay_command-13)); 
-    Linkplay_Debug_Printf("device name: %s\n", device_name);
-    LP_Set_linkplay_device_name(device_name);
+    char c_device_name[65];
+    
+    memset(c_device_name,ASCII_NUL, 65);
+    strncpy(c_device_name, (linkplay_command+11), (strlen(linkplay_command)-12)); 
+    Linkplay_Debug_Printf("device name: %s\n", c_device_name);
+    LP_Set_linkplay_device_name(c_device_name);
     return e_no_error;
 }
 

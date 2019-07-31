@@ -126,6 +126,9 @@ void linkplay_error_handler(LinkPlay_Error_t error_handler, char* linkplay_comma
         case e_unknown_m2s_command:
             Serial.println("command was not found in m2s commands");
             break;
+        case e_unknown_nam_command:
+            Serial.println("command was not found in nam commands");
+            break;
         case e_unknown_nxt_command:
             Serial.println("command was not found in nxt commands");
             break;
