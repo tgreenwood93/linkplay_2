@@ -370,7 +370,6 @@ enum
     CMD_LINKPLAY_SET_SSID,
     CMD_LINKPLAY_GET_APS,
     CMD_LINKPLAY_CONN_AP,
-    CMD_LINKPLAY_WIRELESS_STAT,
     CMD_LINKPLAY_TURN_ON_WPS,
     CMD_LINKPLAY_TURN_OFF_WPS,
     CMD_LINKPLAY_TURN_ON_WIFI,
@@ -394,8 +393,8 @@ static void cli_cmd_linkplay (char *arg_buf)
     char*   sCmdList[] = {  "ip", "netstat", "mac",
                             "version", "picver", "getap", "sysinf",
                             "setname", "setssid", "getaps", "connap",
-                            "wifstat", "wpson", "wpsoff", "wifon", 
-                            "wifoff", "forgetwif", "hson", "hsoff", "nxt","prv", "pause", 
+                            "wpson", "wpsoff", "wifon", "wifoff", 
+                            "forgetwif", "hson", "hsoff", "nxt","prv", "pause", 
                             "play", "stop", "ptog", "plbkstat", "fact", 
                             "bypass", "help", NULL};
     char    sCmd[10];
@@ -468,14 +467,11 @@ static void cli_cmd_linkplay (char *arg_buf)
         case CMD_LINKPLAY_CONN_AP:
             if (arg_buf[6] != '\n' && strlen(arg_buf) >= 8);
             {
-                lp_set_connap(arg_buf+8);
+                lp_set_connap(arg_buf+7);
                 arg1 = strtok(arg_buf+7, ":");
                 Debug_Printf("connectiong to %s\n", arg1);
                 Debug_Printf("Currently doesn't work\n");
             }
-            break;    
-        case CMD_LINKPLAY_WIRELESS_STAT:
-
             break;    
         case CMD_LINKPLAY_TURN_ON_WPS:
             lp_activate_wps();
@@ -554,7 +550,6 @@ static void cli_cmd_linkplay (char *arg_buf)
             Debug_Printf("    setssid   - set the ssid of the internal ap ex: linkplay setssid integrated\n");
             Debug_Printf("    gettaps   - get list of aps linkplay can see\n");
             Debug_Printf("    connap    - connect to an ap by suppling ssid and password ex. connap router:password\n");
-            Debug_Printf("    wifstat   - get the status of the wifi connection\n");
             Debug_Printf("    wpson     - turn wps on\n");
             Debug_Printf("    wpsoff    - turn wps off\n");
             Debug_Printf("    hson      - turn hotspot on\n");

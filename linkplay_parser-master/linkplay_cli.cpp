@@ -209,11 +209,6 @@ void get_last_rtc()
     Debug_Printf("weekday: %d\n", LP_Get_linkplay_weekday());
 }
 
-void get_rtc()
-{
-    Linkplay_Printf("MCU+RTC+GET");
-}
-
 void get_lp_version()
 {
     Debug_Printf("Linkplay version\n");
@@ -308,7 +303,6 @@ bool lp_check_name_incoming()
 {    
     return linkplay_check_name_status;
 }
-
 
 void lp_activate_wps()
 { 
