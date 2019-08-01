@@ -98,6 +98,11 @@ static uint8_t num_access_points_found;
 static Linkplay_WPS_Status_t linkplay_wps_status;
 static bool linkplay_ready_for_communication = false;
 static uint16_t linkplay_ota_time;
+static char visable_ssids[20][33];
+static int8_t ssid_rssi[20];
+static uint8_t ssid_channel[20];
+static uint8_t linkplay_num_aps = 0;
+
 
 // ----------------------------------------------------------------------------
 // Linkplay State Setters and Getters
@@ -411,12 +416,12 @@ char* LP_Get_linkplay_sta_mac_address()
 }
 
 
-void LP_Set_linkplay_time_zone(uint8_t time_zone)
+void LP_Set_linkplay_time_zone(int8_t time_zone)
 {
     linkplay_time_zone = time_zone;
 }
 
-uint8_t LP_Get_linkplay_time_zone()
+int8_t LP_Get_linkplay_time_zone()
 {
     return linkplay_time_zone; 
 }
@@ -1095,6 +1100,51 @@ void Linkplay_Set_wps_status(Linkplay_WPS_Status_t wps_status)
 Linkplay_WPS_Status_t Linkplay_Set_wps_status()
 {
     return linkplay_wps_status;
+}
+
+
+
+void Linkplay_Set_visable_ssids(uint8_t ap_num, char* ssid)
+{
+    memset(visable_ssids[ap_num], ASCII_NUL, sizeof(visable_ssids[ap_num]));
+    strncpy(visable_ssids[ap_num], ssid, strlen(ssid));
+}
+
+char* Linkplay_Get_visable_ssids(uint8_t ap_num)
+{
+    return visable_ssids[ap_num];
+}
+
+
+void Linkplay_Set_ssid_rssi(uint8_t ap_num, int8_t rssi)
+{
+    ssid_rssi[ap_num] = rssi;
+}
+
+int8_t Linkplay_Get_ssid_rssi(uint8_t ap_num)
+{
+    return ssid_rssi[ap_num];
+}
+
+
+void Linkplay_Set_ssid_channel(uint8_t  ap_num, uint8_t channel)
+{
+    ssid_channel[ap_num] = channel;
+}
+
+uint8_t Linkplay_Get_ssid_channel(uint8_t  ap_num)
+{
+    return ssid_channel[ap_num];
+}
+
+void Linkplay_Set_num_aps(uint8_t num_aps)
+{
+    linkplay_num_aps = num_aps;
+}
+
+uint8_t Linkplay_Get_num_aps()
+{
+    return linkplay_num_aps;
 }
 
 void LP_get_pic_channel_config()

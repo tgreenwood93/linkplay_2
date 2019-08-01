@@ -400,12 +400,12 @@ static void cli_cmd_linkplay (char *arg_buf)
                             "bypass", "help", NULL};
     char    sCmd[10];
     int     arg_cnt;
-    int     nReg;
+    char    *arg1;
     int     nCmd;
     
-    // Parse arg_buf into sCmd and nReg
-    arg_cnt = sscanf(arg_buf, "%s %x", sCmd, &nReg);
-    
+    // Parse arg_buf into sCmd and up to two args
+    arg_cnt = sscanf(arg_buf, "%s", sCmd);
+
     // If no args display i2c help
     if (arg_cnt <= 0)
         nCmd = CMD_LINKPLAY_HELP;
@@ -439,16 +439,40 @@ static void cli_cmd_linkplay (char *arg_buf)
             dump_stored_linkplay_data();
             break;
         case CMD_LINKPLAY_SET_NAME:
-            
+            if (arg_buf[7] != '\n' && strlen(arg_buf) >= 8)
+            {
+                lp_set_name(arg_buf+7);
+                lp_check_name(true);
+            }
+            else
+            {
+                Debug_Printf("no valid name\n");
+            }
             break;
         case CMD_LINKPLAY_SET_SSID:
-            
+            if (arg_buf[7] != '\n' && strlen(arg_buf) >= 8)
+            {
+                lp_set_ssid(arg_buf+8);
+                Debug_Printf("Setting ssid to %s\n", arg_buf+8);
+                Debug_Printf("Currently doesn't work\n");
+            }
+            else
+            {
+                Debug_Printf("no valid name\n");
+            }
             break;
         case CMD_LINKPLAY_GET_APS:
-            get_access_points();
+            Debug_Printf("scanning for access points...\n");
+            lp_scan_aps();
             break;
         case CMD_LINKPLAY_CONN_AP:
-
+            if (arg_buf[6] != '\n' && strlen(arg_buf) >= 8);
+            {
+                lp_set_connap(arg_buf+8);
+                arg1 = strtok(arg_buf+7, ":");
+                Debug_Printf("connectiong to %s\n", arg1);
+                Debug_Printf("Currently doesn't work\n");
+            }
             break;    
         case CMD_LINKPLAY_WIRELESS_STAT:
 
@@ -529,7 +553,7 @@ static void cli_cmd_linkplay (char *arg_buf)
             Debug_Printf("    setname   - set the name of the device ex: linkplay setname stellar\n");
             Debug_Printf("    setssid   - set the ssid of the internal ap ex: linkplay setssid integrated\n");
             Debug_Printf("    gettaps   - get list of aps linkplay can see\n");
-            Debug_Printf("    connap    - connect to an ap by suppling ssid and password ex. connap router password\n");
+            Debug_Printf("    connap    - connect to an ap by suppling ssid and password ex. connap router:password\n");
             Debug_Printf("    wifstat   - get the status of the wifi connection\n");
             Debug_Printf("    wpson     - turn wps on\n");
             Debug_Printf("    wpsoff    - turn wps off\n");

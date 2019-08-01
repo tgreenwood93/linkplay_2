@@ -9,6 +9,8 @@
 #include "debug.h"
 
 static bool linkplay_bypass_status = false;
+static bool push_ap_data = false;
+static bool linkplay_check_name_status = false;
 
 void Linkplay_Debug_Printf(char* message, ...)
 {
@@ -96,7 +98,7 @@ void dump_stored_linkplay_data()
     Debug_Printf("mac: %s\n", LP_Get_linkplay_mac_address());
     Debug_Printf("sta mac: %s\n", LP_Get_linkplay_sta_mac_address());
     Debug_Printf("time zone: %d\n", LP_Get_linkplay_time_zone());
-    Debug_Printf("network status: %s\n", connection_status[(uint8_t)LP_Get_linkplay_network_status()]);
+    Debug_Printf("network status: %s\n", (uint8_t)LP_Get_linkplay_network_status());
     Debug_Printf("essid: %s\n", LP_Get_linkplay_essid());
     Debug_Printf("wifi ip: %s\n", LP_Get_linkplay_wifi_ip());
     Debug_Printf("ethernet ip: %s\n", LP_Get_linkplay_ethernet_ip());
@@ -248,7 +250,21 @@ void get_mac_address()
 
 void get_access_points()
 {
-    Linkplay_Printf("%s", mcu_commands[34]);
+    uint8_t i = 0;
+    uint8_t num_aps = Linkplay_Get_num_aps();
+    
+    if (num_aps == 0)
+    {
+        Debug_Printf("Can't find any access points");
+    }
+    else
+    {
+        Debug_Printf("Found %d access points\n", num_aps);
+        for (i = 0; i < num_aps; i++)
+        {
+            Debug_Printf("SSID: %s\nRSSI: %d\nChannel: %d\n", Linkplay_Get_visable_ssids(i), Linkplay_Get_ssid_rssi(i), Linkplay_Get_ssid_channel(i));
+        }
+    }
 }
 
 void lp_retrieve_rtc()
@@ -266,21 +282,33 @@ void lp_retrieve_system_info()
     Linkplay_Printf("%s", mcu_commands[31]);
 }
 
-void lp_set_ssid()
+void lp_set_ssid(char* lp_ssid)
 {
-  //  if (strlen(lp_name) > 31)
-  //      return;
+    if (strlen(lp_ssid) > 32)
+        return;
 
-  //  Linkplay_Printf("MCU+SID+%s&");
+    Linkplay_Printf("MCU+SID+%s&\n",lp_ssid);
 }
+
 
 void lp_set_name(char* lp_name)
 {
-    if (strlen(lp_name) > 31)
+    if (strlen(lp_name) > 32)
         return;
 
-    Linkplay_Printf("MCU+NAM+SET%s&", lp_name);
+    Linkplay_Printf("MCU+NAM+SET%s&\n",lp_name);
 }
+
+void lp_check_name(bool check_status)
+{
+    linkplay_check_name_status = check_status;
+}
+
+bool lp_check_name_incoming()
+{    
+    return linkplay_check_name_status;
+}
+
 
 void lp_activate_wps()
 { 
@@ -352,3 +380,18 @@ void lp_factory_reset()
     Linkplay_Printf("%s", mcu_commands[0]);
 }
 
+void lp_scan_aps()
+{
+    Linkplay_Printf("%s", mcu_commands[17]);
+    lp_push_ap_data(true);
+}
+
+void lp_push_ap_data(bool push_data)
+{
+    push_ap_data = push_data;
+}
+
+void lp_set_connap(char* lp_ap_pw)
+{
+    Linkplay_Printf("MCU+AP+CONN%s&\n", lp_ap_pw);
+}

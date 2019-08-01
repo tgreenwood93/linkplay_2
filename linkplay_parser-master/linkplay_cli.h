@@ -27,8 +27,11 @@ void get_access_points();
 void lp_retrieve_rtc();
 void lp_retrieve_metadata();
 void lp_retrieve_system_info();
-void lp_set_ssid();
-void lp_set_name();
+void lp_set_ssid(char* lp_name);
+void lp_set_name(char* lp_name);
+void lp_check_name(bool check_status);
+bool lp_check_name_incoming();
+void lp_set_connap(char* lp_ap_pw);
 
 void lp_activate_wps();
 void lp_deactivate_wps();
@@ -44,5 +47,7 @@ void lp_play_track();
 void lp_stop_track();
 void lp_toggle_play_pause();
 void lp_factory_reset();
+void lp_scan_aps();
+void lp_push_ap_data(bool push_data);
 
 #endif

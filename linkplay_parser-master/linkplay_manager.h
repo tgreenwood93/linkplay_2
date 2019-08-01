@@ -237,8 +237,8 @@ char* LP_Get_linkplay_mac_address();
 void LP_Set_linkplay_sta_mac_address(char* sta_mac_address);
 char* LP_Get_linkplay_sta_mac_address();
 
-void LP_Set_linkplay_time_zone(uint8_t time_zone);
-uint8_t LP_Get_linkplay_time_zone();
+void LP_Set_linkplay_time_zone(int8_t time_zone);
+int8_t LP_Get_linkplay_time_zone();
 
 void LP_Set_linkplay_network_status(uint8_t network_status);
 uint8_t LP_Get_linkplay_network_status();
@@ -459,6 +459,19 @@ void Set_meta_data_ready();
 void Get_meta_data_ready();
 
 void LP_Set_linkplay_ready_for_communication(bool ready);
-bool LP_Get_linkplay_ready_for_communication();
+bool LP_Set_linkplay_ready_for_communication();
+
+void Linkplay_Set_visable_ssids(uint8_t ap_num, char* ssid);
+char* Linkplay_Get_visable_ssids(uint8_t ap_num);
+
+void Linkplay_Set_ssid_rssi(uint8_t ap_num, int8_t rssi);
+int8_t Linkplay_Get_ssid_rssi(uint8_t ap_num);
+
+void Linkplay_Set_ssid_channel(uint8_t  ap_num, uint8_t channel);
+uint8_t Linkplay_Get_ssid_channel(uint8_t  ap_num);
+
+void Linkplay_Set_num_aps(uint8_t num_aps);
+uint8_t Linkplay_Get_num_aps();
+
 
 #endif

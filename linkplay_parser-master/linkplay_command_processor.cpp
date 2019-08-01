@@ -666,6 +666,11 @@ LinkPlay_Error_t inf_command_parser(uint16_t current_inf, char* char_buf)
         case e_inf_ssid:
             Linkplay_Debug_Printf("ssid: %s\n", char_buf);
             LP_Set_linkplay_ssid(char_buf);
+            if (lp_check_name_incoming() == true)
+            {
+                Debug_Printf("Device ssid changed to %s\n", char_buf);
+                lp_check_name(false);
+            }
             break;
         case e_inf_hide_ssid:
             Linkplay_Debug_Printf("hide ssid: %s\n", char_buf);
@@ -1219,6 +1224,11 @@ LinkPlay_Error_t process_nam_command(char* linkplay_command)
     strncpy(c_device_name, (linkplay_command+11), (strlen(linkplay_command)-12)); 
     Linkplay_Debug_Printf("device name: %s\n", c_device_name);
     LP_Set_linkplay_device_name(c_device_name);
+    if (lp_check_name_incoming() == true)
+    {
+        Debug_Printf("Device name changed to %s\n", c_device_name);
+        lp_check_name(false);
+    }
     return e_no_error;
 }
 
@@ -1714,8 +1724,8 @@ LinkPlay_Error_t process_wan_command(char *linkplay_command)
                                                                         // where nnn is the volume (0 to 100)
     */
     
-    char hex_ap[100];
-    char ascii_ap[100];
+    char hex_ap[65];
+    char ascii_ap[65];
     
     uint16_t string_size = 0; 
     uint16_t current_wan_status = 0;
@@ -1723,6 +1733,7 @@ LinkPlay_Error_t process_wan_command(char *linkplay_command)
     uint16_t status_type = 0;
     uint8_t num_aps = 0;
     uint16_t string_begin = 11;
+    uint8_t ap_num = 0;
 
     if (linkplay_command[11] != '&')
     {
@@ -1735,7 +1746,7 @@ LinkPlay_Error_t process_wan_command(char *linkplay_command)
         return e_no_networks_found; 
     }
     
-    for (pos = 12; pos < 1024; pos++)
+    for (pos = 12; pos < strlen(linkplay_command); pos++)
     {
         if (linkplay_command[pos] == ';')
         {
@@ -1743,15 +1754,21 @@ LinkPlay_Error_t process_wan_command(char *linkplay_command)
         }
         else if (linkplay_command[pos] == '&')
         {
+            if (num_aps > 20)
+            {
+                num_aps = 20;
+            }
+            Linkplay_Set_num_aps(num_aps);
             break;
         }
     }
     
-    Linkplay_Debug_Printf("Found %d network(s)", num_aps);
+    Linkplay_Debug_Printf("Found %d network(s)\n", num_aps);
     set_num_access_points(num_aps);
     
     for ( current_wan_status = 0; current_wan_status < (num_aps * num_status_per_wan); current_wan_status++)
     {
+        string_size = 0;
         for (pos = string_begin; pos < 1024; pos++)
         {
             string_size++;
@@ -1760,7 +1777,8 @@ LinkPlay_Error_t process_wan_command(char *linkplay_command)
                 break;
             } 
         }
-        
+        memset(hex_ap, ASCII_NUL, sizeof(hex_ap));
+        memset(ascii_ap, ASCII_NUL, sizeof(ascii_ap));
         strncpy(hex_ap, (linkplay_command + string_begin), string_size-1); 
         strncat(hex_ap, "\0", string_size);
 
@@ -1768,21 +1786,27 @@ LinkPlay_Error_t process_wan_command(char *linkplay_command)
         {
             case e_ap_ssid:
                 hex2ascii(hex_ap, ascii_ap, strlen(hex_ap), strlen(ascii_ap));
+                Linkplay_Set_visable_ssids(ap_num, ascii_ap);
                 Linkplay_Debug_Printf("Network: %s\n", ascii_ap);
                 break;
             case e_ap_rssi: 
-                Linkplay_Debug_Printf("RSSI: %d\n", atoi(hex_ap));
+                Linkplay_Set_ssid_rssi(ap_num, atoi(hex_ap));
+                Linkplay_Debug_Printf("RSSI: %s\n", hex_ap);
                 break;
             case e_ap_channel:
-                Linkplay_Debug_Printf("Channel: %d\n", atoi(hex_ap));
+                Linkplay_Set_ssid_channel(ap_num, atoi(hex_ap));
+                Linkplay_Debug_Printf("Channel: %s\n", hex_ap);
+                ap_num++; 
                 break;
         }
         
         status_type < max_wan_status ? status_type++ : status_type = 0;
-        memset(hex_ap, ASCII_NUL, 100);
-        memset(ascii_ap, ASCII_NUL, 100);
         string_begin += string_size;
-        string_size = 0;
+    }
+    if (lp_push_ap_data)
+    {
+        get_access_points(); 
+        lp_push_ap_data(false);   
     }
     return e_no_error;
 }
